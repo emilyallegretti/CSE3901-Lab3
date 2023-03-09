@@ -4,6 +4,16 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
+    <%= f.label "First Name" %><br />
+    <%= f.text_field :fname, autofocus: true, autocomplete: "first-name" %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Last Name" %><br />
+    <%= f.text_field :lname, autofocus: true, autocomplete: "last-name" %>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
@@ -19,6 +29,13 @@
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div>
+    <%= f.label "Role" %><br />
+    <%= f.radio_button :admin_flag, 'Administrator'%> Administrator<br />
+    <%= f.radio_button :instructor_flag, 'Instructor'%> Instructor<br />
+    <%= f.radio_button :student_flag, 'Student'%> Student<br />
   </div>
 
   <div class="actions">
