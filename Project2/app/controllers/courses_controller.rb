@@ -10,8 +10,15 @@ class CoursesController < ApplicationController
     end 
 
     # create will POST a new course, creating a new row in the Courses table and saving it to the database 
-    # after POST, we must redirect to a confirmation page from this method saying the student was successfully created
+    # after POST, we must redirect to a confirmation page from this method saying the course was successfully created
     def create
+        @course = Course.new(course_params)
+
+        if @course.save
+            redirect_to @course 
+        else 
+            render "new"
+        end
     end
 
     # new will render views/courses/new.html.erb
@@ -22,7 +29,12 @@ class CoursesController < ApplicationController
 
     # show will show a specific course and all of its information, if the user clicks on it. 
     # find_course has already found the specific course for us
+    #TODO: do we need show?
     def show
+         if @course.nil?
+            #TODO: flash message?
+            redirect_to action: :index
+        end
     end
 
     # edit will return a filled HTML form for the specified student so that the user can modify the fields. On submission of that
@@ -31,18 +43,37 @@ class CoursesController < ApplicationController
     def edit 
     end
 
+    # updates the record for the specified course in the database. This method is called after submission of an "edit course" form,
+    # so that the database can be updated appropriately. 
     def update
+        if @course.update(course_params)
+            redirect_to @course
+        else 
+            #TODO: flash message?
+            render :edit 
+        end
     end
+
+    # destroys the record of the specified course, and returns to the course collection view.
+    def destroy
+        @course.destroy
+        redirect_to action: :index
+    end 
 
     # reload will scrape the API for course data on CSE courses, clear the database if it is not already empty, and re-populate
     # the database with the results of the web scraping. This will need to be the first function called by the first admin
     # in order to initially populate the database.
     def reload
+
+        # after reload, redirect to the index page that will list all the courses in the database
+        redirect_to action: :index
     end
 
 
-    private
-        def find_course
+    private def find_course
             @course = Course.find(params[:id])
-        end
+    end
+    private def course_params
+        params.require(:course).permit(:name, :number,:term,:campus)
+    end
 end

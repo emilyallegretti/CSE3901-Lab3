@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   # root "articles#index"
  resources :courses
 
+ get 'courses/reload', to: 'courses#reload'
 end
