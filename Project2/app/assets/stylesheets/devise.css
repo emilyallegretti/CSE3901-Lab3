@@ -1,0 +1,20 @@
+body {
+  font-family: Helvetica, Geneva, Tahoma, sans-serif;
+}
+
+div#container {
+  width: 80%;
+  margin: auto;
+}
+
+div#header {
+  text-align: center;
+  padding-bottom: 5%;
+}
+
+div#footer {
+  bottom: 0%;
+  position: relative;
+  text-align: center;
+  font-size: smaller;
+}
