@@ -1,12 +1,20 @@
 class CoursesController < ApplicationController
     # for show, edit, update, and destroy, we are finding a specific course associated with the :id passed in the URL
-    before_action :find_course, only [:show, :edit, :update, :destroy]
+    #before_action :find_course, only [:show, :edit, :update, :destroy]
+
+    
+
 
     # index will render views/courses/index.html.erb 
     # this will list all of the courses listed in the database
     # courses/index.html.erb will need access to @courses, which is a collection of all the courses in the database
     def index
-        @courses = Course.all
+        require 'httparty'
+        response = HTTParty.get("https://content.osu.edu/v2/classes/search?q=cse&client=class-search-ui&campus=col&term=1234")
+        @response = JSON.parse(response.body)
+        @courses = @response["data"]["courses"]
+
+        #@courses = Course.all
     end 
 
     # create will POST a new course, creating a new row in the Courses table and saving it to the database 
