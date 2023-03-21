@@ -26,8 +26,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_16_023602) do
   end
 
   create_table "courses", force: :cascade do |t|
-    t.integer "courseId"
-    t.string "title"
+    t.integer "number"
+    t.string "name"
     t.string "campus"
     t.string "term"
     t.datetime "created_at", null: false
