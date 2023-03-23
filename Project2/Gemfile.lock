@@ -229,8 +229,8 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
-  httparty (~> 0.21.0)
   devise
+  httparty (~> 0.21.0)
   importmap-rails
   jbuilder
   puma (~> 5.0)
