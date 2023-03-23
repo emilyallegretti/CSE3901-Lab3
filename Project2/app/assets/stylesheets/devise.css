@@ -1,5 +1,14 @@
+* {
+  background-color: #e5e4e2;
+}
+
 body {
   font-family: Helvetica, Geneva, Tahoma, sans-serif;
+}
+
+table#menuBar {
+  width: 100%;
+  border: 0;
 }
 
 div#container {

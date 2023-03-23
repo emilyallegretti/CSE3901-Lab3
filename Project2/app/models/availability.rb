@@ -1,3 +1,3 @@
 class Availability < ApplicationRecord
-    belongs to :application
+    belongs_to :application
 end
