@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <%= stylesheet_link_tag "application", :media => "all"%>
+  <head>
+    <title>Admin View</title>
+    <!--meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %-->
+  </head>
+
+  <body>
+    <!--p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p-->
+        <table id = "menuBar">
+        <tr>
+            <td>
+                <!-- need to add routes-->
+                <%= button_to "Profile"%>
+            </td>
+            <td>
+                <%= button_to "Browse Catalog"%>
+            </td>
+            <%= yield(:menuButtons) %>
+            <td>
+                <%= button_to "Edit Catalog"%>
+            </td>  
+            <td>
+                <%= button_to "Status Requests"%>
+            </td>
+            <td>
+                <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+            </td>
+        </tr>
+    </table>
+    <hr>
+    <%= yield (:body) %>
+  </body>
+</html>
