@@ -7,6 +7,13 @@ class CoursesController < ApplicationController
     # courses/index.html.erb will need access to @courses, which is a collection of all the courses in the database
     def index
         @courses = Course.all
+        if current_user.admin_flag
+            render template: "courses/admin_index"
+        elsif current_user.instructor_flag
+            render template: "courses/instructor_index"
+        else
+            render template: "courses/student_index"
+        end
     end 
 
     # create will POST a new course, creating a new row in the Courses table and saving it to the database 
