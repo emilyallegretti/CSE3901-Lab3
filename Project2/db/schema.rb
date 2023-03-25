@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema[7.0].define(version: 2023_03_16_023602) do
-=======
-ActiveRecord::Schema[7.0].define(version: 2023_03_16_025852) do
->>>>>>> 430f38eca496c30197800b106a32f20040671ff8
+ActiveRecord::Schema[7.0].define(version: 2023_03_22_032641) do
   create_table "applications", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -29,14 +25,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_16_025852) do
     t.index ["application_id"], name: "index_availabilities_on_application_id"
   end
 
-<<<<<<< HEAD
-=======
   create_table "course_preferences", id: false, force: :cascade do |t|
     t.integer "application_id", null: false
     t.integer "course_id", null: false
   end
 
->>>>>>> 430f38eca496c30197800b106a32f20040671ff8
+  create_table "course_qualifications", id: false, force: :cascade do |t|
+    t.integer "application_id", null: false
+    t.integer "course_id", null: false
+  end
+
+  create_table "course_qualifications", id: false, force: :cascade do |t|
+    t.integer "application_id", null: false
+    t.integer "course_id", null: false
+  end
+
   create_table "courses", force: :cascade do |t|
     t.integer "number"
     t.string "name"
@@ -56,6 +59,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_16_025852) do
     t.string "mode_of_instruction"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "course_id", null: false
+    t.index ["course_id"], name: "index_sections_on_course_id"
   end
 
   create_table "sections_users", id: false, force: :cascade do |t|
@@ -83,4 +88,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_16_025852) do
 
   add_foreign_key "applications", "users"
   add_foreign_key "availabilities", "applications"
+  add_foreign_key "sections", "courses"
 end

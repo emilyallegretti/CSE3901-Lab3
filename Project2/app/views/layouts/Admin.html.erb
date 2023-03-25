@@ -2,7 +2,7 @@
 <html>
   <%= stylesheet_link_tag "application", :media => "all"%>
   <head>
-    <title>Login</title>
+    <title>Admin View</title>
     <!--meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -21,15 +21,10 @@
                 <%= button_to "Profile"%>
             </td>
             <td>
-                <%= button_to "Browse Catalog"%>
+                <%= button_to "Browse Catalog", courses_path%>
             </td>
-            <%= yield(:menuButtons) %>
-            <!--admin butons >
             <td>
-                <%= button_to "Edit Catalog"%>
-            </td>  
-            <td>
-                <%= button_to "Status Requests"%-->
+                <%= button_to "Status Requests"%>
             </td>
             <td>
                 <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
@@ -37,6 +32,6 @@
         </tr>
     </table>
     <hr>
-    <%= yield (:body) %>
+    <%= yield%>
   </body>
 </html>
