@@ -12,6 +12,9 @@
   </head>
 
   <body>
+  <%= if current_user.pending_approval? %>
+    <p>You are currently pending admin approval. Until you are approved, you are only able to browse the course catalog.</p>
+    <%=end%>
     <!--p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p-->
         <table id = "menuBar">
@@ -21,7 +24,7 @@
                 <%= button_to "Profile"%>
             </td>
             <td>
-                <%= button_to "Browse Catalog"%>
+                <%= button_to "Browse Catalog", courses_path, method: :get %>
             </td>
             </td>
             <td>
