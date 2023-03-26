@@ -35,11 +35,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_22_032641) do
     t.integer "course_id", null: false
   end
 
-  create_table "course_qualifications", id: false, force: :cascade do |t|
-    t.integer "application_id", null: false
-    t.integer "course_id", null: false
-  end
-
   create_table "courses", force: :cascade do |t|
     t.integer "number"
     t.string "name"
