@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_22_032641) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_26_182158) do
   create_table "applications", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -50,11 +50,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_22_032641) do
     t.string "start_time", null: false
     t.string "end_time", null: false
     t.string "location"
-    t.string "days_of_week", null: false
     t.string "mode_of_instruction"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "course_id", null: false
+    t.boolean "monday"
+    t.boolean "tuesday"
+    t.boolean "wednesday"
+    t.boolean "thursday"
+    t.boolean "friday"
+    t.boolean "saturday"
+    t.boolean "sunday"
     t.index ["course_id"], name: "index_sections_on_course_id"
   end
 
@@ -71,7 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_22_032641) do
     t.datetime "remember_created_at"
     t.string "fname", null: false
     t.string "lname"
-    t.boolean "pending_approval?"
+    t.boolean "pending_approval?", default: true
     t.boolean "admin_flag"
     t.boolean "instructor_flag"
     t.boolean "student_flag"

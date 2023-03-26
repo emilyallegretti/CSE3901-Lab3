@@ -1,0 +1,13 @@
+<h1>New Instructor/Admin Requests</h1>
+        <table>
+            <tr>
+                <th>First Name</th> <th>Last Name</th> <th>Email</th> <th colspan="3">Actions</th></th>
+            </tr>
+            <% @requests.each do |request| %>
+                <tr>
+                    <td><%= request.fname %></td>
+                    <td><%= request.lname %></td>
+                    <td><%= request.email %></td>
+                    <td><%= button_to 'Approve', "/requests/#{request.id}", method: :patch %></td>
+                </tr>
+            <% end %>

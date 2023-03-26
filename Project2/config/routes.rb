@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  get 'requests', to: 'requests#index'
+  patch 'requests/:id', to: 'requests#update'
+  # auto-generated Devise routes.
   devise_for :users
  
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+ 
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # CRUD routes for courses controller.
  resources :courses
 
   get 'home/index'
@@ -19,5 +21,4 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'courses/reload', to: 'courses#reload'
 end
