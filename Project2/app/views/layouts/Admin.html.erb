@@ -14,6 +14,9 @@
   <body>
     <!--p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p-->
+    <%= if current_user.pending_approval? %>
+    <p>You are currently pending admin approval. Until you are approved, you are only able to browse the course catalog.</p>
+    <%=end%>
         <table id = "menuBar">
         <tr>
             <td>
@@ -21,11 +24,23 @@
                 <%= button_to "Profile"%>
             </td>
             <td>
-                <%= button_to "Browse Catalog", courses_path%>
+                <%= button_to "Browse Catalog", courses_path, method: :get %>
+            </td>
+            <%= if current_user.pending_approval? %>
+            <td>
+                <%= button_to "Status Requests", "/requests", method: :get, :disabled => true %>
             </td>
             <td>
-                <%= button_to "Status Requests"%>
+                <%= button_to "Reload Database", "/reload/new", method: :get, :disabled => true %>
             </td>
+            <%= else %>
+            <td>
+                <%= button_to "Status Requests", "/requests", method: :get %>
+            </td>
+            <td>
+                <%= button_to "Reload Database", "/reload/new", method: :get %>
+            </td>
+            <%= end %>
             <td>
                 <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
             </td>
