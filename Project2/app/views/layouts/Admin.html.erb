@@ -30,9 +30,15 @@
             <td>
                 <%= button_to "Status Requests", "/requests", method: :get, :disabled => true %>
             </td>
+            <td>
+                <%= button_to "Reload Database", "/reload/new", method: :get, :disabled => true %>
+            </td>
             <%= else %>
             <td>
                 <%= button_to "Status Requests", "/requests", method: :get %>
+            </td>
+            <td>
+                <%= button_to "Reload Database", "/reload/new", method: :get %>
             </td>
             <%= end %>
             <td>

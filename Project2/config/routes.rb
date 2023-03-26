@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get 'requests', to: 'requests#index'
   patch 'requests/:id', to: 'requests#update'
+
+  get 'reload/new', to: 'reload#new'
   # auto-generated Devise routes.
   devise_for :users
  
