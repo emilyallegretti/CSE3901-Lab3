@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_26_182158) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_16_025852) do
   create_table "applications", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -30,11 +30,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_182158) do
     t.integer "course_id", null: false
   end
 
-  create_table "course_qualifications", id: false, force: :cascade do |t|
-    t.integer "application_id", null: false
-    t.integer "course_id", null: false
-  end
-
   create_table "courses", force: :cascade do |t|
     t.integer "number"
     t.string "name"
@@ -50,18 +45,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_182158) do
     t.string "start_time", null: false
     t.string "end_time", null: false
     t.string "location"
+    t.string "days_of_week", null: false
     t.string "mode_of_instruction"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "course_id", null: false
-    t.boolean "monday"
-    t.boolean "tuesday"
-    t.boolean "wednesday"
-    t.boolean "thursday"
-    t.boolean "friday"
-    t.boolean "saturday"
-    t.boolean "sunday"
-    t.index ["course_id"], name: "index_sections_on_course_id"
   end
 
   create_table "sections_users", id: false, force: :cascade do |t|
@@ -77,7 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_182158) do
     t.datetime "remember_created_at"
     t.string "fname", null: false
     t.string "lname"
-    t.boolean "pending_approval?", default: true
+    t.boolean "pending_approval?"
     t.boolean "admin_flag"
     t.boolean "instructor_flag"
     t.boolean "student_flag"
@@ -89,5 +76,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_182158) do
 
   add_foreign_key "applications", "users"
   add_foreign_key "availabilities", "applications"
-  add_foreign_key "sections", "courses"
 end
