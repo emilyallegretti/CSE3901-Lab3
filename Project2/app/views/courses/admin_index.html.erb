@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<% if current_user %>
+  <%= current_user.email %>
+<% end %>
 <html>
     <head>
         <title>Courses List</title>
