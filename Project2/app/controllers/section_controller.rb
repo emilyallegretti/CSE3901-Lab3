@@ -48,6 +48,8 @@ class SectionsController < ApplicationController
     # updates the record for the specified course in the database. This method is called after submission of an "edit course" form,
     # so that the database can be updated appropriately. 
     def update
+        
+
         if @section.update(section_params)
             redirect_to @section
         else 
