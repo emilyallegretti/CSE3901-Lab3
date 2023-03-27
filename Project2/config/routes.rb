@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   patch 'requests/:id', to: 'requests#update'
   get 'requests', to: 'requests#index'
   get 'reload/new', to: 'reload#new'
-
+  post 'reload', to: 'data#home'
   # auto-generated Devise routes.
   devise_for :users
 
