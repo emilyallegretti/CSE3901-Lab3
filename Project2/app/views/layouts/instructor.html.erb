@@ -3,18 +3,12 @@
   <%= stylesheet_link_tag "application", :media => "all"%>
   <head>
     <title>Instructor View</title>
-    <!--meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %-->
   </head>
 
   <body>
-  <%= if current_user.pending_approval? %>
-    <p>You are currently pending admin approval. Until you are approved, you are only able to browse the course catalog.</p>
-    <%=end%>
+    <% if current_user.pending_approval? %>
+      <p>You are currently pending admin approval. Until you are approved, you are only able to browse the course catalog.</p>
+    <% end %>
     <!--p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p-->
         <table id = "menuBar">
@@ -25,7 +19,6 @@
             </td>
             <td>
                 <%= button_to "Browse Catalog", courses_path, method: :get %>
-            </td>
             </td>
             <td>
                 <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
