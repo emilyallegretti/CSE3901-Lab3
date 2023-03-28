@@ -6,14 +6,13 @@ class CreateSections < ActiveRecord::Migration[7.0]
       t.string :start_time
       t.string :end_time
       t.string :location
-      #t.string :days_of_week, null: false
-      t.string :monday
-      t.string :tuesday
-      t.string :wednesday
-      t.string :thursday
-      t.string :friday
-      t.string :saturday
-      t.string :sunday      
+      t.boolean :monday
+      t.boolean :tuesday
+      t.boolean :wednesday
+      t.boolean :thursday
+      t.boolean :friday
+      t.boolean :saturday
+      t.boolean :sunday      
       t.string :mode_of_instruction
       t.timestamps
     end
