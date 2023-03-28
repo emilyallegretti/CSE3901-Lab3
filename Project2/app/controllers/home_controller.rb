@@ -1,8 +1,8 @@
 class HomeController < ApplicationController
   def index
-    if current_user.admin_flag
+    if current_user.role == "admin"
       render template: "layouts/admin"
-    elsif current_user.instructor_flag
+    elsif current_user.role == "instructor"
       render template: "layouts/instructor"
     else
       render template: "layouts/student"
