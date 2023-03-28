@@ -8,7 +8,7 @@ class CoursesController < ApplicationController
     # courses/index.html.erb will need access to @courses, which is a collection of all the courses in the database
     def index  
         @course = Course.all
-        if current_user.admin_flag
+        if current_user.type == "admin"
             render template: "courses/admin_index"
         elsif current_user.type == "instructor"
             render template: "courses/instructor_index"
