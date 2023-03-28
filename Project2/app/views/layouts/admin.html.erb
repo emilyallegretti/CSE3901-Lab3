@@ -3,12 +3,6 @@
   <%= stylesheet_link_tag "application", :media => "all"%>
   <head>
     <title>Admin View</title>
-    <!--meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %-->
   </head>
 
   <body>
@@ -21,32 +15,32 @@
         <tr>
             <td>
                 <!-- need to add routes-->
-                <%= button_to "Profile"%>
+                <%= button_to "Profile", edit_user_registration_path, method: :get %>
             </td>
             <td>
                 <%= button_to "Browse Catalog", courses_path, method: :get %>
             </td>
-            <%= if current_user.pending_approval? %>
-            <td>
-                <%= button_to "Status Requests", "/requests", method: :get, :disabled => true %>
-            </td>
-            <td>
-                <%= button_to "Reload Database", "/reload/new", method: :get, :disabled => true %>
-            </td>
-            <%= else %>
-            <td>
-                <%= button_to "Status Requests", "/requests", method: :get %>
-            </td>
-            <td>
-                <%= button_to "Reload Database", "/reload/new", method: :get %>
-            </td>
-            <%= end %>
+            <% if current_user.pending_approval? %>
+                <td>
+                    <%= button_to "Status Requests", "/requests", method: :get, :disabled => true %>
+                </td>
+                <td>
+                    <%= button_to "Reload Database", "/reload/new", method: :get, :disabled => true %>
+                </td>
+            <% else %>
+                <td>
+                    <%= button_to "Status Requests", "/requests", method: :get %>
+                </td>
+                <td>
+                    <%= button_to "Reload Database", "/reload/new", method: :get %>
+                </td>
+            <% end %>
             <td>
                 <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
             </td>
         </tr>
     </table>
     <hr>
-    <%= yield%>
+    <%= yield %>
   </body>
 </html>
