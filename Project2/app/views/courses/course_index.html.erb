@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Courses List</title>
+        <meta name="StudentCoursesListView" content="width=device-width,initial-scale=1">
+        <%= csrf_meta_tags %>
+        <%= csp_meta_tag %>
+    </head>
+
+    <body>
+        # Detemines which course to show it attributes from the previous page
+        currentCourse = params[:currentCourse]
+        # Show course attributes
+        <% @courses.each do |course| %>
+            <% if course.equal?currentCourse %>
+                <h1><%= currentCourse.number %> + " - " + <%= currentCourse.name %></h1>
+                <hr>
+                <h3>"Term: " + <%= currentCourse.term %></h3>
+                <h3>"Campus: " + <%= currentCourse.campus %></h3>
+            <% end %>
+        <% end %>
+    </body>
+</html>
