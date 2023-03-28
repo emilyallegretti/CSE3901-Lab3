@@ -1,7 +1,7 @@
 class RequestsController < ApplicationController
   # List the instructors and admins that are still pending admin approval.
   def index
-    @requests = User.where("pending_approval? = ? AND admin_flag = ?", true, true).or(User.where("pending_approval? = ? AND instructor_flag = ?", true, true))
+    @requests = User.where("pending_approval? = ? AND type = ?", true, "instructor").or(User.where("pending_approval? = ? AND type = ?", true, "admin"))
   end
 
   # On approval of a user, change their "pending_approval? " attribute to false and reload the requests page. 

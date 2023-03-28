@@ -10,9 +10,9 @@
         </tr>
         <tr>
             <td>Status:</td>
-            <%if current_user.admin_flag%>
+            <%if current_user.type == "admin"%>
                 <td>Admin</td>
-            <%elsif current_user.instructor_flag%>
+            <%elsif current_user.type == "instructor"%>
                 <td>Instructor</td>
             <%elsif current_user.pending_approval?%>
                 <td>Pending Approval</td>
