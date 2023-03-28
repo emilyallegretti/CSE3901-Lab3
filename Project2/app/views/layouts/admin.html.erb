@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <%= stylesheet_link_tag "application", :media => "all"%>
   <head>
     <title>Admin View</title>
+    <%= stylesheet_link_tag "application", :media => "all"%>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
   </head>
 
   <body>
     <!--p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p-->
-    <%= if current_user.pending_approval? %>
-    <p>You are currently pending admin approval. Until you are approved, you are only able to browse the course catalog.</p>
-    <%=end%>
-        <table id = "menuBar">
+    <% if current_user.pending_approval? %>
+        <p>You are currently pending admin approval. Until you are approved, you are only able to browse the course catalog.</p>
+    <% end %>
+    <table id = "menuBar">
         <tr>
             <td>
-                <!-- need to add routes-->
                 <%= button_to "Profile", edit_user_registration_path, method: :get %>
             </td>
             <td>

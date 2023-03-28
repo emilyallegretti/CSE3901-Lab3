@@ -10,7 +10,7 @@ class RequestsController < ApplicationController
     if @user.update({'pending_approval': 'false'})
       redirect_to action: :index
     else 
-     render :index
+      render :index
     end 
   end 
 end

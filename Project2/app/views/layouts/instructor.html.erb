@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
-  <%= stylesheet_link_tag "application", :media => "all"%>
   <head>
     <title>Instructor View</title>
+    <%= stylesheet_link_tag "application", :media => "all"%>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
   </head>
 
   <body>
@@ -11,19 +13,18 @@
     <% end %>
     <!--p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p-->
-        <table id = "menuBar">
-        <tr>
-            <td>
-                <!-- need to add routes-->
-                <%= button_to "Profile", edit_user_registration_path, method: :get %>
-            </td>
-            <td>
-                <%= button_to "Browse Catalog", courses_path, method: :get %>
-            </td>
-            <td>
-                <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
-            </td>
-        </tr>
+    <table id = "menuBar">
+      <tr>
+        <td>
+          <%= button_to "Profile", edit_user_registration_path, method: :get %>
+        </td>
+        <td>
+          <%= button_to "Browse Catalog", courses_path, method: :get %>
+        </td>
+        <td>
+          <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+        </td>
+      </tr>
     </table>
     <hr>
     <%= yield %>
