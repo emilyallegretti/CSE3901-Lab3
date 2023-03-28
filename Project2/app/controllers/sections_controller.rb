@@ -1,4 +1,4 @@
-class CoursesController < ApplicationController
+class SectionsController < ApplicationController
     # for show, edit, update, and destroy, we are finding a specific course associated with the :id passed in the URL
     #before_action :find_course, only [:show, :edit, :update, :destroy]
 
@@ -7,23 +7,17 @@ class CoursesController < ApplicationController
     # this will list all of the courses listed in the database
     # courses/index.html.erb will need access to @courses, which is a collection of all the courses in the database
     def index  
-        @course = Course.all
-        if current_user.admin_flag
-            render template: "courses/admin_index"
-        elsif current_user.type == "instructor"
-            render template: "courses/instructor_index"
-        else
-            render template: "courses/student_index"
-        end
+        @section = Section.all
+        
     end 
 
     # create will POST a new course, creating a new row in the Courses table and saving it to the database 
     # after POST, we must redirect to a confirmation page from this method saying the course was successfully created
     def create
-        @course = Course.new(course_params)
+        @section = Section.new(section_params)
 
-        if @course.save
-            redirect_to @course 
+        if @section.save
+            redirect_to @section 
         else 
             render "new"
         end
@@ -39,7 +33,7 @@ class CoursesController < ApplicationController
     # find_course has already found the specific course for us
     #TODO: do we need show?
     def show
-         if @course.nil?
+         if @section.nil?
             #TODO: flash message?
             redirect_to action: :index
         end
@@ -54,8 +48,10 @@ class CoursesController < ApplicationController
     # updates the record for the specified course in the database. This method is called after submission of an "edit course" form,
     # so that the database can be updated appropriately. 
     def update
-        if @course.update(course_params)
-            redirect_to @course
+        
+
+        if @section.update(section_params)
+            redirect_to @section
         else 
             #TODO: flash message?
             render :edit 
@@ -64,7 +60,7 @@ class CoursesController < ApplicationController
 
     # destroys the record of the specified course, and returns to the course collection view.
     def destroy
-        @course.destroy
+        @section.destroy
         redirect_to action: :index
     end 
 
@@ -75,15 +71,16 @@ class CoursesController < ApplicationController
 
         # after reload, redirect to the index page that will list all the courses in the database
         redirect_to action: :index
+
     end
 
 
-    private def find_course
-            @course = Course.find(params[:id])
+    private def find_section
+            @section = Section.find(params[:id])
     end
 
-    private def course_params
-        params.require(:courses).permit(:name, :number,:term,:campus)
+    private def section_params
+        params.require(:sections).permit( :num_graders_required, :section_number,:start_time,:end_time,:location,:monday,:tuesday , :wednesday ,:thursday ,:friday ,:saturday ,:sunday ,:mode_of_instruction )
     end
     
      

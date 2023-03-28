@@ -9,7 +9,9 @@ Rails.application.routes.draw do
  
  
 
-  # CRUD routes for courses controller.
+
+  # Defines the root path route ("/")
+  # root "articles#index"
  resources :courses
 
   get 'home/index'
