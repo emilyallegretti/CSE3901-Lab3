@@ -7,7 +7,7 @@ class CoursesController < ApplicationController
     # this will list all of the courses listed in the database
     # courses/index.html.erb will need access to @courses, which is a collection of all the courses in the database
     def index  
-        @course = Course.all
+        @courses = Course.all
         if current_user.type == "admin"
             render template: "courses/admin_index"
         elsif current_user.type == "instructor"
@@ -77,11 +77,11 @@ class CoursesController < ApplicationController
         redirect_to action: :index
     end
 
-
+    # find the course with :id
     private def find_course
             @course = Course.find(params[:id])
     end
-
+    # sanitize inputs
     private def course_params
         params.require(:courses).permit(:name, :number,:term,:campus)
     end
