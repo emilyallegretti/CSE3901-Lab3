@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_26_182158) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_26_181039) do
   create_table "applications", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -35,8 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_182158) do
     t.integer "course_id", null: false
   end
 
-  create_table "courses", force: :cascade do |t|
-    t.integer "number"
+  create_table "courses", primary_key: "number", force: :cascade do |t|
     t.string "name"
     t.string "campus"
     t.string "term"
@@ -47,13 +46,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_182158) do
   create_table "sections", force: :cascade do |t|
     t.integer "num_graders_required", default: 1, null: false
     t.integer "section_number", null: false
-    t.string "start_time", null: false
-    t.string "end_time", null: false
+    t.string "start_time"
+    t.string "end_time"
     t.string "location"
-    t.string "mode_of_instruction"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "course_id", null: false
     t.boolean "monday"
     t.boolean "tuesday"
     t.boolean "wednesday"
@@ -61,7 +56,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_182158) do
     t.boolean "friday"
     t.boolean "saturday"
     t.boolean "sunday"
-    t.index ["course_id"], name: "index_sections_on_course_id"
+    t.string "mode_of_instruction"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "course_num"
+    t.index ["course_num"], name: "index_sections_on_course_num"
   end
 
   create_table "sections_users", id: false, force: :cascade do |t|
@@ -78,16 +77,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_182158) do
     t.string "fname", null: false
     t.string "lname"
     t.boolean "pending_approval?", default: true
-    t.boolean "admin_flag"
-    t.boolean "instructor_flag"
-    t.boolean "student_flag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "applications", "users"
   add_foreign_key "availabilities", "applications"
-  add_foreign_key "sections", "courses"
+  add_foreign_key "sections", "courses", column: "course_num", primary_key: "number"
 end

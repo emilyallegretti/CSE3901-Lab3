@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Student View</title>
+    <%= stylesheet_link_tag "application", :media => "all"%>
+  </head>
+
+  <body>
+    <!--p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p-->
+        <table id = "menuBar">
+        <tr>
+            <td>
+                <!-- need to add routes-->
+                <%= button_to "Profile"%>
+            </td>
+            <td>
+                <%= button_to "Browse Catalog", courses_path, method: :get %>
+            </td>
+            <td>
+                <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+            </td>
+        </tr>
+    </table>
+    <hr>
+    <%= yield %>
+  </body>
+</html>

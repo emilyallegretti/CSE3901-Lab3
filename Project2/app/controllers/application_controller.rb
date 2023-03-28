@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    before_action :configure_permitted_parameters, if: :devise_controller?
+   before_action :configure_permitted_parameters, if: :devise_controller?
 
     def after_sign_in_path_for(user)
         if user.admin_flag == true
@@ -13,6 +13,9 @@ class ApplicationController < ActionController::Base
     
     protected
     def configure_permitted_parameters
-        devise_parameter_sanitizer.permit(:sign_up, keys: [:fname, :lname, :admin_flag, :instructor_flag, :student_flag, :pending_approval?, :email])
+        devise_parameter_sanitizer.permit(:sign_up, keys: [:fname, :lname, :role, :pending_approval?, :email])
     end
+
+
+
 end
