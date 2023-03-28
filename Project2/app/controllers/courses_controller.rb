@@ -77,11 +77,11 @@ class CoursesController < ApplicationController
         redirect_to action: :index
     end
 
-
+    # find the course with :id
     private def find_course
             @course = Course.find(params[:id])
     end
-
+    # sanitize inputs
     private def course_params
         params.require(:courses).permit(:name, :number,:term,:campus)
     end
