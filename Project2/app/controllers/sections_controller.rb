@@ -71,6 +71,7 @@ class SectionsController < ApplicationController
 
         # after reload, redirect to the index page that will list all the courses in the database
         redirect_to action: :index
+
     end
 
 
@@ -79,7 +80,7 @@ class SectionsController < ApplicationController
     end
 
     private def section_params
-        params.require(:section).permit(:num_graders_required, :section_number,:start_time,:end_time,:location,:monday,:tuesday , :wednesday ,:thursday ,:friday ,:saturday ,:sunday ,:mode_of_instruction )
+        params.require(:sections).permit( :num_graders_required, :section_number,:start_time,:end_time,:location,:monday,:tuesday , :wednesday ,:thursday ,:friday ,:saturday ,:sunday ,:mode_of_instruction )
     end
     
      
