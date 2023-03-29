@@ -10,7 +10,7 @@ User.create([{
     :password => "password",
     :fname => "fisrtname",
     :lname => "lastname",
-    :pending_approval => false,
+    :pending_approval? => false,
     :role => "admin"
 
 }])
