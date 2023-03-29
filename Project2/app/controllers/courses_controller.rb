@@ -1,13 +1,15 @@
 class CoursesController < ApplicationController
+   
     # for show, edit, update, and destroy, we are finding a specific course associated with the :id passed in the URL
-    # before_action :find_course, only [:show, :edit, :update, :destroy]
+     before_action :find_course, only: [:show, :edit, :update, :destroy]
+     layout :render_layout
 
    
     # index will render views/courses/index.html.erb 
     # this will list all of the courses listed in the database
     # courses/index.html.erb will need access to @courses, which is a collection of all the courses in the database
     def index  
-        @course = Course.all
+        @courses = Course.all
         if current_user.role == "admin"
             render template: "courses/admin_index"
         elsif current_user.role == "instructor"
@@ -39,6 +41,8 @@ class CoursesController < ApplicationController
     # find_course has already found the specific course for us
     #TODO: do we need show?
     def show
+        @courses = Course.all
+        render template: "courses/course_index"
          if @course.nil?
             #TODO: flash message?
             redirect_to action: :index
@@ -58,6 +62,7 @@ class CoursesController < ApplicationController
             redirect_to @course
         else 
             #TODO: flash message?
+            
             render :edit 
         end
     end
@@ -68,14 +73,6 @@ class CoursesController < ApplicationController
         redirect_to action: :index
     end 
 
-    # reload will scrape the API for course data on CSE courses, clear the database if it is not already empty, and re-populate
-    # the database with the results of the web scraping. This will need to be the first function called by the first admin
-    # in order to initially populate the database.
-    def reload
-
-        # after reload, redirect to the index page that will list all the courses in the database
-        redirect_to action: :index
-    end
 
     # find the course with :id
     private def find_course
@@ -83,8 +80,18 @@ class CoursesController < ApplicationController
     end
     # sanitize inputs
     private def course_params
-        params.require(:courses).permit(:name, :number,:term,:campus)
+        params.permit(:name, :number,:term,:campus)
     end
     
+ protected
+  def render_layout
+         if current_user.role == "admin"
+      "admin"
+    elsif current_user.role == "instructor"
+      "instructor"
+    else
+      "student"
+    end
+end
      
 end

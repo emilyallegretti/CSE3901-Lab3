@@ -77,11 +77,8 @@
                         <td><%= course.term %></td>
                         <td><%= course.campus %></td>
                         <td><%= link_to 'Show', course %></td>
-                        # This provide a parameter value to the course gerenic page so that it show the correct course attributes
-                        <%= form_tag '/next_page' do %>
-                            <%= hidden_field_tag 'currentCourse', course %>
-                            <%= submit_tag 'Submit' %>
-                        <% end %>
+                       
+                      
                     </tr>
                 <% end %>
             </tbody>

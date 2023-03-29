@@ -13,13 +13,13 @@
             border: 1px solid black;
             }
         </style>
-        <script type="text/javascript"> # This script give the ability to sort and search in the courses table
-            # This function get cell value from specific rown and columns
+        <script type="text/javascript"> //# This script give the ability to sort and search in the courses table
+           // # This function get cell value from specific rown and columns
             function getCellValue(row, idx) {
                 return $(row).children('td').eq(idx).text()
             }
 
-            # This function compares two cell values occur in the same column
+            //# This function compares two cell values occur in the same column
             function compare(idx) {
                 return function(val1, val2) {
                     let firstVal = getCellValue(val1, idx)
@@ -28,60 +28,59 @@
                 }
             }
 
-            # It provides the user the ability to sort the table
+            //# It provides the user the ability to sort the table
             $(document).ready(function() {
                 $('#coursesTable th').click(function() {
                     let table = $(this).parents('table').eq(0)
                     let rows = table.find('tr:gt(0)').toArray().sort(compare($(this).index()))
                     this.asc = !this.asc
 
-                    # If the sorting direction is descending, it reverses the rows' order
+                    //If the sorting direction is descending, it reverses the rows' order
                     if (!this.asc) {
                         rows = rows.reverse()
                     }
 
-                    # Restores the sorted rows to the table in the new order.
+                    //# Restores the sorted rows to the table in the new order.
                     for (let i = 0; i < rows.length; i++) {
                         table.append(rows[i])
                     }
                 })
             })
 
-            # Gives the table searching ability
+            //# Gives the table searching ability
             $(document).ready(function() {
                 $('#searchBox').on('keyup', function() {
                 var value = $(this).val().toLowerCase()
                 $('#coursesTable tr').filter(function() {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             })
+                })
+            })
+                
         </script>
     </head>
 
     <body>
         <h1>Courses List</h1>
         <input type="text" id="searchBox" placeholder="Search...">
-        <table id="coursesTable"> # The id is used for the script above
+        <table id="coursesTable"> 
             <thread>
-                <tr> # Table Header Row
-                    <th>Course Number</th> <th>Course Name</th> <th>Term</th> <th>Campus</th> <th>Actions</th> # Header Cells
+                <tr> 
+                    <th>Course Number</th> <th>Course Name</th> <th>Term</th> <th>Campus</th> <th>Actions</th> 
                 </tr>
             </thread>
-            <tbody> # Table Body
+            <tbody> 
                 <% @courses.each do |course| %>
-                    <tr> # Table Body Row
-                        # Table Body Cells
+                    <tr> 
                         <td><%= course.number %></td>
                         <td><%= course.name %></td>
                         <td><%= course.term %></td>
                         <td><%= course.campus %></td>
                         <td><%= link_to 'Show', course %></td>
                         <td><%= link_to 'Edit', edit_course_path(course) %></td>
-                        <td><%= link_to 'Delete', course, method: :delete { confirm: 'Are you sure?' } %></td>
-                        # This provide a parameter value to the course gerenic page so that it show the correct course attributes
-                        <%= form_tag '/next_page' do %>
-                            <%= hidden_field_tag 'currentCourse', course %>
-                            <%= submit_tag 'Submit' %>
-                        <% end %>
+                        <td><%= link_to 'Delete', course_path(course), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                        
+                       
                     </tr>
                 <% end %>
             </tbody>

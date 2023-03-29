@@ -8,16 +8,16 @@
     </head>
 
     <body>
-        # Detemines which course to show it attributes from the previous page
-        currentCourse = params[:currentCourse]
-        # Show course attributes
-        <% @courses.each do |course| %>
-            <% if course.equal?currentCourse %>
-                <h1><%= currentCourse.number %> + " - " + <%= currentCourse.name %></h1>
+        <!-- Detemines which course to show it attributes from the previous page -->
+        
+        <!-- Show course attributes -->
+                <h1><%= @course.number %> - <%= @course.name %></h1>
                 <hr>
-                <h3>"Term: " + <%= currentCourse.term %></h3>
-                <h3>"Campus: " + <%= currentCourse.campus %></h3>
-            <% end %>
-        <% end %>
+                <h3>Term:  <%= @course.term %></h3>
+                <h3>Campus:  <%= @course.campus %></h3>
+
+                <a href="/courses">Return to Courses</a>
+            
+     
     </body>
 </html>
