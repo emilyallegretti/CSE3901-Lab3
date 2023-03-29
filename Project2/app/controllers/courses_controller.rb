@@ -70,7 +70,7 @@ class CoursesController < ApplicationController
     # destroys the record of the specified course, and returns to the course collection view.
     def destroy
         @course.destroy
-        redirect_to action: :index, status: :see_other, notice: "Course Successfully Updated"
+        redirect_to action: :index,  notice: "Course Successfully Updated"
     end 
 
 
