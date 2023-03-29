@@ -8,7 +8,7 @@ class DashboardController < ApplicationController
     def reload_database
         Section.destroy_all
         Course.destroy_all      
-        Services::OsuClient.save_data_from_api
+        Services::Parsing.get("col","1234") #params from view
         redirect_to courses_path
     end    
     
