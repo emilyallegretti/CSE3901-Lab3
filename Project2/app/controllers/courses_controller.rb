@@ -2,6 +2,7 @@ class CoursesController < ApplicationController
    
     # for show, edit, update, and destroy, we are finding a specific course associated with the :id passed in the URL
      before_action :find_course, only: [:show, :edit, :update, :destroy]
+
      layout :render_layout
 
    
@@ -10,6 +11,7 @@ class CoursesController < ApplicationController
     # courses/index.html.erb will need access to @courses, which is a collection of all the courses in the database
     def index  
         @courses = Course.all
+        # Render a specific view of courses based on the type of user signed in (since admins/instructors have different permissions)
         if current_user.role == "admin"
             render template: "courses/admin_index"
         elsif current_user.role == "instructor"
@@ -25,9 +27,9 @@ class CoursesController < ApplicationController
         @course = Course.new(course_params)
 
         if @course.save
-            redirect_to @course 
+            redirect_to @course, notice: "Course Successfully Updated"
         else 
-            render "new"
+            render "new", notice: "Action Failed"
         end
     end
 
@@ -45,7 +47,7 @@ class CoursesController < ApplicationController
         render template: "courses/course_index"
          if @course.nil?
             #TODO: flash message?
-            redirect_to action: :index
+            redirect_to action: :index, notice: "Action Failed"
         end
     end
 
@@ -59,18 +61,16 @@ class CoursesController < ApplicationController
     # so that the database can be updated appropriately. 
     def update
         if @course.update(course_params)
-            redirect_to @course
+            redirect_to @course, notice: "Course Successfully Updated"
         else 
-            #TODO: flash message?
-            
-            render :edit 
+            render :edit, notice: "Action Failed"
         end
     end
 
     # destroys the record of the specified course, and returns to the course collection view.
     def destroy
         @course.destroy
-        redirect_to action: :index
+        redirect_to action: :index, status: :see_other, notice: "Course Successfully Updated"
     end 
 
 
@@ -84,6 +84,7 @@ class CoursesController < ApplicationController
     end
     
  protected
+ # Render the layout corresponding to the type of user logged in.
   def render_layout
          if current_user.role == "admin"
       "admin"

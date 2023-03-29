@@ -78,7 +78,7 @@
                         <td><%= course.campus %></td>
                         <td><%= link_to 'Show', course %></td>
                         <td><%= link_to 'Edit', edit_course_path(course) %></td>
-                        <td><%= link_to 'Delete', course_path(course), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                        <td><%= button_to 'Delete', course_path(course), method: :delete, data: {turbo_confirm: "are you sure?"} %></td>
                         
                        
                     </tr>

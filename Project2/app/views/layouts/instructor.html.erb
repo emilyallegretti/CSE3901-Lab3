@@ -11,6 +11,8 @@
     <% if current_user.pending_approval? %>
       <p>You are currently pending admin approval. Until you are approved, you are only able to browse the course catalog.</p>
     <% end %>
+  <p id="notice"><%= notice %></p>
+
     <!--p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p-->
     <table id = "menuBar">
