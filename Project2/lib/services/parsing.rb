@@ -1,9 +1,16 @@
 module Services
-    class OsuClient
-        def self.save_data_from_api 
-            response = HTTParty.get("https://content.osu.edu/v2/classes/search?q=cse&client=class-search-ui&campus=col&term=1234")
-            @response = JSON.parse(response.body)
-            @pars_resp = response["data"]["courses"]
+    class Parsing
+        include HTTParty
+        base_uri "https://content.osu.edu/v2/classes/search"
+        default_params q: "cse", client: "class-search-ui"
+        format :json
+        #"campus=col&term=1234"
+        def initialize(campus_q, term_q)
+            @options = { query: {campus: campus_q, term: term_q} }
+        end
+
+        def self.load (campus_q, term_q)
+            @pars_resp = get("",{ query: {campus: campus_q, term: term_q} })["data"]["courses"]
             #load in courses data
             @pars_resp.each do |k|
                 Course.create(name: k["course"]["title"],number: k["course"]["catalogNumber"],term: k["course"]["term"],campus: k["course"]["campus"])
