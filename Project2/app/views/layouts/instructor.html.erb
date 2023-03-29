@@ -14,7 +14,15 @@
     <% if current_user.pending_approval? %>
       <p>You are currently pending admin approval. Until you are approved, you are only able to browse the course catalog.</p>
     <% end %>
-  <p id="notice"><%= flash[:notice] %></p>
+  <% if flash.any? %>
+  <div id="banner">
+  <%flash.each do |key, message|%>
+  <div class = "flash <%= key %>" >
+  <%=message%>
+  </div>
+  <%end%>
+  </div>
+  <%end%>
 
     <!--p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p-->

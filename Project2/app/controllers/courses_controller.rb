@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
-   
+    # skip authentication; we already have verified the type of user logged in
+   skip_before_action :verify_authenticity_token
     # for show, edit, update, and destroy, we are finding a specific course associated with the :id passed in the URL
      before_action :find_course, only: [:show, :edit, :update, :destroy]
 
@@ -27,27 +28,30 @@ class CoursesController < ApplicationController
         @course = Course.new(course_params)
 
         if @course.save
-            redirect_to @course, notice: "Course Successfully Updated"
+            flash[:notice] = "Course Successfully Updated"
+            redirect_to @course
         else 
-            render "new", notice: "Action Failed"
+            flash.now[:notice] = "Action Failed"
+            render "new"
         end
     end
 
     # new will render views/courses/new.html.erb
     # this will return a blank HTML form, having method POST for adding a new course. On submission of that form, "create" will be called.
-    # no code needed here, the HTML form with appropriate fields should be created in the View
+    #create new @course instance for html form
     def new
+        @course = Course.new
     end
 
     # show will show a specific course and all of its information, if the user clicks on it. 
     # find_course has already found the specific course for us
     #TODO: do we need show?
     def show
-        @courses = Course.all
         render template: "courses/course_index"
          if @course.nil?
             #TODO: flash message?
-            redirect_to action: :index, notice: "Action Failed"
+            flash[:notice] = "Action Failed"
+            redirect_to action: :index
         end
     end
 
@@ -61,16 +65,19 @@ class CoursesController < ApplicationController
     # so that the database can be updated appropriately. 
     def update
         if @course.update(course_params)
-            redirect_to @course, notice: "Course Successfully Updated"
+            flash[:notice] = "Course Successfully Updated"
+            redirect_to course_path(@course)
         else 
-            render :edit, notice: "Action Failed"
+            flash.now[:notice] = "Action Failed"
+            render :edit
         end
     end
 
     # destroys the record of the specified course, and returns to the course collection view.
     def destroy
         @course.destroy
-        redirect_to action: :index,  notice: "Course Successfully Updated"
+        flash[:notice] = "Course Successfully Updated"
+        redirect_to action: :index
     end 
 
 
@@ -80,7 +87,7 @@ class CoursesController < ApplicationController
     end
     # sanitize inputs
     private def course_params
-        params.permit(:name, :number,:term,:campus)
+        params.require(:course).permit(:name, :number,:term,:campus)
     end
     
  protected
