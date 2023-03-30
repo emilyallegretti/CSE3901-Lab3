@@ -10,7 +10,7 @@ module Services
         end
 
         def self.load (campus_q, term_q)
-            @pars_resp = get("",{ query: {campus: campus_q, term: term_q} })["data"]["courses"]
+            @pars_resp = get("/",{ query: {campus: campus_q, term: term_q} })["data"]["courses"]
             #load in courses data
             @pars_resp.each do |k|
                 Course.create(name: k["course"]["title"],number: k["course"]["catalogNumber"],term: k["course"]["term"],campus: k["course"]["campus"])

@@ -1,16 +1,11 @@
-<h1>New Course<h1>
-<form action =<%=courses_path%> method="post">
-    <label for="name">Course Name: </label>
-    <input type="text" id="name" name="name" required><br>
+<h1>New Course</h1>
 
-    <label for="number">Course Number: </label>
-    <input type="text" id="number" name="number" required><br> 
+<%= bootstrap_form_with model: @course, url: courses_path, method: :post, local: true do |f| %>
 
-    <label for="campus">Campus: </label>
-    <input type="text" id="campus" name="campus" required><br>
+  <%= f.text_area :name %>
+  <%= f.text_field :number %>
+  <%= f.text_field :term %>
+  <%= f.text_field :campus %>
+  <%= f.submit %>
 
-    <label for="term">Term: </label>
-    <input type="text" id="term" name="term" required><br>
-
-    <input type="submit" value="Submit">
-<form>
+<% end %>
