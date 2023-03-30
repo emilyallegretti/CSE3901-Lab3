@@ -8,18 +8,11 @@
         <meta name="StudentCoursesListView" content="width=device-width,initial-scale=1">
         <%= csrf_meta_tags %>
         <%= csp_meta_tag %>
-        <style> # Added just for testing purpose, you can remove it
-            table, th, td {
-            border: 1px solid black;
-            }
-        </style>
-        <script type="text/javascript"> # This script give the ability to sort and search in the courses table
-            # This function get cell value from specific rown and columns
+        <script type="text/javascript">
             function getCellValue(row, idx) {
                 return $(row).children('td').eq(idx).text()
             }
 
-            # This function compares two cell values occur in the same column
             function compare(idx) {
                 return function(val1, val2) {
                     let firstVal = getCellValue(val1, idx)
@@ -28,26 +21,22 @@
                 }
             }
 
-            # It provides the user the ability to sort the table
             $(document).ready(function() {
                 $('#coursesTable th').click(function() {
                     let table = $(this).parents('table').eq(0)
                     let rows = table.find('tr:gt(0)').toArray().sort(compare($(this).index()))
                     this.asc = !this.asc
 
-                    # If the sorting direction is descending, it reverses the rows' order
                     if (!this.asc) {
                         rows = rows.reverse()
                     }
 
-                    # Restores the sorted rows to the table in the new order.
                     for (let i = 0; i < rows.length; i++) {
                         table.append(rows[i])
                     }
                 })
             })
 
-            # Gives the table searching ability
             $(document).ready(function() {
                 $('#searchBox').on('keyup', function() {
                 var value = $(this).val().toLowerCase()
@@ -62,23 +51,20 @@
     <body>
         <h1>Courses List</h1>
         <input type="text" id="searchBox" placeholder="Search...">
-        <table id="coursesTable"> # The id is used for the script above
+        <table id="coursesTable">
             <thread>
-                <tr> # Table Header Row
-                    <th>Course Number</th> <th>Course Name</th> <th>Term</th> <th>Campus</th> <th>Actions</th> # Header Cells
+                <tr>
+                    <th>Course Number</th> <th>Course Name</th> <th>Term</th> <th>Campus</th> <th>Actions</th>
                 </tr>
             </thread>
-            <tbody> # Table Body
+            <tbody>
                 <% @courses.each do |course| %>
-                    <tr> # Table Body Row
-                        # Table Body Cells
+                    <tr>
                         <td><%= course.number %></td>
                         <td><%= course.name %></td>
                         <td><%= course.term %></td>
                         <td><%= course.campus %></td>
                         <td><%= link_to 'Show', course %></td>
-                       
-                      
                     </tr>
                 <% end %>
             </tbody>
