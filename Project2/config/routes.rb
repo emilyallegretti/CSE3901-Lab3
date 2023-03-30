@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   patch 'requests/:id', to: 'requests#update'
   get 'requests', to: 'requests#index'
   get 'reload/new', to: 'reload#new'
+  get 'reload/dashboard', to: 'dashboard#reload_database'
   post 'reload/dashboard', to: 'dashboard#load_in_database'
   
   # auto-generated Devise routes.
@@ -22,4 +23,12 @@ Rails.application.routes.draw do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
   end
+  resources :dashboard do
+    collection do
+      get :reload_database
+    end
+  end
+
+  
+
 end

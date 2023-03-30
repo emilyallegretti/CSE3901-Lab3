@@ -14,12 +14,12 @@
             }
         </style>
         <script type="text/javascript"> # This script give the ability to sort and search in the courses table
-            # This function get cell value from specific rown and columns
+             //This function get cell value from specific rown and columns
             function getCellValue(row, idx) {
                 return $(row).children('td').eq(idx).text()
             }
 
-            # This function compares two cell values occur in the same column
+            //# This function compares two cell values occur in the same column
             function compare(idx) {
                 return function(val1, val2) {
                     let firstVal = getCellValue(val1, idx)
@@ -28,26 +28,26 @@
                 }
             }
 
-            # It provides the user the ability to sort the table
+            //# It provides the user the ability to sort the table
             $(document).ready(function() {
                 $('#coursesTable th').click(function() {
                     let table = $(this).parents('table').eq(0)
                     let rows = table.find('tr:gt(0)').toArray().sort(compare($(this).index()))
                     this.asc = !this.asc
 
-                    # If the sorting direction is descending, it reverses the rows' order
+                    //# If the sorting direction is descending, it reverses the rows' order
                     if (!this.asc) {
                         rows = rows.reverse()
                     }
 
-                    # Restores the sorted rows to the table in the new order.
+                    //# Restores the sorted rows to the table in the new order.
                     for (let i = 0; i < rows.length; i++) {
                         table.append(rows[i])
                     }
                 })
             })
 
-            # Gives the table searching ability
+            //# Gives the table searching ability
             $(document).ready(function() {
                 $('#searchBox').on('keyup', function() {
                 var value = $(this).val().toLowerCase()
