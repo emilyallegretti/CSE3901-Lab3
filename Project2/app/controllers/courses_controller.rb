@@ -4,7 +4,6 @@ class CoursesController < ApplicationController
     # for show, edit, update, and destroy, we are finding a specific course associated with the :id passed in the URL
     before_action :find_course, only: [:show, :edit, :update, :destroy]
 
-    layout :render_layout
 
     # index will render views/courses/index.html.erb 
     # this will list all of the courses listed in the database
@@ -89,15 +88,5 @@ class CoursesController < ApplicationController
         params.require(:course).permit(:name, :number,:term,:campus)
     end
     
-    protected
-    # Render the layout corresponding to the type of user logged in.
-    def render_layout
-        if current_user.role == "admin"
-            "admin"
-        elsif current_user.role == "instructor"
-            "instructor"
-        else
-            "student"
-        end
-    end
+   
 end

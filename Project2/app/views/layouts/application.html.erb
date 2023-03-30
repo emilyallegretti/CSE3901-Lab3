@@ -12,6 +12,73 @@
   </head>
 
   <body>
+  <%= render "layouts/navbar" %>
+
+  <% if flash.any? %>
+  <div id="banner">
+  <%flash.each do |key, message|%>
+  <div class = "flash <%= key %>" >
+  <%=message%>
+  </div>
+  <%end%>
+  </div>
+  <%end%>
+
+   <% if current_user.role == "admin"%>
+     <table id = "menuBar">
+        <tr>
+    
+            <td>
+                <%= button_to "Browse Catalog", courses_path, method: :get %>
+            </td>
+            <% if current_user.pending_approval? %>
+            
+        <p>You are currently pending admin approval. Until you are approved, you are only able to browse the course catalog.</p>
+
+                <td>
+                    <%= button_to "Status Requests", "/requests", method: :get, :disabled => true %>
+                </td>
+                <td>
+                    <%= button_to "Reload Database", "/reload/new", method: :get, :disabled => true %>
+                </td>
+            <% else %>
+                <td>
+                    <%= button_to "Status Requests", "/requests", method: :get %>
+                </td>
+                <td>
+                    <%= button_to "Reload Database", "/reload/new", method: :get %>
+                </td>
+            <% end %>
+        </tr>
+    </table>
+    <hr>
+
+    <%elsif current_user.role == "instructor" %>
+     <% if current_user.pending_approval? %>
+      <p>You are currently pending admin approval. Until you are approved, you are only able to browse the course catalog.</p>
+    <% end %>
+    <table id = "menuBar">
+      <tr>
+        <td>
+          <%= button_to "Browse Catalog", courses_path, method: :get %>
+        </td>
+        
+      </tr>
+    </table>
+    <hr>
+
+    <%else%>
+<table id = "menuBar">
+      <tr>
+        
+        <td>
+          <%= button_to "Browse Catalog", courses_path, method: :get %>
+        </td>
+       
+      </tr>
+    </table>
+    <hr>
+    <%end%>
     <%= yield %>
   </body>
 </html>

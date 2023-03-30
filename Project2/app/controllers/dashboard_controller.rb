@@ -10,7 +10,7 @@ class DashboardController < ApplicationController
     def reload_database
         Section.destroy_all
         Course.destroy_all      
-        Services::Parsing.get("col","1234") #params from view
+        Services::Parsing.new(params[:campus], params[:term]) #params from view
         redirect_to courses_path
     end
 end   

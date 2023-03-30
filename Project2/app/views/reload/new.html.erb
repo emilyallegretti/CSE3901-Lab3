@@ -1,13 +1,11 @@
 <h1>Reload Database</h1>
 
-<%= bootstrap_form_with model: @course, url: course_path(@course), method: patch, local: true do |f|%>
-    <%= label "Term"%>
-    <%= f.select: term, ["All Terms", "Spring 2023", "Summer 2023", "Autumn 2023"]%>
-    <%= label "Campus"%>
-    <%= f.select: campus, ["All Campuses", "Columbus", "Newark", "Mansfield", "Wooster", "Marion", "Lima"]%>
-    <%= label "Academic Career"%>
-    <%= f.select: academic_career, ["All Careers", "Undergrad"]%>
-    <%= label "Subject"%>
-    <%= f.select: subject, ["All Subjects", "CSE"]%>
-    <%= f.submit "Reload"%>
+<%= bootstrap_form_tag url: "dashboard", method: :post do |f|%>
+    
+    <%= f.select :term, ["All Terms", "Spring 2023", "Summer 2023", "Autumn 2023"]%>
+    
+    <%= f.select :campus, ["All Campuses", "Columbus", "Newark", "Mansfield", "Wooster", "Marion", "Lima"]%>
+    
+    <%= f.submit "Load Courses" %>
+
 <% end %>

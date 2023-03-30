@@ -1,7 +1,8 @@
 class ReloadController < ApplicationController
-  layout "admin"
+  
     
-  # get an HTML form for inputting filters on the reload
+  # get an HTML form with the help of an empty Course for inputting filters on the reload
   def new
+    @course= Course.new
   end
 end
