@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<% if current_user %>
-  <%= current_user.email %>
-<% end %>
-<html>
-    <head>
-        <title>Courses List</title>
-        <meta name="AdminCoursesListView" content="width=device-width,initial-scale=1">
-        <%= csrf_meta_tags %>
-        <%= csp_meta_tag %>
-        <style> # Added just for testing purpose, you can remove it
-            table, th, td {
-            border: 1px solid black;
-            }
-        </style>
+ <head>
+    
+        
         <script type="text/javascript"> //# This script give the ability to sort and search in the courses table
            // # This function get cell value from specific rown and columns
             function getCellValue(row, idx) {
@@ -61,12 +49,11 @@
     </head>
 
     <body>
-        <h1>Courses List</h1>
         <input type="text" id="searchBox" placeholder="Search...">
         <table id="coursesTable"> 
             <thread>
                 <tr> 
-                    <th>Course Number</th> <th>Course Name</th> <th>Term</th> <th>Campus</th> <th>Actions</th> 
+                    <th>Number</th> <th>Name</th> <th>Term</th> <th>Campus</th> <th>Actions</th> 
                 </tr>
             </thread>
             <tbody> 
@@ -77,14 +64,17 @@
                         <td><%= course.term %></td>
                         <td><%= course.campus %></td>
                         <td><%= link_to 'Show', course %></td>
+                        <% if current_user.role == "admin" && not(current_user.pending_approval?) %>
                         <td><%= link_to 'Edit', edit_course_path(course) %></td>
                         <td><%= button_to 'Delete', course_path(course), method: :delete, data: {turbo_confirm: "are you sure?"} %></td>
+                        <%end%>
                         
                        
                     </tr>
                 <% end %>
             </tbody>
         </table>
+        <% if current_user.role == "admin" && not(current_user.pending_approval?) %>
         <br /> <%= link_to 'New Course', new_course_path %>
+        <%end%>
     </body>
-</html>
