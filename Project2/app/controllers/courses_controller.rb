@@ -1,12 +1,11 @@
 class CoursesController < ApplicationController
     # skip authentication; we already have verified the type of user logged in
-   skip_before_action :verify_authenticity_token
+    skip_before_action :verify_authenticity_token
     # for show, edit, update, and destroy, we are finding a specific course associated with the :id passed in the URL
-     before_action :find_course, only: [:show, :edit, :update, :destroy]
+    before_action :find_course, only: [:show, :edit, :update, :destroy]
 
-     layout :render_layout
+    layout :render_layout
 
-   
     # index will render views/courses/index.html.erb 
     # this will list all of the courses listed in the database
     # courses/index.html.erb will need access to @courses, which is a collection of all the courses in the database
@@ -78,28 +77,27 @@ class CoursesController < ApplicationController
         @course.destroy
         flash[:notice] = "Course Successfully Updated"
         redirect_to action: :index
-    end 
-
+    end
 
     # find the course with :id
     private def find_course
             @course = Course.find(params[:id])
     end
+
     # sanitize inputs
     private def course_params
         params.require(:course).permit(:name, :number,:term,:campus)
     end
     
- protected
- # Render the layout corresponding to the type of user logged in.
-  def render_layout
-         if current_user.role == "admin"
-      "admin"
-    elsif current_user.role == "instructor"
-      "instructor"
-    else
-      "student"
+    protected
+    # Render the layout corresponding to the type of user logged in.
+    def render_layout
+        if current_user.role == "admin"
+            "admin"
+        elsif current_user.role == "instructor"
+            "instructor"
+        else
+            "student"
+        end
     end
-end
-     
 end

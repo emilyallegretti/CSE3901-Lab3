@@ -1,14 +1,12 @@
 class SectionsController < ApplicationController
     # for show, edit, update, and destroy, we are finding a specific course associated with the :id passed in the URL
-    #before_action :find_course, only [:show, :edit, :update, :destroy]
+    # before_action :find_course, only [:show, :edit, :update, :destroy]
 
-   
     # index will render views/courses/index.html.erb 
     # this will list all of the courses listed in the database
     # courses/index.html.erb will need access to @courses, which is a collection of all the courses in the database
     def index  
         @section = Section.all
-        
     end 
 
     # create will POST a new course, creating a new row in the Courses table and saving it to the database 
@@ -31,7 +29,7 @@ class SectionsController < ApplicationController
 
     # show will show a specific course and all of its information, if the user clicks on it. 
     # find_course has already found the specific course for us
-    #TODO: do we need show?
+    # TODO: do we need show?
     def show
          if @section.nil?
             #TODO: flash message?
@@ -41,15 +39,13 @@ class SectionsController < ApplicationController
 
     # edit will return a filled HTML form for the specified student so that the user can modify the fields. On submission of that
     # form, "update" will be called.
-     # find_course has already found the specific course for us
+    # find_course has already found the specific course for us
     def edit 
     end
 
     # updates the record for the specified course in the database. This method is called after submission of an "edit course" form,
     # so that the database can be updated appropriately. 
     def update
-        
-
         if @section.update(section_params)
             redirect_to @section
         else 
@@ -68,12 +64,9 @@ class SectionsController < ApplicationController
     # the database with the results of the web scraping. This will need to be the first function called by the first admin
     # in order to initially populate the database.
     def reload
-
         # after reload, redirect to the index page that will list all the courses in the database
         redirect_to action: :index
-
     end
-
 
     private def find_section
             @section = Section.find(params[:id])
@@ -82,6 +75,4 @@ class SectionsController < ApplicationController
     private def section_params
         params.require(:sections).permit( :num_graders_required, :section_number,:start_time,:end_time,:location,:monday,:tuesday , :wednesday ,:thursday ,:friday ,:saturday ,:sunday ,:mode_of_instruction )
     end
-    
-     
 end

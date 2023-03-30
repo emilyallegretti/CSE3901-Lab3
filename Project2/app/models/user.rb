@@ -6,5 +6,6 @@ class User < ApplicationRecord
   has_many :user_section
   has_many :sections, through: :user_section
 
+  # Checks that when a user signs up, the email format follows name.#@osu.edu.
   validates :email, format: /[A-Za-z]+\.[0-9]+@osu\.edu/
 end

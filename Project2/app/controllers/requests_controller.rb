@@ -1,5 +1,5 @@
 class RequestsController < ApplicationController
-      layout "admin"
+  layout "admin"
     
   # List the instructors and admins that are still pending admin approval.
   def index
