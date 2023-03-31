@@ -14,3 +14,21 @@ User.create([{
     :role => "admin"
 
 }])
+User.create([{
+    :email => "instructor.2@osu.edu",
+    :password => "password",
+    :fname => "Scott",
+    :lname => "Sharkey",
+    :pending_approval => true,
+    :role => "instructor"
+
+}])
+User.create([{
+    :email => "student.2@osu.edu",
+    :password => "password",
+    :fname => "Emily",
+    :lname => "Allegretti",
+    :role => "student"
+
+}])
+
