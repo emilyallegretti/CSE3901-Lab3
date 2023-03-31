@@ -1,3 +1,4 @@
+<%if current_user.role == "admin"%>
 <h1>New Instructor/Admin Requests</h1>
         <table>
             <tr>
@@ -11,3 +12,4 @@
                     <td><%= button_to 'Approve', "/requests/#{request.id}", method: :patch %></td>
                 </tr>
             <% end %>
+ <%end%>

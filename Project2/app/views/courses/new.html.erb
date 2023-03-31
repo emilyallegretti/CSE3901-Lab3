@@ -1,3 +1,4 @@
+<%if current_user.role == "admin"%>
 <h1>New Course</h1>
 
 <%= bootstrap_form_with model: @course, url: courses_path, method: :post, local: true do |f| %>
@@ -11,3 +12,4 @@
 <% end %>
 
 <%= "Back to Courses", courses_path %>
+<%end%>

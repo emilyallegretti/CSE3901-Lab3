@@ -1,3 +1,4 @@
+<%if current_user.role == "admin"%>
 <h1>Reload Database</h1>
 
 <%= bootstrap_form_tag url: "/reload", method: :post do |f|%>
@@ -12,3 +13,4 @@
     
     
 <% end %>
+<%end%>

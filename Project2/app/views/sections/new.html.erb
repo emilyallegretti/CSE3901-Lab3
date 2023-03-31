@@ -1,3 +1,4 @@
+<%if current_user.role == "admin"%>
 <h1>New Section</h1>
 
 <%= bootstrap_form_with model: @section, url: course_sections_path(@course), method: :post, local: true do |f| %>
@@ -20,3 +21,4 @@
 
 <% end %>
 <h3><%= link_to "Back to Sections", course_sections_path(@course) %> </h3>
+<%end%>
