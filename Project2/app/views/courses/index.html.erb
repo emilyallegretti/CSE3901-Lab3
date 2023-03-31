@@ -64,10 +64,10 @@
                         <td><%= course.term %></td>
                         <td><%= course.campus %></td>
                         <td><%= link_to 'Show', course %></td>
-                        <td><%=link_to 'Sections'%>
+                        <td><%=link_to 'Sections', course_sections_path(course)%>
                         <% if current_user.role == "admin" && not(current_user.pending_approval?) %>
                         <td><%= link_to 'Edit', edit_course_path(course) %></td>
-                        <td><%= button_to 'Delete', course_path(course), method: :delete, data: {turbo_confirm: "are you sure?"} %></td>
+                        <td><%= button_to 'Delete', course_path(course), method: :delete, data: {turbo_confirm: "Are you sure you want to delete this course?"} %></td>
                         <%end%>
                         
                        
