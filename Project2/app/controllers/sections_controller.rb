@@ -1,6 +1,9 @@
+# This controller handles all actions relating to course sections: editing, creating, deleting (which are 
+# admin only actions), viewing sections available for each course, and listing all the sections available to the specified course.
+
 class SectionsController < ApplicationController
-    # for show, edit, update, and destroy, we are finding a specific section associated with the :id passed in the URL
-    # before_action :find_section, only [:show, :edit, :update, :destroy]
+    # for show, edit, update, and destroy, we are finding a specific course associated with the :id passed in the URL
+    # before_action :find_course, only [:show, :edit, :update, :destroy]
 
     # index will render views/sections/index.html.erb 
     # this will list all of the sections listed in the database
@@ -38,7 +41,7 @@ class SectionsController < ApplicationController
         end
     end
 
-    # edit will return a filled HTML form for the specified student so that the user can modify the fields. On submission of that
+    # edit will return a filled HTML form for the specified section so that the user can modify the fields. On submission of that
     # form, "update" will be called.
     # find_section has already found the specific section for us
     def edit 
@@ -62,8 +65,14 @@ class SectionsController < ApplicationController
         redirect_to action: :index
     end 
 
-    
-    # find the course with :id
+    # reload will scrape the API for course data on CSE courses, clear the database if it is not already empty, and re-populate
+    # the database with the results of the web scraping. This will need to be the first function called by the first admin
+    # in order to initially populate the database.
+    def reload
+        # after reload, redirect to the index page that will list all the courses in the database
+        redirect_to action: :index
+    end
+
     private def find_section
         @section = Section.find(params[:id])
     end

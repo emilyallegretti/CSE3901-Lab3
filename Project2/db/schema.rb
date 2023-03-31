@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_003407) do
 
   create_table "sections", force: :cascade do |t|
     t.integer "num_graders_required", default: 1, null: false
-    t.integer "section_number", null: false
+    t.string "section_number", null: false
     t.string "start_time"
     t.string "end_time"
     t.string "location"
