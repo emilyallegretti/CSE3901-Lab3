@@ -1,6 +1,6 @@
 <h1>Reload Database</h1>
 
-<%= bootstrap_form_tag url: "dashboard", method: :post do |f|%>
+<%= bootstrap_form_tag url: "/reload", method: :post do |f|%>
     
     <%= f.select :term, ["All Terms", "Spring 2023", "Summer 2023", "Autumn 2023"]%>
     

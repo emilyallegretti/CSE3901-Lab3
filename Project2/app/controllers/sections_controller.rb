@@ -1,6 +1,6 @@
 class SectionsController < ApplicationController
     # for show, edit, update, and destroy, we are finding a specific course associated with the :id passed in the URL
-    # before_action :find_course, only [:show, :edit, :update, :destroy]
+     before_action :find_section, only [:show, :edit, :update, :destroy]
 
     # index will render views/courses/index.html.erb 
     # this will list all of the courses listed in the database
