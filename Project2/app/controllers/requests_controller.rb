@@ -1,3 +1,6 @@
+# This controller handles actions relating to Pending Approval requests from admins and instructors who have just signed up. 
+# It allows the admin to view the list of users who are pending approval from another admin, and it updates 
+# the user's record in the database upon admin approval. 
 class RequestsController < ApplicationController
  
     

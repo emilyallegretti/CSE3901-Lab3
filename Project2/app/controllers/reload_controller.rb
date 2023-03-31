@@ -1,3 +1,5 @@
+# This controller handles actions relating to reloading the database. It allows the admin to get the empty form where they specify 
+# filters for reloading the database (if any), and trigger a reload of the database on submission of that form.
 class ReloadController < ApplicationController
 
   skip_before_action :verify_authenticity_token
@@ -16,6 +18,8 @@ class ReloadController < ApplicationController
         #redirect to the newly populated course catalog
         redirect_to courses_path
     end
+
+
 
     # these helper functions map the values passed in from the reload form to its corresponding parameter used in the API URL.
     private def tdictionary

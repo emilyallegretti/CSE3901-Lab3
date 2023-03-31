@@ -1,3 +1,7 @@
+# This controller handles all actions relating to courses: editing, creating, deleting (which are 
+# admin only actions), viewing courses, and listing all the courses
+# in the database.
+
 class CoursesController < ApplicationController
     # skip authentication; we already have verified the type of user logged in
     skip_before_action :verify_authenticity_token
@@ -38,7 +42,6 @@ class CoursesController < ApplicationController
     # find_course has already found the specific course for us
     #TODO: do we need show?
     def show
-        render template: "courses/course_index"
          if @course.nil?
             #TODO: flash message?
             flash[:notice] = "Action Failed"
@@ -46,7 +49,7 @@ class CoursesController < ApplicationController
         end
     end
 
-    # edit will return a filled HTML form for the specified student so that the user can modify the fields. On submission of that
+    # edit will return a filled HTML form for the specified course so that the user can modify the fields. On submission of that
     # form, "update" will be called.
      # find_course has already found the specific course for us
     def edit 
