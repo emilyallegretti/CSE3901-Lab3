@@ -7,23 +7,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-  <h1>OSU CSE Course Catalog</h1>
-  <%= render "layouts/navbar" %>
+   <h1 class="mt-4 text-center">OSU CSE Course Catalog</h1>
+   <%= render "layouts/navbar" %>
 
-  <% if flash.any? %>
-  <div id="banner">
-  <%flash.each do |key, message|%>
-  <div class = "flash <%= key %>" >
-  <%=message%>
-  </div>
-  <%end%>
-  </div>
-  <%end%>
+   <% if flash.any? %>
+     <div id="banner">
+     <%flash.each do |key, message|%>
+       <div class = "flash <%= key %>" >
+         <%=message%>
+       </div>
+     <%end%>
+     </div>
+   <%end%>
 
    <% if current_user.role == "admin"%>
      <table id = "menuBar">
@@ -69,15 +68,13 @@
     <hr>
 
     <%else%>
-<table id = "menuBar">
-      <tr>
-        
-        <td>
-          <%= button_to "Browse Catalog", courses_path, method: :get %>
-        </td>
-       
-      </tr>
-    </table>
+      <table id = "menuBar">
+        <tr>
+          <td>
+            <%= button_to "Browse Catalog", courses_path, method: :get %>
+          </td>
+        </tr>
+      </table>
     <hr>
     <%end%>
     <%= yield %>
