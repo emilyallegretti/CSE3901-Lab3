@@ -73,7 +73,7 @@ class CoursesController < ApplicationController
 
     # find the course with :id
     private def find_course
-            @course = Course.find(params[:id])
+        @course = Course.find(params[:id])
     end
 
     # sanitize inputs
