@@ -11,13 +11,13 @@
         <!-- Detemines which course to show it attributes from the previous page -->
         
         <!-- Show course attributes -->
-                <h1><%= @course.number %> - <%= @course.name %></h1>
-                <hr>
-                <h3>Term:  <%= @course.term %></h3>
-                <h3>Campus:  <%= @course.campus %></h3>
+        <h1><%= @course.number %> - <%= @course.name %></h1>
+        <hr>
+        <h3>Term:  <%= @course.term %></h3>
+        <h3>Campus:  <%= @course.campus %></h3>
 
-                <a href="/courses">Return to Courses</a>
-            
-     
+        <a href="/courses">Return to Courses</a>
     </body>
 </html>
+
+<%== pagy_bootstrap_nav(@pagy) %>
