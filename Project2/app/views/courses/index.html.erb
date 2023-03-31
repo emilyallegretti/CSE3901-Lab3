@@ -1,61 +1,59 @@
- <head>
-    
-        
-        <script type="text/javascript"> //# This script give the ability to sort and search in the courses table
-           // # This function get cell value from specific rown and columns
-            function getCellValue(row, idx) {
-                return $(row).children('td').eq(idx).text()
+<head>
+    <script type="text/javascript"> //# This script give the ability to sort and search in the courses table
+    // # This function get cell value from specific rown and columns
+    function getCellValue(row, idx) {
+        return $(row).children('td').eq(idx).text()
+    }
+
+    //# This function compares two cell values occur in the same column
+    function compare(idx) {
+        return function(val1, val2) {
+            let firstVal = getCellValue(val1, idx)
+            let secondVal = getCellValue(val2, idx)
+            return $.isNumeric(firstVal) && $.isNumeric(secondVal) ? firstVal - secondVal : firstVal.localeCompare(secondVal)
+        }
+    }
+
+    //# It provides the user the ability to sort the table
+    $(document).ready(function() {
+        $('#coursesTable th').click(function() {
+            let table = $(this).parents('table').eq(0)
+            let rows = table.find('tr:gt(0)').toArray().sort(compare($(this).index()))
+            this.asc = !this.asc
+
+            //If the sorting direction is descending, it reverses the rows' order
+            if (!this.asc) {
+                rows = rows.reverse()
             }
 
-            //# This function compares two cell values occur in the same column
-            function compare(idx) {
-                return function(val1, val2) {
-                    let firstVal = getCellValue(val1, idx)
-                    let secondVal = getCellValue(val2, idx)
-                    return $.isNumeric(firstVal) && $.isNumeric(secondVal) ? firstVal - secondVal : firstVal.localeCompare(secondVal)
-                }
+            //# Restores the sorted rows to the table in the new order.
+            for (let i = 0; i < rows.length; i++) {
+                table.append(rows[i])
             }
+        })
+    })
 
-            //# It provides the user the ability to sort the table
-            $(document).ready(function() {
-                $('#coursesTable th').click(function() {
-                    let table = $(this).parents('table').eq(0)
-                    let rows = table.find('tr:gt(0)').toArray().sort(compare($(this).index()))
-                    this.asc = !this.asc
-
-                    //If the sorting direction is descending, it reverses the rows' order
-                    if (!this.asc) {
-                        rows = rows.reverse()
-                    }
-
-                    //# Restores the sorted rows to the table in the new order.
-                    for (let i = 0; i < rows.length; i++) {
-                        table.append(rows[i])
-                    }
-                })
-            })
-
-            //# Gives the table searching ability
-            $(document).ready(function() {
-                $('#searchBox').on('keyup', function() {
-                var value = $(this).val().toLowerCase()
-                $('#coursesTable tr').filter(function() {
+    //# Gives the table searching ability
+    $(document).ready(function() {
+        $('#searchBox').on('keyup', function() {
+            var value = $(this).val().toLowerCase()
+            $('#coursesTable tr').filter(function() {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             })
-                })
-            })
-                
-        </script>
-    </head>
+        })
+    })        
+    </script>
+</head>
 
-    <body>
-        <input type="text" id="searchBox" placeholder="Search...">
-        <table id="coursesTable"> 
-            <thread>
-                <tr> 
-                    <th>Number</th> <th>Name</th> <th>Term</th> <th>Campus</th> <th>Actions</th> 
-                </tr>
-            </thread>
+<body>
+    <input type="text" id="searchBox" placeholder="Search...">
+    <table id="coursesTable"> 
+        <thread>
+            <tr> 
+                <th>Number</th> <th>Name</th> <th>Term</th> <th>Campus</th> <th>Actions</th> 
+            </tr>
+        </thread>
+    
             <tbody> 
                 <% @courses.each do |course| %>
                     <tr> 
@@ -77,5 +75,7 @@
         </table>
         <% if current_user.role == "admin" && not(current_user.pending_approval?) %>
         <br /> <%= link_to 'New Course', new_course_path %>
-        <%end%>
-    </body>
+    <%end%>
+</body>
+
+<%== pagy_bootstrap_nav(@pagy) %>
