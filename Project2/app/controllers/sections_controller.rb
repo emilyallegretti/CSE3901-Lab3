@@ -38,7 +38,6 @@ class SectionsController < ApplicationController
     # find_section has already found the specific section for us
     # TODO: do we need show?
     def show
-        render template: "sections/section_index"
          if @section.nil?
             flash[:notice] = "Action Failed"
             redirect_to action: :index
