@@ -14,7 +14,15 @@ class ReloadController < ApplicationController
       # if there are courses in the database already, clear them out
         Course.destroy_all
         # parse the API
-        Services::Parsing.load(cdictionary, tdictionary) #params from view
+        term_dictionary = {"All Terms"=>"","Spring 2023"=>"1232","Autumn 2023"=>"1238","Summer 2023"=>"1234"}
+        n = tdictionary
+        if n==""
+          Services::Parsing.load(cdictionary, term_dictionary["Spring 2023"])
+          Services::Parsing.load(cdictionary, term_dictionary["Autumn 2023"])
+          Services::Parsing.load(cdictionary, term_dictionary["Summer 2023"])
+        else  
+          Services::Parsing.load(cdictionary, tdictionary) #params from view
+        end
         #redirect to the newly populated course catalog
         redirect_to courses_path
     end
