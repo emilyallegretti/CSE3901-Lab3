@@ -14,8 +14,10 @@ class ReloadController < ApplicationController
       # if there are courses in the database already, clear them out
         Course.destroy_all
         # parse the API
+        # map the form parameters to their corresponding URL code 
         term_dictionary = {"All Terms"=>"","Spring 2023"=>"1232","Autumn 2023"=>"1238","Summer 2023"=>"1234"}
         n = tdictionary
+        # if "all terms" was chosen, parse in data for each term
         if n==""
           Services::Parsing.load(cdictionary, term_dictionary["Spring 2023"])
           Services::Parsing.load(cdictionary, term_dictionary["Autumn 2023"])
@@ -37,6 +39,7 @@ class ReloadController < ApplicationController
     end
     private def cdictionary
       #map the campus filter to its query abbreviation
+      # In the API, selecting "All Campuses" defaults to Columbus campus
         campus_dictionary = {"All Campuses"=>"col","Columbus"=>"col","Lima"=> "lma","Mansfield" => "mns","Marion" => "MRN","Newark" => "nwk","Wooster" => "WST"}
         return campus_dictionary[params[:campus]]
     end

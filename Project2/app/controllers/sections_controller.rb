@@ -21,7 +21,7 @@ class SectionsController < ApplicationController
 
         if @section.save
              flash[:notice] = "Course Successfully Updated"
-            redirect_to course_section_path(@section) 
+            redirect_to course_section_path(@course, @section) 
         else 
             flash.now[:notice] = "Action Failed"
             render "new"
@@ -31,7 +31,7 @@ class SectionsController < ApplicationController
     # new will render views/sections/new.html.erb
     # this will return a blank HTML form, having method POST for adding a new section. On submission of that form, "create" will be called.
     def new
-        section = @course.sections.build
+        @section = @course.sections.build
     end
 
     # show will show a specific section and all of its information, if the user clicks on it. 
