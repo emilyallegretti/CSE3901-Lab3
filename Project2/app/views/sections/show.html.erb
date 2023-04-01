@@ -34,8 +34,10 @@
                 <h3> Location: <%= @section.location %></h3>
                 <h3> Mode of Instruction: <%= @section.mode_of_instruction %></h3>
                 <h3> Number of Graders Required: <%= @section.num_graders_required %></h3>
+                <br> <%= link_to "Edit Section", edit_course_section_path(@course, @section) %>
 
-                <%= link_to "Back to Sections", course_sections_path(@course) %>
+
+                <br><%= link_to "Back to Sections", course_sections_path(@course) %>
             
      
     </body>

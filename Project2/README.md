@@ -34,7 +34,7 @@ Installed on your machine:
 2. From a terminal window, navigate to the Team-1-Lab-2 project directory
 3. Run `cd Project2` from the command line to navigate into the inner Rails project folder
 4. Run the `bundle install` command to install the necessary gems
-5. Run `rails db:drop` and then `rails db:migrate` to initialize the database 
+5. Run  `rails db:create` and then `rails db:migrate` to create and initialize the database with the current schema 
 
 ### Creating the Pre-Approved Admin
 When a user specifies that they are an admin or an instructor on signup, that user must be approved for elevated privileges by a pre-existing admin. So, a pre-approved admin must be created on startup of the app. 
@@ -65,8 +65,23 @@ Since administrators have total control over what course data is present in this
 ### Conclusion
 The catalog is now ready for other OSU admins, students, and instructors to access!
 
-## Using the App
+## User Guide 
 
+### Signing Up
+- If you are a new user, you will have to sign up for the app. Click "Sign Up" from the login landing page to get a new sign-up form.
+- You must 
+
+
+### Signing In 
+
+### Editing Your Account and Resetting your Password
+
+### Administrator Home Page and Actions
+
+### Student/Instructor Home Page and Actions
+
+
+#
 
 
 
@@ -83,4 +98,5 @@ The catalog is now ready for other OSU admins, students, and instructors to acce
 
 **Game of Set Wikipedia**: https://en.wikipedia.org/wiki/Set_(card_game) 
 
+## 5. Testing
 
