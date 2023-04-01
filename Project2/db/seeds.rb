@@ -8,7 +8,7 @@
 User.create([{
     :email => "admin.1@osu.edu",
     :password => "password",
-    :fname => "fisrtname",
+    :fname => "firstname",
     :lname => "lastname",
     :pending_approval => false,
     :role => "admin"
