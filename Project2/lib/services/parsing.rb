@@ -2,20 +2,17 @@ module Services
     class Parsing
         include HTTParty
         base_uri "https://content.osu.edu/v2/classes/search"
-        default_params q: "cse", client: "class-search-ui", p: "1" #academic-career: "ugrd"
+        default_params q: "cse", client: "class-search-ui", p: "1" 
         format :json
 
-        def initialize(campus_q, term_q)
-            @options = { query: {campus: campus_q, term: term_q} }
-        end
-
+        #load in courses and sections data from API documentation
         def self.load (campus_q, term_q)
-            if term_q == ""
+            #check for all terms option
+            if term_q == "" 
                 @pars_resp = get("",{ query: {campus: campus_q} })["data"]["courses"]
             else
                 @pars_resp = get("",{ query: {campus: campus_q, term: term_q} })["data"]["courses"]
             end
-#puts @pars_resp
             #load in courses data
             @pars_resp.each do |k|
                 c = Course.create(name: k["course"]["title"],number: k["course"]["catalogNumber"],term: k["course"]["term"],campus: k["course"]["campus"])

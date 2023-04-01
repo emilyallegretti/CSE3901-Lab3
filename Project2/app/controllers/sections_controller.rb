@@ -11,7 +11,7 @@ class SectionsController < ApplicationController
     # this will list all of the sections listed for the specified @course
     # sections/index.html.erb will need access to @sections, which is a collection of all the sections associated with @course
     def index  
-        @sections = @course.sections
+        @pagy, @sections = pagy(@course.sections)
     end 
 
     # create will POST a new section associated with the given course, creating a new row in the sections table and saving it to the database 
@@ -69,7 +69,7 @@ class SectionsController < ApplicationController
         redirect_to action: :index
     end 
 
-# get the parent course for the sections we want to manipulate.
+    # get the parent course for the sections we want to manipulate.
     private def find_course
             @course = Course.find(params[:course_id])
     end
@@ -77,7 +77,8 @@ class SectionsController < ApplicationController
     private def find_section
         @section = @course.sections.find(params[:id])
     end
-
+    
+    # sanitize inputs
     private def section_params
         params.require(:section).permit( :num_graders_required, :section_number,:start_time,:end_time,:location,:monday,:tuesday , :wednesday ,:thursday ,:friday ,:saturday ,:sunday ,:mode_of_instruction )
     end
