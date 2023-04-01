@@ -8,11 +8,12 @@ module Services
         #load in courses and sections data from API documentation
         def self.load (campus_q, term_q)
             #check for all terms option
-            if term_q == "" 
-                @pars_resp = get("",{ query: {campus: campus_q} })["data"]["courses"]
-            else
-                @pars_resp = get("",{ query: {campus: campus_q, term: term_q} })["data"]["courses"]
-            end
+            # if term_q == "" #all terms option
+            #     @pars_resp = get("",{ query: {campus: campus_q} })["data"]["courses"]
+
+            # else
+            @pars_resp = get("",{ query: {campus: campus_q, term: term_q} })["data"]["courses"]
+            #end
             #load in courses data
             @pars_resp.each do |k|
                 c = Course.create(name: k["course"]["title"],number: k["course"]["catalogNumber"],term: k["course"]["term"],campus: k["course"]["campus"])
