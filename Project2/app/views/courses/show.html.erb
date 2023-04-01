@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Courses List</title>
-        <meta name="StudentCoursesListView" content="width=device-width,initial-scale=1">
-        <%= csrf_meta_tags %>
-        <%= csp_meta_tag %>
-    </head>
 
     <body>
         <!-- Detemines which course to show it attributes from the previous page -->
@@ -15,9 +7,10 @@
                 <hr>
                 <h3>Term:  <%= @course.term %></h3>
                 <h3>Campus:  <%= @course.campus %></h3>
+                <%= link_to "Course Sections", course_sections_path(@course)%>
 
-                <a href="/courses">Return to Courses</a>
+
+                <% link_to "Back To Courses", courses_path %>
             
      
     </body>
-</html>

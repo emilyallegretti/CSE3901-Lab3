@@ -1,0 +1,59 @@
+<body>
+        <table id="sectionsTable"> 
+            <thread>
+                <tr> 
+                    <th>Course Number</th><th>Section Number</th> <th>Start Time</th> <th>End Time</th> <th>Days of Week</th> <th>Location</th><th>Mode of Instruction</th><th>Num. Graders Required</th>  <th>Actions</th> 
+                </tr>
+            </thread>
+            <tbody> 
+                <% @sections.each do |section| %>
+                    <tr> 
+                     <td><%= section.course.number %></td>
+                        <td><%= section.section_number %></td>
+                        <td><%= section.start_time %></td>
+                        <td><%= section.end_time %></td>
+                        <!-- Create a string depicting the section's days of the week -->
+                        <% days = ""%>
+                        <% if section.monday %>
+                        <% days += "M"%>
+                        <% end%>
+                        <% if section.tuesday %>
+                        <% days += " Tu"%>
+                        <% end%>
+                        <% if section.wednesday %>
+                        <% days += " W"%>
+                        <% end%>
+                        <% if section.thursday %>
+                        <% days += " Th"%>
+                        <% end%>
+                        <% if section.friday %>
+                        <% days += " F"%>
+                        <% end%>
+                        <% if section.saturday %>
+                        <% days += " Sat"%>
+                        <% end%>
+                        <% if section.sunday %>
+                        <% days += " Sun"%>
+                        <% end%>
+
+                        <td><%= days %></td>
+                         <td><%= section.location %></td>
+                          <td><%= section.mode_of_instruction %></td>
+                           <td><%= section.num_graders_required %></td>
+
+
+                        <td><%= link_to 'Show', course_section_path(@course, section) %></td>
+                        <% if current_user.role == "admin" && not(current_user.pending_approval?) %>
+                        <td><%= link_to 'Edit', edit_course_section_path(@course, section) %></td>
+                        <td><%= button_to 'Delete', course_section_path(@course, section), method: :delete, data: {turbo_confirm: "Are you sure you want to delete this section?"} %></td>
+                        <%end%>
+                        
+                       
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <% if current_user.role == "admin" && not(current_user.pending_approval?) %>
+        <br /> <%= link_to 'New Section', new_course_section_path(@course) %>
+        <%end%>
+    </body>

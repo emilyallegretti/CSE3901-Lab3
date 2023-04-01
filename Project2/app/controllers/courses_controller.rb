@@ -8,14 +8,12 @@ class CoursesController < ApplicationController
     # for show, edit, update, and destroy, we are finding a specific course associated with the :id passed in the URL
     before_action :find_course, only: [:show, :edit, :update, :destroy]
 
-
     # index will render views/courses/index.html.erb 
     # this will list all of the courses listed in the database
     # courses/index.html.erb will need access to @courses, which is a collection of all the courses in the database
     def index  
-        @courses = Course.all
-       
-    end 
+        @pagy, @courses = pagy(Course.all)
+    end
 
     # create will POST a new course, creating a new row in the Courses table and saving it to the database 
     # after POST, we must redirect to a confirmation page from this method saying the course was successfully created
@@ -42,7 +40,7 @@ class CoursesController < ApplicationController
     # find_course has already found the specific course for us
     #TODO: do we need show?
     def show
-         if @course.nil?
+        if @course.nil?
             #TODO: flash message?
             flash[:notice] = "Action Failed"
             redirect_to action: :index
@@ -83,6 +81,4 @@ class CoursesController < ApplicationController
     private def course_params
         params.require(:course).permit(:name, :number,:term,:campus)
     end
-    
-   
 end

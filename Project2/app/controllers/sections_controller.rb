@@ -2,32 +2,36 @@
 # admin only actions), viewing sections available for each course, and listing all the sections available to the specified course.
 
 class SectionsController < ApplicationController
-    # for show, edit, update, and destroy, we are finding a specific course associated with the :id passed in the URL
-    # before_action :find_course, only [:show, :edit, :update, :destroy]
+    # first, find the course we are listing sections for
+     before_action :find_course
+     # for show, edit, update, and destroy, we are finding a specific section associated with the :id passed in the URL
+     before_action :find_section, only: [:show, :edit, :update, :destroy]
 
     # index will render views/sections/index.html.erb 
-    # this will list all of the sections listed in the database
-    # sections/index.html.erb will need access to @sections, which is a collection of all the sections in the database
+    # this will list all of the sections listed for the specified @course
+    # sections/index.html.erb will need access to @sections, which is a collection of all the sections associated with @course
     def index  
-        @section = Section.all
+        @sections = @course.sections
     end 
 
-    # create will POST a new section, creating a new row in the sections table and saving it to the database 
+    # create will POST a new section associated with the given course, creating a new row in the sections table and saving it to the database 
     # after POST, we must redirect to a confirmation page from this method saying the section was successfully created
     def create
-        @section = Section.new(section_params)
+        @section = @course.sections.build(section_params)
 
         if @section.save
-            redirect_to @section 
+             flash[:notice] = "Course Successfully Updated"
+            redirect_to course_section_path(@section) 
         else 
+            flash.now[:notice] = "Action Failed"
             render "new"
         end
     end
 
     # new will render views/sections/new.html.erb
     # this will return a blank HTML form, having method POST for adding a new section. On submission of that form, "create" will be called.
-    # no code needed here, the HTML form with appropriate fields should be created in the View
     def new
+        section = @course.sections.build
     end
 
     # show will show a specific section and all of its information, if the user clicks on it. 
@@ -51,7 +55,8 @@ class SectionsController < ApplicationController
     # so that the database can be updated appropriately. 
     def update
         if @section.update(section_params)
-            redirect_to @section
+             flash[:notice] = "Course Successfully Updated"
+            redirect_to course_section_path(@course)
         else 
             flash.now[:notice] = "Action Failed"
             render :edit 
@@ -61,23 +66,20 @@ class SectionsController < ApplicationController
     # destroys the record of the specified section, and returns to the section collection view.
     def destroy
         @section.destroy
-        flash[:notice] = "Section Successfully Updated"
+         flash[:notice] = "Course Successfully Updated"
         redirect_to action: :index
     end 
 
-    # reload will scrape the API for course data on CSE courses, clear the database if it is not already empty, and re-populate
-    # the database with the results of the web scraping. This will need to be the first function called by the first admin
-    # in order to initially populate the database.
-    def reload
-        # after reload, redirect to the index page that will list all the courses in the database
-        redirect_to action: :index
+# get the parent course for the sections we want to manipulate.
+    private def find_course
+            @course = Course.find(params[:course_id])
     end
 
     private def find_section
-        @section = Section.find(params[:id])
+        @section = @course.sections.find(params[:id])
     end
     # sanitize inputs
     private def section_params
-        params.require(:sections).permit( :num_graders_required, :section_number,:start_time,:end_time,:location,:monday,:tuesday , :wednesday ,:thursday ,:friday ,:saturday ,:sunday ,:mode_of_instruction )
+        params.require(:section).permit( :num_graders_required, :section_number,:start_time,:end_time,:location,:monday,:tuesday , :wednesday ,:thursday ,:friday ,:saturday ,:sunday ,:mode_of_instruction )
     end
 end

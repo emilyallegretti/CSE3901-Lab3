@@ -11,8 +11,10 @@ Rails.application.routes.draw do
   # auto-generated Devise routes.
   devise_for :users
 
-  # CRUD routes for courses.
-  resources :courses
+  # CRUD routes for courses and their associated sections.
+  resources :courses do
+    resources :sections
+  end
   # CRUD routes for status requests: this refers to new instructors and admins that are awaiting approval from existing admins. 
   resources :requests
 
