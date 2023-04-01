@@ -46,14 +46,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_003407) do
 
   create_table "sections", force: :cascade do |t|
     t.integer "num_graders_required", default: 1, null: false
-    t.integer "section_number", null: false
-    t.string "start_time", null: false
-    t.string "end_time", null: false
+    t.string "section_number", null: false
+    t.string "start_time"
+    t.string "end_time"
     t.string "location"
-    t.string "mode_of_instruction"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "course_id", null: false
     t.boolean "monday"
     t.boolean "tuesday"
     t.boolean "wednesday"
@@ -61,6 +57,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_003407) do
     t.boolean "friday"
     t.boolean "saturday"
     t.boolean "sunday"
+    t.string "mode_of_instruction"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "course_id"
     t.index ["course_id"], name: "index_sections_on_course_id"
   end
 
@@ -87,5 +87,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_003407) do
 
   add_foreign_key "applications", "users"
   add_foreign_key "availabilities", "applications"
-  add_foreign_key "sections", "courses"
 end
