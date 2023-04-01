@@ -1,47 +1,38 @@
 <head>
-    <script type="text/javascript"> //# This script give the ability to sort and search in the courses table
-    // # This function get cell value from specific rown and columns
-    function getCellValue(row, idx) {
-        return $(row).children('td').eq(idx).text()
-    }
+    <script type="text/javascript"> // This script give the ability to and search in the courses table
+        // Keep the script running when the user come back to the page.
+        if (sessionStorage.getItem('hasRunBefore') === null) {
+            // The querySelector function connects JavaScript variable with HTML tags.
+            const coursesTable = document.querySelector('#coursesTable');
+            const rows = coursesTable.querySelectorAll('tr:not(#headerRow)');
+            const searchBox = document.querySelector('#searchBox');
 
-    //# This function compares two cell values occur in the same column
-    function compare(idx) {
-        return function(val1, val2) {
-            let firstVal = getCellValue(val1, idx)
-            let secondVal = getCellValue(val2, idx)
-            return $.isNumeric(firstVal) && $.isNumeric(secondVal) ? firstVal - secondVal : firstVal.localeCompare(secondVal)
+            // EventListner for Serach box to detect any user input to the search box.
+            searchBox.addEventListener('input', function() {
+                const searchedVal = this.value.toLowerCase(); // Extract value from search box.
+
+                // Check for each row whether the input value matchs inputted value to the box.
+                rows.forEach(function(row) {
+                    var exist = false; // Exist variable to store whether typed input match with the row info.
+                    const cells = row.querySelectorAll('td'); // connects JavaScript variable cells with cells in one row.
+
+                    // Assign true to match variable if the inputted value exists in cell.
+                    cells.forEach(function(cell) {
+                        var content = cell.textContent.toLowerCase();
+                        if (content.includes(searchedVal)) {
+                            exist = true;
+                        }
+                    });
+
+                    // Match value determines what is displayed in case there is no match.
+                    if (!exist) {
+                        row.style.display = 'none';
+                    } else {
+                        row.style.display = '';
+                    }
+                });
+            });
         }
-    }
-
-    //# It provides the user the ability to sort the table
-    $(document).ready(function() {
-        $('#coursesTable th').click(function() {
-            let table = $(this).parents('table').eq(0)
-            let rows = table.find('tr:gt(0)').toArray().sort(compare($(this).index()))
-            this.asc = !this.asc
-
-            //If the sorting direction is descending, it reverses the rows' order
-            if (!this.asc) {
-                rows = rows.reverse()
-            }
-
-            //# Restores the sorted rows to the table in the new order.
-            for (let i = 0; i < rows.length; i++) {
-                table.append(rows[i])
-            }
-        })
-    })
-
-    //# Gives the table searching ability
-    $(document).ready(function() {
-        $('#searchBox').on('keyup', function() {
-            var value = $(this).val().toLowerCase()
-            $('#coursesTable tr').filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            })
-        })
-    })        
     </script>
 </head>
 
@@ -64,10 +55,9 @@
                         <td><%= link_to 'Show', course %></td>
                         <td><%=link_to 'Sections', course_sections_path(course)%>
                         <% if current_user.role == "admin" && not(current_user.pending_approval?) %>
-                        <td><%= link_to 'Edit', edit_course_path(course) %></td>
-                        <td><%= button_to 'Delete', course_path(course), method: :delete, data: {turbo_confirm: "Are you sure you want to delete this course?"} %></td>
+                            <td><%= link_to 'Edit', edit_course_path(course) %></td>
+                            <td><%= button_to 'Delete', course_path(course), method: :delete, data: {turbo_confirm: "Are you sure you want to delete this course?"} %></td>
                         <%end%>
-                        
                        
                     </tr>
                 <% end %>
