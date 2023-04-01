@@ -5,7 +5,7 @@ class SectionsController < ApplicationController
     # first, find the course we are listing sections for
      before_action :find_course
      # for show, edit, update, and destroy, we are finding a specific section associated with the :id passed in the URL
-     before_action :find_section, only [:show, :edit, :update, :destroy]
+     before_action :find_section, only: [:show, :edit, :update, :destroy]
 
     # index will render views/sections/index.html.erb 
     # this will list all of the sections listed for the specified @course
@@ -20,8 +20,10 @@ class SectionsController < ApplicationController
         @section = @course.sections.build(section_params)
 
         if @section.save
-            redirect_to @section 
+             flash[:notice] = "Course Successfully Updated"
+            redirect_to course_section_path(@section) 
         else 
+            flash.now[:notice] = "Action Failed"
             render "new"
         end
     end
@@ -29,7 +31,7 @@ class SectionsController < ApplicationController
     # new will render views/sections/new.html.erb
     # this will return a blank HTML form, having method POST for adding a new section. On submission of that form, "create" will be called.
     def new
-        @section = @course.sections.build
+        section = @course.sections.build
     end
 
     # show will show a specific section and all of its information, if the user clicks on it. 
@@ -37,7 +39,7 @@ class SectionsController < ApplicationController
     # TODO: do we need show?
     def show
          if @section.nil?
-            #TODO: flash message?
+            flash[:notice] = "Action Failed"
             redirect_to action: :index
         end
     end
@@ -52,9 +54,10 @@ class SectionsController < ApplicationController
     # so that the database can be updated appropriately. 
     def update
         if @section.update(section_params)
-            redirect_to @section
+             flash[:notice] = "Course Successfully Updated"
+            redirect_to course_section_path(@course)
         else 
-            #TODO: flash message?
+            flash.now[:notice] = "Action Failed"
             render :edit 
         end
     end
@@ -62,6 +65,7 @@ class SectionsController < ApplicationController
     # destroys the record of the specified section, and returns to the section collection view.
     def destroy
         @section.destroy
+         flash[:notice] = "Course Successfully Updated"
         redirect_to action: :index
     end 
 
@@ -72,8 +76,9 @@ class SectionsController < ApplicationController
 
     private def find_section
         @section = @course.sections.find(params[:id])
+    end
 
     private def section_params
-        params.require(:sections).permit( :num_graders_required, :section_number,:start_time,:end_time,:location,:monday,:tuesday , :wednesday ,:thursday ,:friday ,:saturday ,:sunday ,:mode_of_instruction )
+        params.require(:section).permit( :num_graders_required, :section_number,:start_time,:end_time,:location,:monday,:tuesday , :wednesday ,:thursday ,:friday ,:saturday ,:sunday ,:mode_of_instruction )
     end
 end
