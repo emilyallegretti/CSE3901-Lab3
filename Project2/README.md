@@ -62,6 +62,8 @@ Since administrators have total control over what course data is present in this
 2. Choose the campus(es) and term(s) you want to load into the catalog
 3. Click "Load Courses". This will redirect you to the list of courses you've just loaded in. 
 
+See the "Reloading the Database" section below for more info.
+
 ### Conclusion
 The catalog is now ready for other OSU admins, students, and instructors to access!
 
