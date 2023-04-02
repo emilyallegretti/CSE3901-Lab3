@@ -16,10 +16,10 @@ class CoursesController < ApplicationController
     end
 
     # create will POST a new course, creating a new row in the Courses table and saving it to the database 
-    # after POST, we must redirect to a confirmation page from this method saying the course was successfully created
+    # after POST, we must redirect to the new course's "show" method, with a flash message the course was successfully created
     def create
+        # create a new course with the params passed in from the input form
         @course = Course.new(course_params)
-
         if @course.save
             flash[:notice] = "Course Successfully Updated"
             redirect_to @course
@@ -31,17 +31,16 @@ class CoursesController < ApplicationController
 
     # new will render views/courses/new.html.erb
     # this will return a blank HTML form, having method POST for adding a new course. On submission of that form, "create" will be called.
-    #create new @course instance for html form
     def new
+         # create new @course instance for html form
         @course = Course.new
     end
 
     # show will show a specific course and all of its information, if the user clicks on it. 
     # find_course has already found the specific course for us
-    #TODO: do we need show?
     def show
+        # display an error message if the course can't be found
         if @course.nil?
-            #TODO: flash message?
             flash[:notice] = "Action Failed"
             redirect_to action: :index
         end
@@ -56,6 +55,7 @@ class CoursesController < ApplicationController
     # updates the record for the specified course in the database. This method is called after submission of an "edit course" form,
     # so that the database can be updated appropriately. 
     def update
+        # attempt to update the course's record in the database using the params passed in from the "edit" form
         if @course.update(course_params)
             flash[:notice] = "Course Successfully Updated"
             redirect_to course_path(@course)
@@ -68,16 +68,17 @@ class CoursesController < ApplicationController
     # destroys the record of the specified course, and returns to the course collection view.
     def destroy
         @course.destroy
+        # display a success message
         flash[:notice] = "Course Successfully Updated"
         redirect_to action: :index
     end
 
-    # find the course with :id
+    # find the course with given :id from the URL
     private def find_course
         @course = Course.find(params[:id])
     end
 
-    # sanitize inputs
+    # sanitize inputs passed in from the input forms
     private def course_params
         params.require(:course).permit(:name, :number,:term,:campus)
     end

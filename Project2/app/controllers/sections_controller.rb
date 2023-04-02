@@ -36,7 +36,6 @@ class SectionsController < ApplicationController
 
     # show will show a specific section and all of its information, if the user clicks on it. 
     # find_section has already found the specific section for us
-    # TODO: do we need show?
     def show
          if @section.nil?
             flash[:notice] = "Action Failed"
