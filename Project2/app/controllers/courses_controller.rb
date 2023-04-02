@@ -12,12 +12,16 @@ class CoursesController < ApplicationController
     # this will list all of the courses listed in the database
     # courses/index.html.erb will need access to @courses, which is a collection of all the courses in the database
     def index  
-            if params[:commit] == nil || params[:commit] == "Clear Search"
-                @pagy, @courses = pagy(Course.all)   
-            else
+            #this condition is true when the user presses the search db button
+            #it will list all the courses with an attribute containing the substring entered by the user
+            #for example, if the user enters "com", any course with "com" in the name, number, campus, or term will be displayed in the UI
+            if params[:commit] == "Search"
                 @pagy, @courses = pagy(Course.where("number LIKE ?", "%" + params[:search] + "%").or(Course.where("name LIKE ?", "%" + params[:search] + "%")).or(
-                    Course.where("campus LIKE ?", "%" + params[:search] + "%")).or(Course.where("term LIKE ?", "%" + params[:search] + "%")))
-            end    
+                    Course.where("campus LIKE ?", "%" + params[:search] + "%")).or(Course.where("term LIKE ?", "%" + params[:search] + "%"))) 
+            else
+                #display all courses in db when clear search button is pressed or initily viewing browse catalog
+                @pagy, @courses = pagy(Course.all)  
+            end     
     end
 
     # create will POST a new course, creating a new row in the Courses table and saving it to the database 
