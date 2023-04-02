@@ -36,7 +36,8 @@ User.create([{
     :password => "password",
     :fname => "Emily",
     :lname => "Allegretti",
-    :role => "instructor"
+    :role => "instructor",
+    :pending_approval => true
 
 }])
 User.create([{
@@ -44,6 +45,7 @@ User.create([{
     :password => "password",
     :fname => "Emily",
     :lname => "Allegretti",
+    :pending_approval => true,
     :role => "admin"
 
 }])
