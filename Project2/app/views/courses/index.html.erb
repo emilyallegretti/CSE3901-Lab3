@@ -1,43 +1,13 @@
 <head>
-    <script type="text/javascript"> // This script give the ability to and search in the courses table
-        // Keep the script running when the user come back to the page.
-        if (sessionStorage.getItem('hasRunBefore') === null) {
-            // The querySelector function connects JavaScript variable with HTML tags.
-            const coursesTable = document.querySelector('#coursesTable');
-            const rows = coursesTable.querySelectorAll('tr:not(#headerRow)');
-            const searchBox = document.querySelector('#searchBox');
-
-            // EventListner for Serach box to detect any user input to the search box.
-            searchBox.addEventListener('input', function() {
-                const searchedVal = this.value.toLowerCase(); // Extract value from search box.
-
-                // Check for each row whether the input value matchs inputted value to the box.
-                rows.forEach(function(row) {
-                    var exist = false; // Exist variable to store whether typed input match with the row info.
-                    const cells = row.querySelectorAll('td'); // connects JavaScript variable cells with cells in one row.
-
-                    // Assign true to match variable if the inputted value exists in cell.
-                    cells.forEach(function(cell) {
-                        var content = cell.textContent.toLowerCase();
-                        if (content.includes(searchedVal)) {
-                            exist = true;
-                        }
-                    });
-
-                    // Match value determines what is displayed in case there is no match.
-                    if (!exist) {
-                        row.style.display = 'none';
-                    } else {
-                        row.style.display = '';
-                    }
-                });
-            });
-        }
-    </script>
+    <%= bootstrap_form_tag url: "/courses", method: :get do |f|%>
+        <%= f.label "Search Catalog"%>
+        <%= f.text_field :search, skip_label: true%>
+        <%= f.submit "Search"%>
+        <%= f.submit "Clear Search"%>
+    <%end%>
 </head>
 
 <body>
-    <input type="text" id="searchBox" placeholder="Search...">
     <table id="coursesTable" class="table"> 
         <thread>
             <tr id="headerRow" class="text-center"> 

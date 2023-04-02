@@ -29,24 +29,24 @@
         <tr>
     
             <td>
-                <%= button_to "Browse Catalog", courses_path, method: :get %>
+                <%= button_to "Browse Catalog", courses_path, method: :get, class: "btn btn-small btn-primary mx-2" %>
             </td>
             <% if current_user.pending_approval? %>
             
         <p>You are currently pending admin approval. Until you are approved, you are only able to browse the course catalog.</p>
 
                 <td>
-                    <%= button_to "Status Requests", "/requests", method: :get, :disabled => true %>
+                    <%= button_to "Status Requests", "/requests", method: :get, class: "btn btn-small btn-primary mx-2", :disabled => true%>
                 </td>
                 <td>
-                    <%= button_to "Reload Database", "/reload/new", method: :get, :disabled => true %>
+                    <%= button_to "Reload Database", "/reload/new", method: :get, class: "btn btn-small btn-primary mx-2", :disabled => true %>
                 </td>
             <% else %>
                 <td>
-                    <%= button_to "Status Requests", "/requests", method: :get %>
+                    <%= button_to "Status Requests", "/requests", method: :get, class: "btn btn-small btn-primary mx-2" %>
                 </td>
                 <td>
-                    <%= button_to "Reload Database", "/reload/new", method: :get %>
+                    <%= button_to "Reload Database", "/reload/new", method: :get, class: "btn btn-small btn-primary mx-2" %>
                 </td>
             <% end %>
         </tr>
