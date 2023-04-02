@@ -23,6 +23,7 @@ class ReloadController < ApplicationController
           Services::Parsing.load(cdictionary, term_dictionary["Autumn 2023"])
           Services::Parsing.load(cdictionary, term_dictionary["Summer 2023"])
         else  
+          # otherwise, only parse in data for the specified term
           Services::Parsing.load(cdictionary, tdictionary) #params from view
         end
         #redirect to the newly populated course catalog
