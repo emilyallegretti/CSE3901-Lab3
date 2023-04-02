@@ -6,14 +6,24 @@
 1. Overview
 
 2. Installation and App Setup Instructions
+  - Prerequisites
+  - Installation and Database Configuration
+  - Creating the Pre-Approved Admin
+  - Launching the Server and Signing In
+  - Loading in Course Data
+  - Conclusion
 
 3. User Guide
+  - Signing up
+  - Signing in
+  - Administrator Home Page and Actions
+  - Student/Instructor Home Page and Actions
+  - Admins/Instructors That Are Pending Approval
+  - Editing Your Account/Resetting Your Password
 
 4. File and Folder Descriptions
-- Folder Descriptions
-- File Descriptions
 
-5. References/Other Notes
+5. References
 
 ## 1. Overview
 This is a Ruby on Rails web application that allows registered users at Ohio State University to browse (and manipulate, as an admin user) a catalog of courses (along with their corresponding sections) offered by OSU's Computer Science and Engineering department. The application uses the OSU Course Catalog API available at https://classes.osu.edu/class-search/#/ to parse in CSE course data, and displays this data to the user, allowing them to search it and interact with it. 
@@ -50,8 +60,8 @@ When a user specifies that they are an admin or an instructor on signup, that us
 Click this link to open the server in a web browser. You will be presented with the login screen.
 
 2. Log in with the pre-approved admin credentials:
-email: admin.1@osu.edu
-password: password
+- Email: admin.1@osu.edu
+- Password: password
 
 
 ### Loading in Course Data
@@ -112,6 +122,22 @@ You can also see the list of sections available for each course by clicking "Sec
 
 ![adminsections](https://user-images.githubusercontent.com/105804647/229328717-c2762a6b-050c-4517-acf3-173ab69d401e.PNG)
 
+You are also able to search for courses across all pages in the catalog using the search bar at the top of the catalog list. You can search by course number, name, term, or campus. Enter your search query in the search bar and either hit ENTER or click "Search" to bring up the results of your query.
+
+For example, here is the result of entering "systems" in the search bar and hitting ENTER:
+
+![systemssearch](https://user-images.githubusercontent.com/105804647/229372940-6f1c59d2-738c-439e-bdb7-c0694f81ba70.png)
+
+All courses with "systems" in their name will be shown.
+
+Here is the result of entering "autumn" in the search bar:
+
+![autumnsearch](https://user-images.githubusercontent.com/105804647/229373172-6924ae3c-7a4f-4c24-bcd8-6253e1c33209.png)
+
+All courses under the Autumn 2023 term will be shown.
+
+To clear your search filters and get the full list of courses back in your view, simply click "Clear Search" under the search bar.
+
 As an Admin, you are not only able to browse the catalog, but you are also able to edit and delete courses and sections, and create new courses and sections.
 
 *Editing a course*: click "Edit" for the course you'd like to edit. This will bring up a form for that course that you can edit and update: 
@@ -153,7 +179,7 @@ If you are an existing, approved instructor or a student, your home page will lo
 
 As a student or instructor, you are able to browse the course catalog, viewing courses and sections (Instructors will have more actions available to them in Project 3). The navigation bar in the top-right corner also allows the user to return to this home page from any other page on the website ("Home" button), edit their account ("Edit Account"), or sign out ("Sign Out").
 
-**Browsing and Manipulating the Catalog:**
+**Browsing the Catalog:**
 
 Clicking "Browse Catalog" from the home screen will bring you to a paginated list of CSE courses that are currently in the database. Relevant information about each course will be displayed:
 
@@ -168,6 +194,22 @@ You can also see the list of sections available for each course by clicking "Sec
 ![image](https://user-images.githubusercontent.com/105804647/229331588-263e9741-43ca-4735-9cc7-50b4169e2bdf.png)
 
 You can view specific sections in the same way by navigating to the "Sections" page for a specific course.
+
+You are also able to search for courses across all pages in the catalog using the search bar at the top of the catalog list. You can search by course number, name, term, or campus. Enter your search query in the search bar and either hit ENTER or click "Search" to bring up the results of your query.
+
+For example, here is the result of entering "systems" in the search bar and hitting ENTER:
+
+![image](https://user-images.githubusercontent.com/105804647/229372940-6f1c59d2-738c-439e-bdb7-c0694f81ba70.png)
+
+All courses with "systems" in their name will be shown.
+
+Here is the result of entering "autumn" in the search bar:
+
+![image](https://user-images.githubusercontent.com/105804647/229373172-6924ae3c-7a4f-4c24-bcd8-6253e1c33209.png)
+
+All courses under the Autumn 2023 term will be shown.
+
+To clear your search filters and get the full list of courses back in your view, simply click "Clear Search" under the search bar.
 
 ### Admins and Instructors That Are Pending Approval
 
@@ -210,7 +252,40 @@ If you'd like to delete your account, you can also click "Cancel My Account" at 
 
 ## 4. File and Folder Descriptions
 
-## Other References:
+There are a few main folders in the Project2 directory where our work is done:
+
+1. app
+  - controllers
+  - models
+  - views
+2. config
+  - routes.rb
+3. db
+  - migrate
+  - schema.rb
+  - seeds.rb
+4. lib/services
+  - parsing.rb
+  
+**app/controllers**: This folder holds all of the controller files for the website, organized and named by the type of actions they are handling. users/registrations_controller and users/sessions_controller are devise-generated controllers that handle signup and login requests, respectively. courses_controller handles all actions related to viewing and manipulating courses in the catalog. home_controller handles all requests to the user's home page after signin. reload_controller handles all actions related to reloading the database. requests_controller handles all actions related to getting and approving signup requests from new instructors/admins. Finally, sections_controller handles all actions relating to viewing and manipulating course sections in the catalog. 
+
+**app/models**: This folder holds all the Rails class objects corresponding to their table in the underlying database. Creating/manipulating any of these Model objects in the controllers will also manipulate that table in the database by adding/editing rows. Each model filename corresponds to the name of the database table it is abstracting.
+
+**app/views**: This folder holds all the view sub-folders corresponding to the controller under the same name (with the exception of layouts). Each of these sub-folders contains the HTML-Embedded Ruby files that are rendered by the controller they are associated with. For example, views/courses contains all the views associated with courses: index, which shows the collection of courses in the catalog, new, which shows a form for creating a new course, edit, which shows a form for editing a specific course, and show, which shows data for a specific course. The other view folders are organizaed in a similar way. devise/registrations contains devise-generated forms for signing up and editing your account, while devise/sessions contains the sign-in form view. 
+
+views/layouts contains the universal layouts and partial used across the website. application.html.erb is the default layout, which determines the role of the user signed in (admin, student, or instructor) and displays a menu bar of actions custom to that type of user. _navbar.html.erb is rendered in application.html.erb and contains the navigation bar displayed at the top-right corner of any page on the site, containing actions relating to the user account itself (editing account, returning to the home page, and signing out).
+
+**config/routes.rb**: This file contains all the routes connecting views to controllers.
+
+**db/migrate**: This folder contains all the migration files that are necessary for creating the app's database schema. Running rails db:migrate performs these migrations in order of oldest to most recent.
+
+**db/schema.rb**: This file contains the resulting schema for the app's database after running rails db:migrate.
+
+**db/seeds.rb**: This file contains initial seed data for the database. Seeding the database with this file's data on startup of the app (with rails db:seed) is necessary in order to load in the pre-approved admin.
+
+**lib/services/parsing.rb**: This file is where the API scraping class, Parsing, resides. Parsing.load is called from the reload_controller when a database reload is triggered, in order to get JSON data from the API with the help of HTTParty, and it parses this data into the "Course" and "Section" tables in the database.
+
+## 5. Other References:
 
 Ruby on Rails Guides: https://guides.rubyonrails.org/
 
