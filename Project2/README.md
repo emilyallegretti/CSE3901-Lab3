@@ -56,7 +56,7 @@ password: password
 
 ### Loading in Course Data
 
-Since administrators have total control over what course data is present in this catalog, this also means the first pre-approved admin must initially load the course data into the database on startup of the app.
+Since administrators have total control over what course data is present in this catalog, this also means the first pre-approved admin must initially load course data into the database on startup of the app in order for other users to browse it.
 
 1. Once signed in as the admin, Click "Reload Database" on the top menu bar 
 2. Choose the campus(es) and term(s) you want to load into the catalog
