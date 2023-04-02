@@ -5,15 +5,15 @@
 #### Table of Contents:
 1. Overview
 
-2. Installation and App Setup
+2. Installation and App Setup Instructions
 
-3. File and Folder Descriptions
+3. User Guide
+
+4. File and Folder Descriptions
 - Folder Descriptions
 - File Descriptions
 
-4. References/Other Notes
-
-5. Testing
+5. References/Other Notes
 
 ## 1. Overview
 This is a Ruby on Rails web application that allows registered users at Ohio State University to browse (and manipulate, as an admin user) a catalog of courses (along with their corresponding sections) offered by OSU's Computer Science and Engineering department. The application uses the OSU Course Catalog API available at https://classes.osu.edu/class-search/#/ to parse in CSE course data, and displays this data to the user, allowing them to search it and interact with it. 
@@ -21,7 +21,7 @@ This is a Ruby on Rails web application that allows registered users at Ohio Sta
 Users are able to sign up for the app as Students, Instructors, or Administrators. While students and instructors are only able to browse the list of courses and sections, administrators have elevated privileges in the application and can edit, delete, or add new courses and sections to the catalog (instructors will also have certain elevated permissions in Project 3.). 
 
 
-## 2. Installation and App Setup
+## 2. Installation and App Setup Instructions
 
 ### Prerequisites
 Installed on your machine:
@@ -65,7 +65,7 @@ Since administrators have total control over what course data is present in this
 ### Conclusion
 The catalog is now ready for other OSU admins, students, and instructors to access!
 
-## User Guide 
+## 3. User Guide 
 
 ### Signing Up
 - If you are a new user, you will have to sign up for the app. Click "Sign Up" from the login landing page to get a new sign-up form.
@@ -112,13 +112,16 @@ You can also see the list of sections available for each course by clicking "Sec
 
 As an Admin, you are not only able to browse the catalog, but you are also able to edit and delete courses and sections, and create new courses and sections.
 
-Editing a course: click "Edit" for the course you'd like to edit. This will bring up a form for that course that you can edit and update: 
+*Editing a course*: click "Edit" for the course you'd like to edit. This will bring up a form for that course that you can edit and update: 
+
 ![adminedit](https://user-images.githubusercontent.com/105804647/229328724-ce00887f-0027-42eb-a627-a6d624d63c46.PNG)
 
-Deleting a course: click "Delete" for the course you'd like to delete. You'll be asked to confirm before deleting: 
+*Deleting a course*: click "Delete" for the course you'd like to delete. You'll be asked to confirm before deleting:  
+
 ![deletecourse](https://user-images.githubusercontent.com/105804647/229328729-f6282178-6dce-4c8f-9445-fd32fa593cd6.PNG)
 
-Creating a course: click "Create Course" at the bottom of the courses list page. This will bring up a form that you can fill in new course data for:
+*Creating a course*: click "Create Course" at the bottom of the courses list page. This will bring up a form that you can fill in new course data for:
+
 ![newcourse](https://user-images.githubusercontent.com/105804647/229328798-4199bf31-c1df-4b66-a774-e7da378a69a4.PNG)
 
 You can view, edit, create, and delete sections in the same way by navigating to the "Sections" page for a specific course.
@@ -202,6 +205,15 @@ You can also edit your role, first name, and last name on this page.
 You must enter your current password in the "Current password" field before clicking "Update" in order to make any changes to your account.
 
 If you'd like to delete your account, you can also click "Cancel My Account" at the bottom of the page. This will sign you out and destroy your user record in the database, and you cannot sign in with these credentials again (unless you create a new account with them).
+
+## 4. File and Folder Descriptions
+
+## Other References:
+Ruby on Rails Guides: https://guides.rubyonrails.org/
+Ruby on Rails API: https://apidock.com/rails/browse
+Digital Ocean Tutorials:
+https://www.digitalocean.com/community/tutorials/how-to-set-up-user-authentication-with-devise-in-a-rails-7-application
+https://www.digitalocean.com/community/tutorials/how-to-create-nested-resources-for-a-ruby-on-rails-application
 
 
 
