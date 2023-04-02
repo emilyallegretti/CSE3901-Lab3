@@ -34,6 +34,14 @@
             });
         }
     </script>
+
+    <%= bootstrap_form_tag url: "/courses", method: :get do |f|%>
+        <%= f.label "Search Catalog"%>
+        <%= f.text_field :search, skip_label: true%>
+        <%= f.submit "Search"%>
+        <%= f.submit "Clear Search"%>
+    <%end%>
+
 </head>
 
 <body>

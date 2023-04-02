@@ -12,7 +12,12 @@ class CoursesController < ApplicationController
     # this will list all of the courses listed in the database
     # courses/index.html.erb will need access to @courses, which is a collection of all the courses in the database
     def index  
-        @pagy, @courses = pagy(Course.all)
+            if params[:commit] == nil || params[:commit] == "Clear Search"
+                @pagy, @courses = pagy(Course.all)   
+            else
+                @pagy, @courses = pagy(Course.where("number LIKE ?", "%" + params[:number] + "%").or(Course.where("name LIKE ?", "%" + params[:name] + "%")).or(
+                    Course.where("campus LIKE ?", "%" + params[:campus] + "%")).or(Course.where("term LIKE ?", "%" + params[:term] + "%")))
+            end    
     end
 
     # create will POST a new course, creating a new row in the Courses table and saving it to the database 
@@ -70,7 +75,7 @@ class CoursesController < ApplicationController
         @course.destroy
         flash[:notice] = "Course Successfully Updated"
         redirect_to action: :index
-    end
+    end 
 
     # find the course with :id
     private def find_course
@@ -80,5 +85,5 @@ class CoursesController < ApplicationController
     # sanitize inputs
     private def course_params
         params.require(:course).permit(:name, :number,:term,:campus)
-    end
+    end   
 end
