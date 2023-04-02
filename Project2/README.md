@@ -72,7 +72,7 @@ The catalog is now ready for other OSU admins, students, and instructors to acce
 - Enter in the requested credentials, and specify the role you are signing up as: an Admin, Student, or Instructor.
 - Click "Sign Up" to create your account.
 
-![signup](signup.PNG)
+![signup](https://user-images.githubusercontent.com/105804647/229328660-a1f05689-b1b8-4b5c-ad30-16ad02152e6f.PNG)
 
 **NOTE:**
 - Only users with Ohio State University emails are able to sign up for the application. That is, the email you sign up with must be in name.#@osu.edu format.
@@ -85,14 +85,14 @@ The catalog is now ready for other OSU admins, students, and instructors to acce
 - IF the application detects you are already signed in from an already-existing session, you will be automatically authenticated and brought to the user home page.
 - Otherwise, you only need your email and password to sign in:
 
-![signin](signin.PNG)
+!![signin](https://user-images.githubusercontent.com/105804647/229328675-bdb20194-40df-44a1-96ec-bce88f1d1149.PNG)
 
 - Click "Remember Me" if you want your browser to remember your credentials.
 
 ### Administrator Home Page and Actions
 Here is what your home page will look like after signing in as an approved admin:
 
-![adminhome](adminhome.PNG)
+![adminhome](https://user-images.githubusercontent.com/105804647/229328699-46b06486-2853-4ef9-8df7-054f1752a5a8.PNG)
 
 Approved admins are able to browse and manipulate the course catalog, approve requests from new instructors and admins, and reload the database. The navigation bar in the top-right corner also allows the user to return to this home page from any other page on the website ("Home" button), edit their account ("Edit Account"), or sign out ("Sign Out")
 
@@ -100,34 +100,34 @@ Approved admins are able to browse and manipulate the course catalog, approve re
 
 Clicking "Browse Catalog" from the home screen will bring you to a paginated list of CSE courses that are currently in the database. Relevant information about each course will be displayed:
 
-![admincatalog](admincatalog.PNG)
+![admincatalog](https://user-images.githubusercontent.com/105804647/229328706-5048ec8f-1c5e-4569-b42b-dd9e2d1d8e10.PNG)
 
 You can view a specific course's information by clicking "Show" in that course's row in the list:
 
-![adminshow](adminshow.PNG)
+![adminshow](https://user-images.githubusercontent.com/105804647/229328713-3e83a11d-2063-46d8-b047-4a50ce5dcf85.PNG)
 
 You can also see the list of sections available for each course by clicking "Sections" in that course's row in the list:
 
-![adminsections](adminsections.PNG)
+![adminsections](https://user-images.githubusercontent.com/105804647/229328717-c2762a6b-050c-4517-acf3-173ab69d401e.PNG)
 
 As an Admin, you are not only able to browse the catalog, but you are also able to edit and delete courses and sections, and create new courses and sections.
 
 Editing a course: click "Edit" for the course you'd like to edit. This will bring up a form for that course that you can edit and update: 
-![adminedit](adminedit.PNG)
+![adminedit](https://user-images.githubusercontent.com/105804647/229328724-ce00887f-0027-42eb-a627-a6d624d63c46.PNG)
 
 Deleting a course: click "Delete" for the course you'd like to delete. You'll be asked to confirm before deleting: 
-![deletecourse](deletecourse.PNG)
+![deletecourse](https://user-images.githubusercontent.com/105804647/229328729-f6282178-6dce-4c8f-9445-fd32fa593cd6.PNG)
 
 Creating a course: click "Create Course" at the bottom of the courses list page. This will bring up a form that you can fill in new course data for:
-![newcourse](newcourse.PNG) 
+![newcourse](https://user-images.githubusercontent.com/105804647/229328798-4199bf31-c1df-4b66-a774-e7da378a69a4.PNG)
 
-You can edit, create, and delete sections in the same way by navigating to the "Sections" page for a specific course.
+You can view, edit, create, and delete sections in the same way by navigating to the "Sections" page for a specific course.
 
 **Approving Requests:**
 
 Existing, approved admins can view the list of other instructors and admins that are currently pending approval, and approve these requests. Click the "Status Requests" button from the menu bar to view the list:
 
-![requests](requests.PNG)
+![requests](https://user-images.githubusercontent.com/105804647/229328804-fd1df7e5-7c7f-4fca-bae6-e9e23f92dec8.PNG)
 
 Clicking "Approve" next to that user's name will approve their signup request.
 
@@ -137,13 +137,72 @@ As mentioned in the App Setup section, the admin has control over what type of c
 
 NOTE: Choosing "All Campuses" will default to the Columbus campus (since this is what the API does when specifying "All Campuses" in the initial search).
 
+![image](https://user-images.githubusercontent.com/105804647/229329239-0b052833-1a3f-482b-85cc-c289f856f6e3.png)
+
+
 ### Student/Instructor Home Page and Actions
 
+If you are an existing, approved instructor or a student, your home page will look like this:
 
-### Admins and Instructors That Are Pending 
+![image](https://user-images.githubusercontent.com/105804647/229331150-5dbe676b-f1d1-40a2-a9a3-fd0d61dfb368.png)
+
+As a student or instructor, you are able to browse the course catalog, viewing courses and sections (Instructors will have more actions available to them in Project 3). The navigation bar in the top-right corner also allows the user to return to this home page from any other page on the website ("Home" button), edit their account ("Edit Account"), or sign out ("Sign Out").
+
+**Browsing and Manipulating the Catalog:**
+
+Clicking "Browse Catalog" from the home screen will bring you to a paginated list of CSE courses that are currently in the database. Relevant information about each course will be displayed:
+
+![image](https://user-images.githubusercontent.com/105804647/229331500-2c102eb5-3ea8-4906-8873-5ca7e2198f8f.png)
+
+You can view a specific course's information by clicking "Show" in that course's row in the list:
+
+![image](https://user-images.githubusercontent.com/105804647/229331553-2ef3b497-790d-45e8-b76c-c7ceff9d485f.png)
+
+You can also see the list of sections available for each course by clicking "Sections" in that course's row in the list:
+
+![image](https://user-images.githubusercontent.com/105804647/229331588-263e9741-43ca-4735-9cc7-50b4169e2bdf.png)
+
+You can view specific sections in the same way by navigating to the "Sections" page for a specific course.
+
+### Admins and Instructors That Are Pending Approval
+
+**Admins:**
+
+If you are still pending approval as an admin, your home page will look like this:
+
+![image](https://user-images.githubusercontent.com/105804647/229329628-2b5e2f40-ee42-4f9d-acba-4a34fb72fd7d.png)
+
+You will be unable to approve other requests or reload the database until your signup request is approved.
+
+Your course catalog view will look like this:
+
+![image](https://user-images.githubusercontent.com/105804647/229329673-cd0fb04d-fb29-4896-ad0f-d4c65e00446c.png)
+
+You are also unable to edit, delete, or create courses and sections if you are still pending approval as an admin. You are only able to view courses and sections, as a student would.
+
+**Instructors:**
+
+If you are still pending approval as an instructor, your home page will look like this:
+
+![image](https://user-images.githubusercontent.com/105804647/229329908-383844bf-d33b-4b16-b8e5-9b6d27c7f4e7.png)
+
+At this point in development, instructors that are pending approval have the same privileges that they do after they are approved: they can only browse the catalog, and view courses and sections. Instructors will have more actions available to them in the catalog for Lab 3 that they will be unable to perform if pending approval. 
 
 
 ### Editing Your Account/Resetting your Password
+
+Clicking "Edit Account" in your top-right navigation bar will take you to a page where you are able to edit your profile and change your password:
+
+![image](https://user-images.githubusercontent.com/105804647/229330293-3dafc677-d330-4b68-8cd0-4903b9ab18fc.png)
+
+As described in the form, if you would like to reset your password, enter the new password in the "Password" field and again in the "Password confirmation" field. If you are not resetting your password, leave these "Password" fields blank.
+
+You can also edit your role, first name, and last name on this page.
+
+You must enter your current password in the "Current password" field before clicking "Update" in order to make any changes to your account.
+
+If you'd like to delete your account, you can also click "Cancel My Account" at the bottom of the page. This will sign you out and destroy your user record in the database, and you cannot sign in with these credentials again (unless you create a new account with them).
+
 
 
 
