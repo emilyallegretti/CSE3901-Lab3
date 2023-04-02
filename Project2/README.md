@@ -209,10 +209,14 @@ If you'd like to delete your account, you can also click "Cancel My Account" at 
 ## 4. File and Folder Descriptions
 
 ## Other References:
+
 Ruby on Rails Guides: https://guides.rubyonrails.org/
+
 Ruby on Rails API: https://apidock.com/rails/browse
+
 Digital Ocean Tutorials:
 https://www.digitalocean.com/community/tutorials/how-to-set-up-user-authentication-with-devise-in-a-rails-7-application
+
 https://www.digitalocean.com/community/tutorials/how-to-create-nested-resources-for-a-ruby-on-rails-application
 
 
