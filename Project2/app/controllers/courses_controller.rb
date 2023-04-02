@@ -15,8 +15,8 @@ class CoursesController < ApplicationController
             if params[:commit] == nil || params[:commit] == "Clear Search"
                 @pagy, @courses = pagy(Course.all)   
             else
-                @pagy, @courses = pagy(Course.where("number LIKE ?", "%" + params[:number] + "%").or(Course.where("name LIKE ?", "%" + params[:name] + "%")).or(
-                    Course.where("campus LIKE ?", "%" + params[:campus] + "%")).or(Course.where("term LIKE ?", "%" + params[:term] + "%")))
+                @pagy, @courses = pagy(Course.where("number LIKE ?", "%" + params[:search] + "%").or(Course.where("name LIKE ?", "%" + params[:search] + "%")).or(
+                    Course.where("campus LIKE ?", "%" + params[:search] + "%")).or(Course.where("term LIKE ?", "%" + params[:search] + "%")))
             end    
     end
 
