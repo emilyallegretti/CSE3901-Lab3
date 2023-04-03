@@ -104,7 +104,7 @@ The catalog is now ready for other OSU admins, students, and instructors to acce
 ### Administrator Home Page and Actions
 Here is what your home page will look like after signing in as an approved admin:
 
-![adminhome](https://user-images.githubusercontent.com/105804647/229328699-46b06486-2853-4ef9-8df7-054f1752a5a8.PNG)
+<img width="1443" alt="Screen Shot 2023-04-02 at 7 50 19 PM" src="https://user-images.githubusercontent.com/122934723/229387606-c2c79668-7bdb-41a7-ab74-e64932afa398.png">
 
 Approved admins are able to browse and manipulate the course catalog, approve requests from new instructors and admins, and reload the database. The navigation bar in the top-right corner also allows the user to return to this home page from any other page on the website ("Home" button), edit their account ("Edit Account"), or sign out ("Sign Out")
 
@@ -112,27 +112,34 @@ Approved admins are able to browse and manipulate the course catalog, approve re
 
 Clicking "Browse Catalog" from the home screen will bring you to a paginated list of CSE courses that are currently in the database. Relevant information about each course will be displayed:
 
-![admincatalog](https://user-images.githubusercontent.com/105804647/229328706-5048ec8f-1c5e-4569-b42b-dd9e2d1d8e10.PNG)
+<img width="1441" alt="Screen Shot 2023-04-02 at 7 48 48 PM" src="https://user-images.githubusercontent.com/122934723/229387738-8c1b7bb2-5e28-4bfe-97b9-3a22f1f59474.png">
+
+
 
 You can view a specific course's information by clicking "Show" in that course's row in the list:
 
-![adminshow](https://user-images.githubusercontent.com/105804647/229328713-3e83a11d-2063-46d8-b047-4a50ce5dcf85.PNG)
+<img width="1432" alt="Screen Shot 2023-04-02 at 8 32 43 PM" src="https://user-images.githubusercontent.com/122934723/229387915-fa7365fb-0ecd-4620-8c0e-d55c500536b4.png">
 
-You can also see the list of sections available for each course by clicking "Sections" in that course's row in the list:
 
-![adminsections](https://user-images.githubusercontent.com/105804647/229328717-c2762a6b-050c-4517-acf3-173ab69d401e.PNG)
+
+You can also see the list of sections available for each course by clicking "Sections" in that course's row in the list or clicking "Course Sections" while viewing information about that course:
+
+<img width="1444" alt="Screen Shot 2023-04-02 at 7 51 18 PM" src="https://user-images.githubusercontent.com/122934723/229387885-2592531c-579d-4b4f-9181-c4718ea40c95.png">
+
+
 
 You are also able to search for courses across all pages in the catalog using the search bar at the top of the catalog list. You can search by course number, name, term, or campus. Enter your search query in the search bar and either hit ENTER or click "Search" to bring up the results of your query.
 
 For example, here is the result of entering "systems" in the search bar and hitting ENTER:
 
-![systemssearch](https://user-images.githubusercontent.com/105804647/229372940-6f1c59d2-738c-439e-bdb7-c0694f81ba70.png)
 
+<img width="1446" alt="Screen Shot 2023-04-02 at 8 11 54 PM" src="https://user-images.githubusercontent.com/122934723/229388039-83fb4e88-0ab2-44e9-8f95-af1f7d25d9a9.png">
 All courses with "systems" in their name will be shown.
 
 Here is the result of entering "autumn" in the search bar:
 
-![autumnsearch](https://user-images.githubusercontent.com/105804647/229373172-6924ae3c-7a4f-4c24-bcd8-6253e1c33209.png)
+<img width="1439" alt="Screen Shot 2023-04-02 at 8 12 32 PM" src="https://user-images.githubusercontent.com/122934723/229388072-20ba4863-4f7e-4686-b323-b350d44e4bd8.png">
+
 
 All courses under the Autumn 2023 term will be shown.
 
@@ -142,15 +149,18 @@ As an Admin, you are not only able to browse the catalog, but you are also able 
 
 *Editing a course*: click "Edit" for the course you'd like to edit. This will bring up a form for that course that you can edit and update: 
 
-![adminedit](https://user-images.githubusercontent.com/105804647/229328724-ce00887f-0027-42eb-a627-a6d624d63c46.PNG)
+<img width="1512" alt="Screen Shot 2023-04-02 at 7 52 35 PM" src="https://user-images.githubusercontent.com/122934723/229388181-79503e46-5dad-4cea-84d2-d665389d7117.png">
+
 
 *Deleting a course*: click "Delete" for the course you'd like to delete. You'll be asked to confirm before deleting:  
 
-![deletecourse](https://user-images.githubusercontent.com/105804647/229328729-f6282178-6dce-4c8f-9445-fd32fa593cd6.PNG)
+<img width="1428" alt="Screen Shot 2023-04-02 at 7 53 13 PM" src="https://user-images.githubusercontent.com/122934723/229388200-ad75d249-8783-4bd9-b1ba-bd19006be20f.png">
+
 
 *Creating a course*: click "Create Course" at the bottom of the courses list page. This will bring up a form that you can fill in new course data for:
 
-![newcourse](https://user-images.githubusercontent.com/105804647/229328798-4199bf31-c1df-4b66-a774-e7da378a69a4.PNG)
+<img width="1438" alt="Screen Shot 2023-04-02 at 7 54 04 PM" src="https://user-images.githubusercontent.com/122934723/229388212-e12c8a34-5a79-4a64-8a60-47ead933332b.png">
+
 
 You can view, edit, create, and delete sections in the same way by navigating to the "Sections" page for a specific course.
 
@@ -158,7 +168,8 @@ You can view, edit, create, and delete sections in the same way by navigating to
 
 Existing, approved admins can view the list of other instructors and admins that are currently pending approval, and approve these requests. Click the "Status Requests" button from the menu bar to view the list:
 
-![requests](https://user-images.githubusercontent.com/105804647/229328804-fd1df7e5-7c7f-4fca-bae6-e9e23f92dec8.PNG)
+<img width="1446" alt="Screen Shot 2023-04-02 at 8 01 27 PM" src="https://user-images.githubusercontent.com/122934723/229388232-4d9a8394-1775-4208-ab0f-8b2566960bd6.png">
+
 
 Clicking "Approve" next to that user's name will approve their signup request.
 
@@ -168,14 +179,15 @@ As mentioned in the App Setup section, the admin has control over what type of c
 
 NOTE: Choosing "All Campuses" will default to the Columbus campus (since this is what the API does when specifying "All Campuses" in the initial search).
 
-![image](https://user-images.githubusercontent.com/105804647/229329239-0b052833-1a3f-482b-85cc-c289f856f6e3.png)
+<img width="1447" alt="Screen Shot 2023-04-02 at 7 59 49 PM" src="https://user-images.githubusercontent.com/122934723/229388252-98b4d408-3a59-405c-888f-e6306d83a857.png">
+
 
 
 ### Student/Instructor Home Page and Actions
 
 If you are an existing, approved instructor or a student, your home page will look like this:
+<img width="1438" alt="Screen Shot 2023-04-02 at 8 02 35 PM" src="https://user-images.githubusercontent.com/122934723/229388297-8546433f-e3b4-474a-ae8e-1a3b444a7196.png">
 
-![image](https://user-images.githubusercontent.com/105804647/229331150-5dbe676b-f1d1-40a2-a9a3-fd0d61dfb368.png)
 
 As a student or instructor, you are able to browse the course catalog, viewing courses and sections (Instructors will have more actions available to them in Project 3). The navigation bar in the top-right corner also allows the user to return to this home page from any other page on the website ("Home" button), edit their account ("Edit Account"), or sign out ("Sign Out").
 
@@ -183,15 +195,20 @@ As a student or instructor, you are able to browse the course catalog, viewing c
 
 Clicking "Browse Catalog" from the home screen will bring you to a paginated list of CSE courses that are currently in the database. Relevant information about each course will be displayed:
 
-![image](https://user-images.githubusercontent.com/105804647/229331500-2c102eb5-3ea8-4906-8873-5ca7e2198f8f.png)
+<img width="1446" alt="Screen Shot 2023-04-02 at 8 04 48 PM" src="https://user-images.githubusercontent.com/122934723/229388329-d6de147e-8491-4547-93f6-dacb08ec4c61.png">
+
 
 You can view a specific course's information by clicking "Show" in that course's row in the list:
 
-![image](https://user-images.githubusercontent.com/105804647/229331553-2ef3b497-790d-45e8-b76c-c7ceff9d485f.png)
+<img width="1437" alt="Screen Shot 2023-04-02 at 8 09 34 PM" src="https://user-images.githubusercontent.com/122934723/229388379-ac2522ec-7a3f-495a-89e7-98dc2b6fbd99.png">
 
-You can also see the list of sections available for each course by clicking "Sections" in that course's row in the list:
 
-![image](https://user-images.githubusercontent.com/105804647/229331588-263e9741-43ca-4735-9cc7-50b4169e2bdf.png)
+You can also see the list of sections available for each course by clicking "Sections" in that course's row in the list or clicking "Course Sections" while viewing information about that course:
+
+<img width="1449" alt="Screen Shot 2023-04-02 at 8 09 59 PM" src="https://user-images.githubusercontent.com/122934723/229388429-11296211-b8cf-4cb9-bba4-ce7bdb43239c.png">
+
+
+
 
 You can view specific sections in the same way by navigating to the "Sections" page for a specific course.
 
@@ -199,13 +216,15 @@ You are also able to search for courses across all pages in the catalog using th
 
 For example, here is the result of entering "systems" in the search bar and hitting ENTER:
 
-![image](https://user-images.githubusercontent.com/105804647/229372940-6f1c59d2-738c-439e-bdb7-c0694f81ba70.png)
+<img width="1446" alt="Screen Shot 2023-04-02 at 8 11 54 PM" src="https://user-images.githubusercontent.com/122934723/229388490-54336654-b8ed-48b6-be9a-3c5441ff5f3a.png">
+
 
 All courses with "systems" in their name will be shown.
 
 Here is the result of entering "autumn" in the search bar:
+<img width="1439" alt="Screen Shot 2023-04-02 at 8 12 32 PM" src="https://user-images.githubusercontent.com/122934723/229388518-c796b72e-b52b-43fb-8dee-c6c3219e1c88.png">
 
-![image](https://user-images.githubusercontent.com/105804647/229373172-6924ae3c-7a4f-4c24-bcd8-6253e1c33209.png)
+
 
 All courses under the Autumn 2023 term will be shown.
 
@@ -217,13 +236,15 @@ To clear your search filters and get the full list of courses back in your view,
 
 If you are still pending approval as an admin, your home page will look like this:
 
-![image](https://user-images.githubusercontent.com/105804647/229329628-2b5e2f40-ee42-4f9d-acba-4a34fb72fd7d.png)
+<img width="1436" alt="Screen Shot 2023-04-02 at 8 23 41 PM" src="https://user-images.githubusercontent.com/122934723/229388542-3c33c939-abb9-4484-9588-4062961c14b9.png">
+
 
 You will be unable to approve other requests or reload the database until your signup request is approved.
 
 Your course catalog view will look like this:
 
-![image](https://user-images.githubusercontent.com/105804647/229329673-cd0fb04d-fb29-4896-ad0f-d4c65e00446c.png)
+<img width="1447" alt="Screen Shot 2023-04-02 at 8 24 01 PM" src="https://user-images.githubusercontent.com/122934723/229388555-0b0e1fae-239c-4da2-a320-5d74930fa8e0.png">
+
 
 You are also unable to edit, delete, or create courses and sections if you are still pending approval as an admin. You are only able to view courses and sections, as a student would.
 
@@ -231,7 +252,8 @@ You are also unable to edit, delete, or create courses and sections if you are s
 
 If you are still pending approval as an instructor, your home page will look like this:
 
-![image](https://user-images.githubusercontent.com/105804647/229329908-383844bf-d33b-4b16-b8e5-9b6d27c7f4e7.png)
+<img width="1446" alt="Screen Shot 2023-04-02 at 8 22 29 PM" src="https://user-images.githubusercontent.com/122934723/229388588-80ccf6b1-9d19-4e3c-bbf0-7804374bf7b1.png">
+
 
 At this point in development, instructors that are pending approval have the same privileges that they do after they are approved: they can only browse the catalog, and view courses and sections. Instructors will have more actions available to them in the catalog for Lab 3 that they will be unable to perform if pending approval. 
 
