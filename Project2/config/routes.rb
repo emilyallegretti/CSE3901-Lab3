@@ -28,12 +28,5 @@ Rails.application.routes.draw do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
   end
-  resources :dashboard do
-    collection do
-      get :reload_database
-    end
-  end
-
-  
 
 end
