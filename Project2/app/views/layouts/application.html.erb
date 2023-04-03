@@ -55,12 +55,12 @@
 
     <%elsif current_user.role == "instructor" %>
      <% if current_user.pending_approval? %>
-      <p>You are currently pending admin approval. Until you are approved, you are only able to browse the course catalog.</p>
+      <p>You are currently pending approval. Until you are approved by an admin, you are only able to browse the course catalog.</p>
     <% end %>
     <table id = "menuBar">
       <tr>
         <td>
-          <%= button_to "Browse Catalog", courses_path, method: :get %>
+          <%= button_to "Browse Catalog", courses_path, method: :get, class: "btn btn-small btn-primary mx-2" %>
         </td>
         
       </tr>
@@ -71,7 +71,7 @@
       <table id = "menuBar">
         <tr>
           <td>
-            <%= button_to "Browse Catalog", courses_path, method: :get %>
+            <%= button_to "Browse Catalog", courses_path, method: :get, class: "btn btn-small btn-primary mx-2" %>
           </td>
         </tr>
       </table>
