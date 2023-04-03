@@ -26,7 +26,7 @@
 5. References
 
 ## 1. Overview
-This is a Ruby on Rails web application that allows registered users at Ohio State University to browse (and manipulate, as an admin user) a catalog of courses (along with their corresponding sections) offered by OSU's Computer Science and Engineering department. The application uses the OSU Course Catalog API available at https://classes.osu.edu/class-search/#/ to parse in CSE course data, and displays this data to the user, allowing them to search it and interact with it. 
+This is a Ruby on Rails web application that allows registered users at Ohio State University to browse (and manipulate, as an admin user) a catalog of courses (along with their corresponding sections) offered by OSU's Computer Science and Engineering department. The application uses the OSU Course Catalog API available at https://classes.osu.edu/class-search/#/ to parse in CSE course data for Undergraduate and Graduate courses, and displays this data to the user, allowing them to search it and interact with it. 
 
 Users are able to sign up for the app as Students, Instructors, or Administrators. While students and instructors are only able to browse the list of courses and sections, administrators have elevated privileges in the application and can edit, delete, or add new courses and sections to the catalog (instructors will also have certain elevated permissions in Project 3.). 
 
@@ -229,6 +229,11 @@ Here is the result of entering "autumn" in the search bar:
 All courses under the Autumn 2023 term will be shown.
 
 To clear your search filters and get the full list of courses back in your view, simply click "Clear Search" under the search bar.
+
+
+**NOTE ABOUT REPEATING COURSE ENTRIES:** For certain 5000 level courses such as Capstones, as well as 499X classes, there are seemingly repeated entries of the same course number and term listed in our catalog (although they have different section listings). This is because the API itself lists these courses that way--some of its 5000 level courses have two listings under the same number and term, one for undergaduates and one for graduates. 499X classes have one listing for Honors students and one for non-Honors students. Thus, although they are separate, unique entries in the API and in our database, they appear to be duplicates from our course list view because we have not specified the course career. We plan to make this distinction more clear on the next iteration of the project.
+
+
 
 ### Admins and Instructors That Are Pending Approval
 
