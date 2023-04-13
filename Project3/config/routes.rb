@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   # CRUD routes for status requests: this refers to new instructors and admins that are awaiting approval from existing admins. 
   resources :requests
 
+  # CRUD routes for student application submissions.
+  resources :applications
+
   # Check if the user is signed in. If signed in, go to home page.
   # Else, go to sign in.
   devise_scope :user do
