@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
   # CRUD routes for student application submissions.
   resources :applications
+  # Custom route for the student application submission dashboard.
+  get 'applications/dashboard', to: 'applications#dashboard'
 
   # Check if the user is signed in. If signed in, go to home page.
   # Else, go to sign in.

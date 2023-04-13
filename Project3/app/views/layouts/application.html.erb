@@ -23,7 +23,7 @@
      <%end%>
      </div>
    <%end%>
-
+<!-- BUTTONS FOR ADMINS -->
    <% if current_user.role == "admin"%>
      <table id = "menuBar">
         <tr>
@@ -49,10 +49,11 @@
                     <%= button_to "Reload Database", "/reload/new", method: :get, class: "btn btn-small btn-primary mx-2" %>
                 </td>
             <% end %>
+    
         </tr>
     </table>
     <hr>
-
+<!-- BUTTONS FOR INSTRUCTORS -->
     <%elsif current_user.role == "instructor" %>
      <% if current_user.pending_approval? %>
       <p>You are currently pending approval. Until you are approved by an admin, you are only able to browse the course catalog.</p>
@@ -66,13 +67,17 @@
       </tr>
     </table>
     <hr>
-
+<!-- BUTTONS FOR STUDENTS -->
     <%else%>
       <table id = "menuBar">
         <tr>
           <td>
             <%= button_to "Browse Catalog", courses_path, method: :get, class: "btn btn-small btn-primary mx-2" %>
           </td>
+          <td>
+            <%= button_to "Grader Application Dashboard", "/applications/dashboard", method: :get, class: "btn btn-small btn-primary mx-2" %>
+          </td>
+          
         </tr>
       </table>
     <hr>

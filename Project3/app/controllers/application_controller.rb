@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
     include Pagy::Backend
 
     before_action :configure_permitted_parameters, if: :devise_controller?
-    before_action :find_app, :find_availability, :find_preference, :find_qualification, only: [:show, :edit, :update]
+    before_action :find_app, :find_availability, :find_preference, :find_qualification, only: [:show, :edit, :update, :destroy]
 
     protected
     # Add our custom user attributes to the devise sanitizer.
@@ -13,11 +13,21 @@ class ApplicationController < ActionController::Base
 
     #display a new HTML form for submitting an application    
     def new
-    end        
+        # create an empty application object for bootstrap form 
+        @application = Application.new 
+    end 
+     # display an "application dashboard" associated with a specific student user. This view is where all actions
+     # associated with a student's grader application will reside. 
+     #IF the student does not have an application associated with them, this view will present them the option to start a new application.
+     # IF the student does have an application associated with them, this view will list their active application, and give them the option
+     # to show, edit, or delete the app.
+    def dashboard
+        @application = find_app
+    end
 
     #function called when form is submitted for grader applications
     #updates the database with the info from the application they filled out
-    def new
+    def create
         @application = Application.new(app_params)
         @availability = Availability.new(availability_params)
         @course_preference = Course_preference.new(preference_params)
@@ -55,7 +65,7 @@ class ApplicationController < ActionController::Base
 
     #function to remove application info from the database
     def destroy
-        @appliation.destroy
+        @application.destroy
         @availability.destroy
         @course_preference.destroy
         @course_qualification.destroy
@@ -68,15 +78,15 @@ class ApplicationController < ActionController::Base
     end
 
     private def find_availability
-        @availability = Availability.find(params[:user_id])
+        @availabilities = Availability.find(params[:application_id])
     end
 
     private def find_preference
-        @course_preference = Course_preference.find([:user_id])
+        @course_preferences = Course_preference.find([:application_id])
     end
 
     private def find_qualification
-        @course_qualification = Course_qualification.find(params[:user_id])
+        @course_qualifications = Course_qualification.find(params[:application_id])
     end
 
     #param functions
