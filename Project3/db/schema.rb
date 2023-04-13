@@ -67,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_01_221619) do
   create_table "sections_users", id: false, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "section_id", null: false
+    t.boolean "is_recommended"
   end
 
   create_table "users", force: :cascade do |t|

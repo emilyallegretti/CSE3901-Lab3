@@ -8,6 +8,7 @@
   <%= f.text_field :end_time %>
   <%= f.text_field :location %>
   <%= f.text_field :mode_of_instruction %>
+  <%= f.text_field :num_graders_required %><i>If left blank, defaults to 1</i><br />
   <h3><%= f.label "Days of Week:"%></h3>
   <%= f.check_box :monday %>
   <%= f.check_box :tuesday%>
@@ -16,6 +17,7 @@
   <%= f.check_box :friday %>
   <%= f.check_box :saturday%>
   <%= f.check_box :sunday %>
+
   
   <%= f.submit "Create"%>
 
