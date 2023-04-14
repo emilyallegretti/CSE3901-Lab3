@@ -19,13 +19,16 @@
     #function called when form is submitted for grader applications
     #updates the database with the info from the application they filled out
     def create
-        @application = Application.new(app_params)
-       # @availability = Availability.new(availability_params)
+        @application = Application.new(params[:application][:term])
+        if @application.save
+            id = @application.id
+                @availability = Availability.new(availability_params)
+        end
         #@course_preference = Course_preference.new(preference_params)
         #@course_qualification = Course_qualification.new(qualification_params)      
        if @application.save
             flash[:notice] = "Application Successfully Created"
-            redirect_to "/availabilities/new"
+            redirect_to @application
         else 
             flash[:notice] = "Action Failed"
             render "new"
@@ -70,7 +73,7 @@
         #@course_qualification.destroy
         flash[:notice] = "Application deleted"
         #add redirect
-        redirect_to "dashboard", allow_other_host: :true
+        redirect_to "/dashboard", allow_other_host: :true
     end
 
     #functions to find application info given user_id
@@ -95,11 +98,11 @@
 
     #param functions
     private def app_params
-        params.require(:application).permit(:term, :campus, :user_id)
+        params.require(:application).permit(:term, :campus, :user_id, :availabilities)
     end   
     
     private def availability_params
-        params.require(:availability).permit(:application_id, :start_time, :end_time)
+        params.require(:application).permit(:availabilities)
     end    
 
     private def preference_params
