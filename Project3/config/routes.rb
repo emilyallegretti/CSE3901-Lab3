@@ -18,10 +18,12 @@ Rails.application.routes.draw do
   # CRUD routes for status requests: this refers to new instructors and admins that are awaiting approval from existing admins. 
   resources :requests
 
-  # CRUD routes for student application submissions.
-  resources :applications
+  # CRUD routes for student application submissions and associated availabilities.
+  resources :applications do
+    resources :availabilities
+  end
   # Custom route for the student application submission dashboard.
-  get 'applications/dashboard', to: 'applications#dashboard'
+  get 'dashboard', to: 'applications#dashboard'
 
   # Check if the user is signed in. If signed in, go to home page.
   # Else, go to sign in.

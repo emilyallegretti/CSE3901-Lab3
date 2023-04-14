@@ -1,0 +1,22 @@
+<%if current_user.role == "student"%>
+<h1>New CSE Student Grader Application</h1>
+
+<h3>Contact Information</h3>
+<p>
+<br>Student Name: <%= current_user.fname %> <%= current_user.lname %> 
+<br>Email: <%= current_user.email%><br><br>
+
+First, select the term and campus you are applying for: </p>
+
+<%= bootstrap_form_with model: @application, url: applications_path, method: :post, local: true do |f| %>
+
+  <%= f.select :term, ["Spring 2023", "Summer 2023", "Autumn 2023"]%>
+  <%= f.select :campus, ["Columbus", "Newark", "Mansfield", "Wooster", "Marion", "Lima"]%>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.submit "Next: Availability" %>
+
+<% end %>
+
+<%= link_to "Back to Dashboard", "dashboard" %>
+
+<%end %>
