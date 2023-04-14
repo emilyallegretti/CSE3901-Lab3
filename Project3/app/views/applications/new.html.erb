@@ -1,7 +1,7 @@
 <%if current_user.role == "student"%>
 <h1>New CSE Student Grader Application</h1>
 
-<h3>Contact Information</h3>
+<br><h3>Contact Information</h3>
 <p>
 <br>Student Name: <%= current_user.fname %> <%= current_user.lname %> 
 <br>Email: <%= current_user.email%><br><br>
@@ -14,7 +14,7 @@ First, select the term and campus you are applying for: </p>
   <%= f.select :campus, ["Columbus", "Newark", "Mansfield", "Wooster", "Marion", "Lima"]%>
   <%= f.hidden_field :user_id, value: current_user.id %>
   <!--Fields for Availabilities table-->
-  <h3>Availability</h3>
+  <br><br><h3>Availability</h3>
   <p>Instructions: for each day of the week, fill in all the start and end times in which you are free. Click "Add row" to add as many time blocks as you need.</p><br>
     <%= fields_for :availabilities, @availability do |a|%>
         <% for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] %>

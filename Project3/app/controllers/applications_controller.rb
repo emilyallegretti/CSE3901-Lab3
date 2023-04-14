@@ -1,6 +1,6 @@
  class ApplicationsController < ApplicationController
- before_action :find_app, #:find_availability, :find_preference, :find_qualification
-  only: [:show, :edit, :update, ]
+ before_action :find_app, :find_availability, :find_preference, :find_qualification,
+  only: [:show, :edit, :update ]
 
  #display a new HTML form for submitting an application    
     def new
@@ -84,17 +84,17 @@
 
 
 
-   # private def find_availability
-    #    @availabilities = Availability.find(params[:application_id])
-    #end
+    private def find_availability
+       @availabilities = Availability.find(params[:application_id])
+    end
 
-    #private def find_preference
-     #   @course_preferences = Course_preference.find([:application_id])
-    #end
+    private def find_preference
+        @course_preferences = Course_preference.find([:application_id])
+    end
 
-    #private def find_qualification
-     #   @course_qualifications = Course_qualification.find(params[:application_id])
-    #end
+    private def find_qualification
+        @course_qualifications = Course_qualification.find(params[:application_id])
+    end
 
     #param functions
     private def app_params
