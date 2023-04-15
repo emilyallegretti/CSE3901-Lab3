@@ -18,7 +18,6 @@
                         <td><%= application.term%></td>
                         <td><%= application.campus %></td>
                         <td><%= link_to 'View', application_path(application) %></td>
-                        <td><%=link_to 'Edit', edit_application_path(application)%>
                         <td><%= button_to 'Delete', application_path(application), method: :delete, data: {turbo_confirm: "Are you sure you want to delete this course?"} %></td>
                         </td>
                     </tr>
