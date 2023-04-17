@@ -1,0 +1,38 @@
+<h2>Your <%=@application.term%> Grader Application</h2>
+<!--Application traits-->
+<p><em>Campus:</em> <%=@application.campus%><br><em>Term:</em> <%=@application.term%><br></p>
+<h3>Contact Information</h3>
+<p>
+<br>Student Name: <%= current_user.fname %> <%= current_user.lname %> 
+<br>Email: <%= current_user.email%><br><br>
+<!--Availability traits-->
+<h3>Availability</h3>
+<% for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] %>
+    <em><%=day%></em>
+    <table>
+    <thead>
+        <tr><th>Start Time</th>  <th>End Time</th>
+    </thead>
+    <tbody>
+        <%  @availabilities.select{|entry| entry.day_of_week==day }.each do |a|%>
+            <tr>
+                <td>a.start_time</td>
+                <td>a.end_time</td>
+            </tr>
+    </tbody>
+    </table>
+    <%end%>
+
+<%end%>
+
+<!--Course Qualification traits-->
+<h3>Course Qualifications</h3>
+<%@course_qualifications.each do |cq|%>
+    <p><%=cq.course.number%>--<%=cq.course.name%></p>
+<%end%>
+
+<!--Course Preference traits-->
+<h3>Course Preferences</h3>
+<%@course_preferences.each do |cp|%>
+    <p><%=cp.course.number%>--<%=cp.course.name%></p>
+<%end%>
