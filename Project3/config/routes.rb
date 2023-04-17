@@ -15,8 +15,12 @@ Rails.application.routes.draw do
   resources :courses do
     resources :sections
   end
+
   # CRUD routes for status requests: this refers to new instructors and admins that are awaiting approval from existing admins. 
   resources :requests
+
+  # CRUD routes for grader assignments.
+  resources :assignments
 
   # Check if the user is signed in. If signed in, go to home page.
   # Else, go to sign in.

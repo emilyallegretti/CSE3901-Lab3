@@ -39,11 +39,17 @@
                     <%= button_to "Status Requests", "/requests", method: :get, class: "btn btn-small btn-primary mx-2", :disabled => true%>
                 </td>
                 <td>
+                  <%= button_to "Grader Assignments", "/assignments", method: :get, class: "btn btn-small btn-primary mx-2", :disabled => true %>
+                </td>
+                <td>
                     <%= button_to "Reload Database", "/reload/new", method: :get, class: "btn btn-small btn-primary mx-2", :disabled => true %>
                 </td>
             <% else %>
                 <td>
                     <%= button_to "Status Requests", "/requests", method: :get, class: "btn btn-small btn-primary mx-2" %>
+                </td>
+                <td>
+                  <%= button_to "Grader Assignments", "/assignments", method: :get, class: "btn btn-small btn-primary mx-2" %>
                 </td>
                 <td>
                     <%= button_to "Reload Database", "/reload/new", method: :get, class: "btn btn-small btn-primary mx-2" %>

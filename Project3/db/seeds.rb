@@ -32,6 +32,14 @@ User.create([{
 
 }])
 User.create([{
+    :email => "student.5@osu.edu",
+    :password => "password",
+    :fname => "Mara",
+    :lname => "Beam",
+    :role => "student"
+
+}])
+User.create([{
     :email => "instructor.3@osu.edu",
     :password => "password",
     :fname => "Emily",
@@ -49,4 +57,3 @@ User.create([{
     :role => "admin"
 
 }])
-
