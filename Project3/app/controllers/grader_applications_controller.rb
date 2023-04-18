@@ -1,25 +1,26 @@
 class GraderApplicationsController < ApplicationController
   before_action :find_app, :find_availability, :find_preference, :find_qualification,
-  only: [:edit, :update ]
+  only: [:edit, :update, :delete ]
 
-  # List the instructors and admins that are still pending admin approval.
+  # List the students that want to apply as a grader.
   def index
     @pagy, @graders = pagy(Application.all)
   end
 
   def edit
-  end 
+  end
 
-  # On approval of a user, change their "pending_approval " attribute to false and reload the requests page, and show a confirmation 
-  # message.
   def update
+  end
+
+  def delete
   end
 
   #functions to find application info given user_id
   private
   def find_app
     # get all the applications associated with the current user's id
-    @applications = Application.where("user_id = ?", current_user.id)
+    @grader = Application.where("user_id = ?", current_user.id)
   end
 
   def find_availability
@@ -27,7 +28,7 @@ class GraderApplicationsController < ApplicationController
   end
 
   def find_preference
-    @course_preferences = Course_preference.find([:application_id])
+    @course_preferences = Course_preference.find(params[:application_id])
   end
 
   def find_qualification

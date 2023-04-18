@@ -2,7 +2,7 @@
     <h1>Grader Applications</h1>
     <table id="graderTable" class="table"> 
         <thread>
-            <tr id="headerRow" class="text-center"> 
+            <tr id="headerRow" class="text-center">
                 <th>Student Name</th> <th>Term</th> <th>Campus</th> <th>Actions</th>
             </tr>
         </thread>
@@ -12,7 +12,7 @@
                     <td><%= grader.user.fname %> <%= grader.user.lname %></td>
                     <td><%= grader.term%></td>
                     <td><%= grader.campus %></td>
-                    <td><%= link_to 'View', grader_applications_path(grader) %></td>
+                    <td><%= link_to 'View', edit_grader_application_path(grader) %></td>
                 </tr>
             <% end %>
         </tbody>

@@ -49,3 +49,20 @@ User.create([{
     :role => "admin"
 
 }])
+Application.create([{
+    :campus => "Columbus",
+    :term => "Spring 2023",
+    :user_id => 3
+}])
+Availability.create([{
+    :start_time => "9",
+    :end_time => "12",
+    :day_of_week => "Monday",
+    :application_id => 1
+}])
+CoursePreference.create([{
+    :application_id => 1
+}])
+CourseQualification.create([{
+    :application_id => 1
+}])
