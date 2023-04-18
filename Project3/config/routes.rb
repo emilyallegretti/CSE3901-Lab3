@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   # CRUD routes for status requests: this refers to new instructors and admins that are awaiting approval from existing admins. 
   resources :requests
 
+  resources :grader_applications
+
   # CRUD routes for student application submissions and associated availabilities.
   resources :applications do
     resources :availabilities
