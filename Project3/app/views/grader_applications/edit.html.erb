@@ -1,65 +1,16 @@
-<% if current_user.role == "admin" %>
-    <h1>Grader Information</h1>
+<%if current_user.role == "admin"%>
+    <h1>Edit Grader Application</h1>
 
-    <h4>First Name</h4>
-    <p><%= @grader.user.fname %></p>
-
-    <h4>Last Name</h4>
-    <p><%= @grader.user.lname %></p>
-
+    <h4>Student Name</h4>
+    <p><%= @grader.user.fname %> <%= @grader.user.lname %></p>
     <h4>Email</h4>
     <p><%= @grader.user.email %></p>
 
-    <h4>Campus</h4>
-    <p><%= @grader.campus %></p>
+    <%= bootstrap_form_with model: @grader, url: grader_application_path(@grader), method: :patch, local: true do |f| %>
+        <%= f.select :term, ["Spring 2023", "Summer 2023", "Autumn 2023"]%>
+        <%= f.select :campus, ["Columbus", "Newark", "Mansfield", "Wooster", "Marion", "Lima"]%>
+        <%= f.submit "Update Grader Application"%>
+    <% end %>
 
-    <h4>Term</h4>
-    <p><%= @grader.term %></p>
-
-    <h4>Availability</h4>
-    <% for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] %>
-        <em><%=day%></em>
-        <table>
-            <thead>
-                <th>Start Time</th>  <th>End Time</th>
-            </thead>
-            <tbody>
-                <% @grader.availabilities.select{|entry| entry.day_of_week==day }.each do |a|%>
-                    <tr>
-                        <td><%= a.start_time %></td>
-                        <td><%= a.end_time %></td>
-                    </tr>
-                <%end%>
-            </tbody>
-        </table>
-    <%end%>
-
-    <h4>Courses</h4>
-    <table id="courseTable" class="table"> 
-        <thread>
-            <tr id="headerRow" class="text-center">
-                <th>Course Qualifications</th> <th>Course Preferences</th>
-            </tr>
-        </thread>
-        <tbody>
-            <tr>
-                <td>
-                    <% @grader.course_qualification.each do |cq| %>
-                        <p><%= cq.course.number %></p>
-                    <%end%>
-                </td>
-                <td>
-                    <% @grader.course_preference.each do |cp| %>
-                        <p><%= cp.course.number %></p>
-                    <%end%>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h4>Actions</h4>
-    <p><%= button_to 'Approve', "/grader_applications/#{@grader.user.id}", method: :patch %></p>
-    <p><%= button_to 'Reject', edit_grader_application_path(@grader), method: :destroy %></p>
-
-    <br><%= link_to "Back to Grader Applications", "/grader_applications" %>
-<%end%>
+    <%= link_to "Back to Grader Applications", action: :index %>
+<% end %>

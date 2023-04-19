@@ -90,31 +90,3 @@ CourseQualification.create([{
     :course_id => 2,
     :application_id => 1
 }])
-
-Application.create([{
-    :campus => "Columbus",
-    :term => "Spring 2023",
-    :user_id => 6
-}])
-Availability.create([{
-    :start_time => "8",
-    :end_time => "7",
-    :day_of_week => "Wednesday",
-    :application_id => 2
-}])
-CoursePreference.create([{
-    :course_id => 1,
-    :application_id => 2
-}])
-CourseQualification.create([{
-    :course_id => 1,
-    :application_id => 2
-}])
-CoursePreference.create([{
-    :course_id => 2,
-    :application_id => 2
-}])
-CourseQualification.create([{
-    :course_id => 2,
-    :application_id => 2
-}])

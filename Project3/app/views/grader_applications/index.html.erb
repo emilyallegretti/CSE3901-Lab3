@@ -1,9 +1,9 @@
 <%if current_user.role == "admin"%>
     <h1>Grader Applications</h1>
-    <table id="graderTable" class="table"> 
+    <table id = "graderTable" class = "table"> 
         <thread>
-            <tr id="headerRow" class="text-center">
-                <th>Student Name</th> <th>Term</th> <th>Campus</th> <th>Actions</th>
+            <tr id = "headerRow" class = "text-center">
+                <th>Student Name</th> <th>Term</th> <th>Campus</th> <th colspan = "3" >Actions</th>
             </tr>
         </thread>
         <tbody> 
@@ -12,7 +12,9 @@
                     <td><%= grader.user.fname %> <%= grader.user.lname %></td>
                     <td><%= grader.term%></td>
                     <td><%= grader.campus %></td>
-                    <td><%= link_to 'View', edit_grader_application_path(grader) %></td>
+                    <td><%= link_to 'Show', grader_application_path(grader) %></td>
+                    <td><%= link_to 'Edit', edit_grader_application_path(grader) %></td>
+                    <td><%= button_to 'Reject', grader_application_path(grader), method: :delete, data: {turbo_confirm: "Are you sure you want to reject this application?"} %>
                 </tr>
             <% end %>
         </tbody>

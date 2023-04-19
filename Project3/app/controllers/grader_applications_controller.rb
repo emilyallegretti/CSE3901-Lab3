@@ -1,10 +1,13 @@
 class GraderApplicationsController < ApplicationController
   before_action :find_app, :find_availability, :find_preference, :find_qualification,
-  only: [:edit, :update, :destroy ]
+  only: [:show, :edit, :update, :destroy ]
 
   # List the students that want to apply as a grader.
   def index
     @pagy, @graders = pagy(Application.all)
+  end
+
+  def show
   end
 
   def edit
@@ -15,11 +18,11 @@ class GraderApplicationsController < ApplicationController
 
   # Delete the application of given student.
   def destroy
-    if @grader.delete
-      flash[:notice] = "Grader Application Denied"
+    if @grader.destroy
+      flash[:notice] = "Grader Application Rejected"
       redirect_to action: :index
     else
-      flash[:error] = "Failed to Deny Grader Application"
+      flash[:error] = "Failed to Reject Grader Application"
       redirect_to action: :edit
     end
   end
