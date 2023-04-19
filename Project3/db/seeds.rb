@@ -12,33 +12,6 @@ User.create([{
     :lname => "",
     :pending_approval => false,
     :role => "admin"
-
-}])
-User.create([{
-    :email => "instructor.2@osu.edu",
-    :password => "password",
-    :fname => "Scott",
-    :lname => "Sharkey",
-    :pending_approval => true,
-    :role => "instructor"
-
-}])
-User.create([{
-    :email => "student.2@osu.edu",
-    :password => "password",
-    :fname => "Emily",
-    :lname => "Allegretti",
-    :role => "student"
-
-}])
-User.create([{
-    :email => "instructor.3@osu.edu",
-    :password => "password",
-    :fname => "Emily",
-    :lname => "Allegretti",
-    :role => "instructor",
-    :pending_approval => true
-
 }])
 User.create([{
     :email => "admin.4@osu.edu",
@@ -47,12 +20,57 @@ User.create([{
     :lname => "Allegretti",
     :pending_approval => true,
     :role => "admin"
-
 }])
+
+User.create([{
+    :email => "instructor.2@osu.edu",
+    :password => "password",
+    :fname => "Scott",
+    :lname => "Sharkey",
+    :pending_approval => true,
+    :role => "instructor"
+}])
+User.create([{
+    :email => "instructor.3@osu.edu",
+    :password => "password",
+    :fname => "Emily",
+    :lname => "Allegretti",
+    :role => "instructor",
+    :pending_approval => true
+}])
+
+User.create([{
+    :email => "student.2@osu.edu",
+    :password => "password",
+    :fname => "Emily",
+    :lname => "Allegretti",
+    :role => "student"
+}])
+User.create([{
+    :email => "student.5@osu.edu",
+    :password => "password",
+    :fname => "Mara",
+    :lname => "Beam",
+    :role => "student"
+}])
+
+Course.create([{
+    :number => 1223,
+    :name => "Java",
+    :campus => "Columbus",
+    :term => "Spring 2023"
+}])
+Course.create([{
+    :number => 3901,
+    :name => "Web App",
+    :campus => "Columbus",
+    :term => "Spring 2023"
+}])
+
 Application.create([{
     :campus => "Columbus",
     :term => "Spring 2023",
-    :user_id => 3
+    :user_id => 5
 }])
 Availability.create([{
     :start_time => "9",
@@ -61,8 +79,42 @@ Availability.create([{
     :application_id => 1
 }])
 CoursePreference.create([{
+    :course_id => 1,
     :application_id => 1
 }])
 CourseQualification.create([{
+    :course_id => 1,
     :application_id => 1
+}])
+CourseQualification.create([{
+    :course_id => 2,
+    :application_id => 1
+}])
+
+Application.create([{
+    :campus => "Columbus",
+    :term => "Spring 2023",
+    :user_id => 6
+}])
+Availability.create([{
+    :start_time => "8",
+    :end_time => "7",
+    :day_of_week => "Wednesday",
+    :application_id => 2
+}])
+CoursePreference.create([{
+    :course_id => 1,
+    :application_id => 2
+}])
+CourseQualification.create([{
+    :course_id => 1,
+    :application_id => 2
+}])
+CoursePreference.create([{
+    :course_id => 2,
+    :application_id => 2
+}])
+CourseQualification.create([{
+    :course_id => 2,
+    :application_id => 2
 }])

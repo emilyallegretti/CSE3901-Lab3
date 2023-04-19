@@ -1,6 +1,6 @@
 class GraderApplicationsController < ApplicationController
   before_action :find_app, :find_availability, :find_preference, :find_qualification,
-  only: [:edit, :update, :delete ]
+  only: [:edit, :update, :destroy ]
 
   # List the students that want to apply as a grader.
   def index
@@ -13,36 +13,43 @@ class GraderApplicationsController < ApplicationController
   def update
   end
 
-  def delete
+  # Delete the application of given student.
+  def destroy
+    if @grader.delete
+      flash[:notice] = "Grader Application Denied"
+      redirect_to action: :index
+    else
+      flash[:error] = "Failed to Deny Grader Application"
+      redirect_to action: :edit
+    end
   end
 
-  #functions to find application info given user_id
+  # Functions to find attributes of given student application.
   private
   def find_app
-    # get all the applications associated with the current user's id
-    @grader = Application.where("user_id = ?", current_user.id)
+    @grader = Application.find(params[:id])
   end
 
   def find_availability
-    @availabilities = Availability.find(params[:application_id])
+    @availabilities = Availability.find(params[:id])
   end
 
   def find_preference
-    @course_preferences = Course_preference.find(params[:application_id])
+    @course_preferences = @grader.course_preference.find(params[:id])
   end
 
   def find_qualification
-    @course_qualifications = Course_qualification.find(params[:application_id])
+    @course_qualifications = @grader.course_qualification.find(params[:id])
   end
 
-  #param functions
+  # Clarify permitted parameters for each table.
   def app_params
     params.require(:application).permit(:term, :campus, :user_id, :availabilities)
   end   
   
   def availability_params
     params.require(:application).permit(:availabilities)
-  end    
+  end
 
   def preference_params
     params.require(:course_preference).permit(:application_id, :course_id)

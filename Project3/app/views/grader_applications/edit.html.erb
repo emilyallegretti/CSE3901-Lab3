@@ -1,48 +1,65 @@
-<%if current_user.role == "admin"%>
+<% if current_user.role == "admin" %>
     <h1>Grader Information</h1>
 
-    <h3>First Name</h3>
-    <p><%= @grader.fname %></p>
+    <h4>First Name</h4>
+    <p><%= @grader.user.fname %></p>
 
-    <h3>Last Name</h3>
-    <p><%= @grader.lname %></p>
+    <h4>Last Name</h4>
+    <p><%= @grader.user.lname %></p>
 
-    <h3>Email</h3>
-    <p><%= @grader.email %></p>
+    <h4>Email</h4>
+    <p><%= @grader.user.email %></p>
 
-    <h3>Availability</h3>
+    <h4>Campus</h4>
+    <p><%= @grader.campus %></p>
+
+    <h4>Term</h4>
+    <p><%= @grader.term %></p>
+
+    <h4>Availability</h4>
     <% for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] %>
-        <em><%= day %></em>
+        <em><%=day%></em>
         <table>
-            <thread>
-                <tr id="headerRow" class="text-center">
-                    <th>Start Time</th>  <th>End Time</th>
-                </tr>
-            </thread>
+            <thead>
+                <th>Start Time</th>  <th>End Time</th>
+            </thead>
             <tbody>
-                <%@availabilities.select{|entry| entry.day_of_week==day}.each do |a|%>
-                <tr>
-                    <td><%=a.start_time%></td>
-                    <td><%=a.end_time%></td>
-                </tr>
+                <% @grader.availabilities.select{|entry| entry.day_of_week==day }.each do |a|%>
+                    <tr>
+                        <td><%= a.start_time %></td>
+                        <td><%= a.end_time %></td>
+                    </tr>
+                <%end%>
             </tbody>
         </table>
-        <%end%>
     <%end%>
 
-    <h3>Course Qualifications</h3>
-    <% @course_qualifications.each do |cq| %>
-        <p><%=cq.course.number%>--<%=cq.course.name%></p>
-    <%end%>
+    <h4>Courses</h4>
+    <table id="courseTable" class="table"> 
+        <thread>
+            <tr id="headerRow" class="text-center">
+                <th>Course Qualifications</th> <th>Course Preferences</th>
+            </tr>
+        </thread>
+        <tbody>
+            <tr>
+                <td>
+                    <% @grader.course_qualification.each do |cq| %>
+                        <p><%= cq.course.number %></p>
+                    <%end%>
+                </td>
+                <td>
+                    <% @grader.course_preference.each do |cp| %>
+                        <p><%= cp.course.number %></p>
+                    <%end%>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-    <h3>Course Preferences</h3>
-    <%@course_preferences.each do |cp|%>
-        <p><%=cp.course.number%>--<%=cp.course.name%></p>
-    <%end%>
+    <h4>Actions</h4>
+    <p><%= button_to 'Approve', "/grader_applications/#{@grader.user.id}", method: :patch %></p>
+    <p><%= button_to 'Reject', edit_grader_application_path(@grader), method: :destroy %></p>
 
-    <h3>Actions</h3>
-    <p><%= button_to 'Approve', "/grader_applications/#{@grader.id}", method: :patch %></p>
-    <p><%= button_to 'Reject', "/grader_applications/#@grader.id}", method: :delete %>
-
-    <br><%= link_to "Back to Grader Applications", grader_application_path %>
+    <br><%= link_to "Back to Grader Applications", "/grader_applications" %>
 <%end%>
