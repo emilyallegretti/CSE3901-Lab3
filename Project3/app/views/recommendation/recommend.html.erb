@@ -1,17 +1,19 @@
 <div class="ml-5 mr-5">
+
 <h1>Submit a Recommendation</h1>
 
-<%= bootstrap_form_tag model: @recommendation, local: true do |f| %>
-  <%= f.email_field :email %>
+<%= bootstrap_form_tag model: @sections_user, local: true do |f| %>
 
-  <%= f.select :recommendation_type, ['Select', 'Request', 'Endorse'] %>
+  <%= f.email_field :student_email %>
 
-  <%= f.select :course, Course.all %>
+  <%= f.collection_select :course_id, Course.all, :id, :name, include_blank: true %>
 
-  <%= f.text_area :details, rows: 5 %>
+  <%= f.collection_select :section_id, Section.all, :id, :section_number, include_blank: true %>
+
+  <%= f.check_box :is_recommended %>
 
   <%= f.submit "Submit Recommendation" %>
 <% end %>
 </div>
 
-<%# <%= link_to 'Back', home_path %>
+<%# <%= link_to 'Back', sections_users_path %>
