@@ -57,5 +57,6 @@
         </tbody>
     </table>
 
-    <br><%= link_to "Back to Grader Applications", "/grader_applications" %>
+    <br><%= link_to "Edit Grader Application", edit_grader_application_path(@grader)%>
+    <br><%= link_to "Back to Grader Applications", action: :index %>
 <%end%>

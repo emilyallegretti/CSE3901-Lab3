@@ -7,9 +7,9 @@
     <p><%= @grader.user.email %></p>
 
     <%= bootstrap_form_with model: @grader, url: grader_application_path(@grader), method: :patch, local: true do |f| %>
-        <%= f.select :term, ["Spring 2023", "Summer 2023", "Autumn 2023"]%>
-        <%= f.select :campus, ["Columbus", "Newark", "Mansfield", "Wooster", "Marion", "Lima"]%>
-        <%= f.submit "Update Grader Application"%>
+        <%= f.select :term, ["Spring 2023", "Summer 2023", "Autumn 2023"] %>
+        <%= f.select :campus, ["Columbus", "Newark", "Mansfield", "Wooster", "Marion", "Lima"] %>
+        <%= f.submit "Update Grader Application" %>
     <% end %>
 
     <%= link_to "Back to Grader Applications", action: :index %>

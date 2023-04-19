@@ -14,6 +14,13 @@ class GraderApplicationsController < ApplicationController
   end
 
   def update
+    if @grader.update(app_params) & @availabilities.update(availability_params) & @course_preferences.update(preference_params) & @course_qualifications.update(qualification_params)
+      flash[:notice] = "Grader Application Updated"
+      redirect_to action: :show
+    else 
+      flash.now[:notice] = "Update Failed"
+      redirect_to action: :edit
+    end
   end
 
   # Delete the application of given student.
@@ -23,7 +30,7 @@ class GraderApplicationsController < ApplicationController
       redirect_to action: :index
     else
       flash[:error] = "Failed to Reject Grader Application"
-      redirect_to action: :edit
+      redirect_to action: :index
     end
   end
 
