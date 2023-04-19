@@ -1,0 +1,17 @@
+<div class="ml-5 mr-5">
+<h1>Submit a Recommendation</h1>
+
+<%= bootstrap_form_tag model: @recommendation, local: true do |f| %>
+  <%= f.email_field :email %>
+
+  <%= f.select :recommendation_type, ['Select', 'Request', 'Endorse'] %>
+
+  <%= f.select :course, Course.all %>
+
+  <%= f.text_area :details, rows: 5 %>
+
+  <%= f.submit "Submit Recommendation" %>
+<% end %>
+</div>
+
+<%# <%= link_to 'Back', home_path %>
