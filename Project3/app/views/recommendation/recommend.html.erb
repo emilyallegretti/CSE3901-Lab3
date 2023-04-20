@@ -4,16 +4,25 @@
 
 <%= bootstrap_form_tag model: @sections_user, local: true do |f| %>
 
-  <%= f.email_field :student_email %>
+  <div class="field">
+    <%= f.text_field :instructor_email, value: current_user.email, disabled: true %>
+    <%= f.hidden_field :instructor_email, value: current_user.email %>
+  </div>
 
-  <%= f.collection_select :course_id, Course.all, :id, :name, include_blank: true %>
+  <div class="field">
+    <%= f.text_field :student_email %>
+  </div>
 
-  <%= f.collection_select :section_id, Section.all, :id, :section_number, include_blank: true %>
+  <div class="field">
+    <%= f.text_area :recommendation %>
+  </div>
 
-  <%= f.check_box :is_recommended %>
+  <div class="field">
+      <%= f.check_box :is_recommended %>
+  </div>
 
-  <%= f.submit "Submit Recommendation" %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
 <% end %>
 </div>
-
-<%# <%= link_to 'Back', sections_users_path %>
