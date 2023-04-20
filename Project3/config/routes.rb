@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   # # CRUD routes for endorsing and requesting a grade
-  post 'recommend', to: 'recommendation#recommend'
+  post 'recommendation/recommend', to: 'recommendation#recommend'
 
   # CRUD routes for status requests: this refers to new instructors and admins that are awaiting approval from existing admins. 
   resources :requests

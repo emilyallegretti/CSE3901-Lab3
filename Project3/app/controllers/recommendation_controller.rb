@@ -5,7 +5,7 @@ class RecommendationController < ApplicationController
     
     # If the student exists, then create a new section_user that changes the is_recommended attribute to positive otherwise send a failure message to the user
     if student
-      @sections_user = SectionsUser.new(sections_user_params.merge(user_id: student.id, is_recommended: "true"))
+      @sections_user = SectionsUser.create(sections_user_params.merge(user_id: student.id, is_recommended: @is_recommended))
       
       # Save the new section user and send a success message to the submitting user
       if @sections_user.save
