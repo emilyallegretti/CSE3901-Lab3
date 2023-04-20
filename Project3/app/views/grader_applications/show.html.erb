@@ -1,38 +1,38 @@
-<% if current_user.role == "admin" %>
+<% if current_user.role == "admin" || current_user.role == "student" %>
     <h1>Grader Information</h1>
 
     <h4>First Name</h4>
-    <p><%= @grader.user.fname %></p>
+    <p><%= @application.user.fname %></p>
 
     <h4>Last Name</h4>
-    <p><%= @grader.user.lname %></p>
+    <p><%= @application.user.lname %></p>
 
     <h4>Email</h4>
-    <p><%= @grader.user.email %></p>
+    <p><%= @application.user.email %></p>
 
     <h4>Campus</h4>
-    <p><%= @grader.campus %></p>
+    <p><%= @application.campus %></p>
 
     <h4>Term</h4>
-    <p><%= @grader.term %></p>
+    <p><%= @application.term %></p>
 
     <h4>Availability</h4>
     <% for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] %>
-        <em><%=day%></em>
+        <em><%= day %></em>
         <table>
             <thead>
                 <th>Start Time</th>  <th>End Time</th>
             </thead>
             <tbody>
-                <% @grader.availabilities.select{|entry| entry.day_of_week==day }.each do |a|%>
+                <% @application.availabilities.select{ |entry| entry.day_of_week==day }.each do |a|%>
                     <tr>
                         <td><%= a.start_time %></td>
                         <td><%= a.end_time %></td>
                     </tr>
-                <%end%>
+                <% end %>
             </tbody>
         </table>
-    <%end%>
+    <% end %>
 
     <h4>Courses</h4>
     <table id = "courseTable" class = "table"> 
@@ -44,19 +44,21 @@
         <tbody>
             <tr>
                 <td>
-                    <% @grader.course_qualification.each do |cq| %>
+                    <% @application.course_qualification.each do |cq| %>
                         <p><%= cq.course.number %></p>
                     <%end%>
                 </td>
                 <td>
-                    <% @grader.course_preference.each do |cp| %>
+                    <% @application.course_preference.each do |cp| %>
                         <p><%= cp.course.number %></p>
-                    <%end%>
+                    <% end %>
                 </td>
             </tr>
         </tbody>
     </table>
 
-    <br><%= link_to "Edit Grader Application", edit_grader_application_path(@grader)%>
+    <% if current_user.role == "admin" %>
+        <br><%= link_to "Edit Grader Application", edit_grader_application_path(@application)%>
+    <% end %>
     <br><%= link_to "Back to Grader Applications", action: :index %>
-<%end%>
+<% end %>

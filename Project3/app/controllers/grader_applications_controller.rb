@@ -1,20 +1,49 @@
 class GraderApplicationsController < ApplicationController
-  before_action :find_app, :find_availability, :find_preference, :find_qualification,
+  before_action :find_app,
   only: [:show, :edit, :update, :destroy ]
 
-  # List the students that want to apply as a grader.
+  # If admin, list the students that want to apply as a grader.
+  # If student, list all of the applications belonging to student.
   def index
-    @pagy, @graders = pagy(Application.all)
+    if current_user.role == "admin"
+      @pagy, @applications = pagy(Application.all)
+    elsif current_user.role == "student"
+      @pagy, @applications = pagy(Application.where("user_id = ?", current_user.id))
+    end
   end
 
+  # HTML form that allows students to create a new application.
+  def new
+    @application = Application.new 
+  end
+
+  def create
+    @application = Application.new(params[:application][:term])
+    if @application.save
+      id = @application.id
+      @availability = Availability.new(availability_params)
+      @course_preference = Course_preference.new(preference_params)
+      @course_qualification = Course_qualification.new(qualification_params)
+      flash[:notice] = "Application Successfully Created"
+      redirect_to @application
+    else 
+      flash[:notice] = "Action Failed"
+      render "new"
+    end
+  end
+
+  # Shows the contact info, availability, and course preferences/qualifications of given student.
   def show
   end
 
+  # HTML form that allows admins to edit student applications.
   def edit
   end
 
+  # Update the application of given student.
+  # Notifies if update was successful or not.
   def update
-    if @grader.update(app_params) & @availabilities.update(availability_params) & @course_preferences.update(preference_params) & @course_qualifications.update(qualification_params)
+    if @application.update(app_params) & @availabilities.update(availability_params) & @course_preferences.update(preference_params) & @course_qualifications.update(qualification_params)
       flash[:notice] = "Grader Application Updated"
       redirect_to action: :show
     else 
@@ -24,8 +53,9 @@ class GraderApplicationsController < ApplicationController
   end
 
   # Delete the application of given student.
+  # Notifies if deletion was successful or not.
   def destroy
-    if @grader.destroy
+    if @application.destroy
       flash[:notice] = "Grader Application Rejected"
       redirect_to action: :index
     else
@@ -37,19 +67,7 @@ class GraderApplicationsController < ApplicationController
   # Functions to find attributes of given student application.
   private
   def find_app
-    @grader = Application.find(params[:id])
-  end
-
-  def find_availability
-    @availabilities = Availability.find(params[:id])
-  end
-
-  def find_preference
-    @course_preferences = @grader.course_preference.find(params[:id])
-  end
-
-  def find_qualification
-    @course_qualifications = @grader.course_qualification.find(params[:id])
+      @application = Application.find(params[:id])
   end
 
   # Clarify permitted parameters for each table.

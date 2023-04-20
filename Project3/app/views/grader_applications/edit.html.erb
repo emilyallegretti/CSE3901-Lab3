@@ -2,11 +2,11 @@
     <h1>Edit Grader Application</h1>
 
     <h4>Student Name</h4>
-    <p><%= @grader.user.fname %> <%= @grader.user.lname %></p>
+    <p><%= @application.user.fname %> <%= @application.user.lname %></p>
     <h4>Email</h4>
-    <p><%= @grader.user.email %></p>
+    <p><%= @application.user.email %></p>
 
-    <%= bootstrap_form_with model: @grader, url: grader_application_path(@grader), method: :patch, local: true do |f| %>
+    <%= bootstrap_form_with model: @application, url: grader_application_path(@application), method: :patch, local: true do |f| %>
         <%= f.select :term, ["Spring 2023", "Summer 2023", "Autumn 2023"] %>
         <%= f.select :campus, ["Columbus", "Newark", "Mansfield", "Wooster", "Marion", "Lima"] %>
         <%= f.submit "Update Grader Application" %>
