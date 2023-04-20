@@ -13,23 +13,45 @@
      # IF the student does have an application associated with them, this view will list their active application, and give them the option
      # to show, edit, or delete the app.
     def dashboard
-        @applications = find_app
+        @applications = Application.where("user_id = ?", current_user.id) 
     end
 
     #function called when form is submitted for grader applications
     #updates the database with the info from the application they filled out
     def create
-        @application = Application.new(params[:application][:term])
+        # first create the new application using the app params
+        @application = Application.new(app_params)
         if @application.save
+            # if app saved successfully, get its id to associate each new availability, course qual, and course pref with it
             id = @application.id
-                @availability = Availability.new(availability_params)
-        end
-        #@course_preference = Course_preference.new(preference_params)
-        #@course_qualification = Course_qualification.new(qualification_params)      
-       if @application.save
+            # for each availability slot filled out, create a new row in Availabilities table associated with this application
+            params[:availabilities][:availabilities].each do |h|
+                if h["start_time"].length > 0 || h["end_time"].length > 0
+                @availability = Availability.new(application_id: id, start_time: h["start_time"], end_time: h["end_time"], day_of_week: h["day_of_week"])
+                @availability.save
+                end
+            end
+            # repeat for each course qualification slot
+            params[:course_qualifications][:course_qualifications].each do |h|
+                # first, find the course id associated with this course num
+                 if h["course_num"].length > 0
+                     c_id = Course.find_by number: h["course_num"]
+                     @qual = CourseQualification.new(application_id: id, course_id: c_id)
+                     @qual.save
+                 end
+            end
+             # repeat for each course preference slot
+            params[:course_preferences][:course_preferences].each do |h|
+                # find the course id associated with this course num
+                if h["course_num"].length > 0
+                     c_id = Course.find_by number: h["course_num"]
+                    @qual = CourseQualification.new(application_id: id, course_id: c_id)
+                    @qual.save
+                end
+            end
             flash[:notice] = "Application Successfully Created"
-            redirect_to @application
-        else 
+            redirect_to action: :dashboard
+        else
             flash[:notice] = "Action Failed"
             render "new"
         end
@@ -68,48 +90,33 @@
     def destroy
         @application = Application.find(params[:id])
         @application.destroy
-       # @availability.destroy
-        #@course_preference.destroy
-        #@course_qualification.destroy
         flash[:notice] = "Application deleted"
-        #add redirect
-        redirect_to "/dashboard", allow_other_host: :true
+        redirect_to action: :dashboard
     end
 
-    #functions to find application info given user_id
-    private def find_app
-        # get all the applications associated with the current user's id
-        @applications = Application.where("user_id = ?", current_user.id)
+    #functions to find application/availability/preference/qualification info given the application id
+    private 
+
+    def find_app
+        
+        @application = Application.find(params[:id])
     end
 
 
-
-    private def find_availability
-       @availabilities = Availability.find(params[:application_id])
+    def find_availability
+       @availabilities = Availability.where("application_id = ?", params[:id])
     end
 
-    private def find_preference
-        @course_preferences = Course_preference.find([:application_id])
+    def find_preference
+        @course_preferences = CoursePreference.where("application_id = ?", params[:id])
     end
 
-    private def find_qualification
-        @course_qualifications = Course_qualification.find(params[:application_id])
+     def find_qualification
+        @course_qualifications = CourseQualification.where("application_id = ?", params[:id])
     end
 
     #param functions
-    private def app_params
-        params.require(:application).permit(:term, :campus, :user_id, :availabilities)
+     def app_params
+        params.require(:application).permit(:term, :campus, :user_id, :is_accepted)
     end   
-    
-    private def availability_params
-        params.require(:application).permit(:availabilities)
-    end    
-
-    private def preference_params
-        params.require(:course_preference).permit(:application_id, :course_id)
-    end    
-
-    private def qualification_params
-        params.require(:course_qualification).permit(:application_id, :course_id)
-    end
 end

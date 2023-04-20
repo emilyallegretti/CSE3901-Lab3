@@ -5,11 +5,11 @@
     Once an application has been approved and you are assigned to a section for the specified term, your assigned sections will be listed on this dashboard.
     <br>You may view, edit, or delete each of your applications here.</p>
     <table id="applicationTable" class="table"> 
-        <thread>
+        <thead>
             <tr id="headerRow" class="text-center"> 
                 <th>Student Name</th> <th>Term</th> <th>Campus</th> <th>Actions</th> 
             </tr>
-        </thread>
+        </thead>
     
             <tbody> 
             <% @applications.each do |application|%>
@@ -25,6 +25,7 @@
 
             </tbody>
         </table>
+         <br>Apply for another term:</p><%= link_to "New Application", new_application_path %>
     <% else%>
     <p>You currently have no active applications on record for a CSE student grader position.
     <br>Start a new application:</p><%= link_to "New Application", new_application_path %>
