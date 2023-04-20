@@ -15,8 +15,8 @@
     </div>
     <div class="col-md-6">
         <%= bootstrap_form_tag url: "/reload2", method: :post do |d| %>
-
-            <%= d.text_field :termCode, size: 'sm', placeholder: "term code"%>
+           
+            <%= d.text_field :termCode, label: "Or, Input a Term Code:" , size: 'sm', placeholder: "Term Code"%>
 
             <%= d.submit "Load Courses" %>
         <% end %>
