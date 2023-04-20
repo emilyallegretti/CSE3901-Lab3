@@ -8,6 +8,12 @@ Rails.application.routes.draw do
   # Use the form data to reload the database based on the specified parameters
   post 'reload', to: 'reload#reload_database'
   
+  #2nd reload method, this uses only term code to reload the database
+  post 'reload2', to: 'reload#reload_database2'
+
+
+
+
   # auto-generated Devise routes.
   devise_for :users
 

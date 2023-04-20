@@ -8,7 +8,14 @@ class ReloadController < ApplicationController
   # would like to reload data in for.
   def new
   end
-    
+
+# This method is called on submission of the "new" form.
+# It uses the term code passed from the "new" form to parse in the specified data from the database.
+def reload_database2
+  Course.destroy_all
+  Services::Parsing.load("col", params[:termCode])
+  redirect_to courses_path
+end
 
 # This method is called on submission of the "new" form.
 # It uses the params passed from the "new" form to parse in the specified data from the database.

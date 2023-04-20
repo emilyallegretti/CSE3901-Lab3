@@ -16,8 +16,8 @@
     <tbody>
         <%  @availabilities.select{|entry| entry.day_of_week==day }.each do |a|%>
             <tr>
-                <td>a.start_time</td>
-                <td>a.end_time</td>
+                <td><%=a.start_time%></td>
+                <td><%=a.end_time%></td>
             </tr>
     </tbody>
     </table>

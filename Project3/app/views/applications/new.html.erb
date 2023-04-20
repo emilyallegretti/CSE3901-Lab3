@@ -8,7 +8,7 @@
 
 First, select the term and campus you are applying for (NOTE: you may only submit one application per term): </p>
 
-<%= form_with model: @application, url: grader_applications_path, method: :post, local: true do |f| %>
+<%= form_with model: @application, url: applications_path, method: :post, local: true do |f| %>
 <!--Fields for Application table-->
 
 <!--Filter out application terms that have already been used-->

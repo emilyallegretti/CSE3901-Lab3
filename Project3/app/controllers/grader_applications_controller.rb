@@ -18,17 +18,41 @@ class GraderApplicationsController < ApplicationController
   end
 
   def create
-    @application = Application.new(params[:application][:term])
+    # Create the new application using the app params.
+    @application = Application.new(app_params)
     if @application.save
-      id = @application.id
-      @availability = Availability.new(availability_params)
-      @course_preference = Course_preference.new(preference_params)
-      @course_qualification = Course_qualification.new(qualification_params)
-      flash[:notice] = "Application Successfully Created"
-      redirect_to @application
-    else 
-      flash[:notice] = "Action Failed"
-      render "new"
+        # if app saved successfully, get its id to associate each new availability, course qual, and course pref with it
+        id = @application.id
+        # for each availability slot filled out, create a new row in Availabilities table associated with this application
+        params[:availabilities][:availabilities].each do |h|
+            if h["start_time"].length > 0 || h["end_time"].length > 0
+            @availability = Availability.new(application_id: id, start_time: h["start_time"], end_time: h["end_time"], day_of_week: h["day_of_week"])
+            @availability.save
+            end
+        end
+        # repeat for each course qualification slot
+        params[:course_qualifications][:course_qualifications].each do |h|
+            # first, find the course id associated with this course num
+             if h["course_num"].length > 0
+                 c_id = Course.find_by number: h["course_num"]
+                 @qual = CourseQualification.new(application_id: id, course_id: c_id)
+                 @qual.save
+             end
+        end
+         # repeat for each course preference slot
+        params[:course_preferences][:course_preferences].each do |h|
+            # find the course id associated with this course num
+            if h["course_num"].length > 0
+                 c_id = Course.find_by number: h["course_num"]
+                @qual = CourseQualification.new(application_id: id, course_id: c_id)
+                @qual.save
+            end
+        end
+        flash[:notice] = "Application Successfully Created"
+        redirect_to action: :index
+    else
+        flash[:notice] = "Action Failed"
+        render "new"
     end
   end
 
@@ -43,7 +67,7 @@ class GraderApplicationsController < ApplicationController
   # Update the application of given student.
   # Notifies if update was successful or not.
   def update
-    if @application.update(app_params) & @availabilities.update(availability_params) & @course_preferences.update(preference_params) & @course_qualifications.update(qualification_params)
+    if @application.update(app_params) & @application.availabilities.update(availability_params) & @application.course_preference.update(preference_params) & @application.course_qualification.update(qualification_params)
       flash[:notice] = "Grader Application Updated"
       redirect_to action: :show
     else 
