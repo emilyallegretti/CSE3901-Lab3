@@ -1,0 +1,33 @@
+<% if current_user.role  == "student"%>
+<h2>CSE Student Grader Application Dashboard</h2>
+    <% if @applications.length > 0%>
+    <p>You currently have application(s) on record to be a student grader. They are listed below.<br>You must submit a new application for each semester of courses.<br>
+    Once an application has been approved and you are assigned to a section for the specified term, your assigned sections will be listed on this dashboard.
+    <br>You may view, edit, or delete each of your applications here.</p>
+    <table id="applicationTable" class="table"> 
+        <thead>
+            <tr id="headerRow" class="text-center"> 
+                <th>Student Name</th> <th>Term</th> <th>Campus</th> <th>Actions</th> 
+            </tr>
+        </thead>
+    
+            <tbody> 
+            <% @applications.each do |application|%>
+                    <tr> 
+                        <td><%= application.user.fname %> <%= application.user.lname %></td>
+                        <td><%= application.term%></td>
+                        <td><%= application.campus %></td>
+                        <td><%= link_to 'View', application_path(application) %></td>
+                        <td><%= button_to 'Delete', application_path(application), method: :delete, data: {turbo_confirm: "Are you sure you want to delete this course?"} %></td>
+                        </td>
+                    </tr>
+            <% end %>
+
+            </tbody>
+        </table>
+         <br>Apply for another term:</p><%= link_to "New Application", new_application_path %>
+    <% else%>
+    <p>You currently have no active applications on record for a CSE student grader position.
+    <br>Start a new application:</p><%= link_to "New Application", new_application_path %>
+    <%end%>
+<%end%>

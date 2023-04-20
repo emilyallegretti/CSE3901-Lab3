@@ -1,0 +1,97 @@
+<%if current_user.role == "student"%>
+<h1>New CSE Student Grader Application</h1>
+
+<br><h3>Contact Information</h3>
+<p>
+<br>Student Name: <%= current_user.fname %> <%= current_user.lname %> 
+<br>Email: <%= current_user.email%><br><br>
+
+First, select the term and campus you are applying for (NOTE: you may only submit one application per term): </p>
+
+<%= form_with model: @application, url: applications_path, method: :post, local: true do |f| %>
+<!--Fields for Application table-->
+
+<!--Filter out application terms that have already been used-->
+<%apps = Application.where("user_id = ?", current_user.id)
+        used_terms = Array.new
+        apps.each do |app|
+            used_terms << app.term
+        end %>
+<% a = ["Spring 2023", "Autumn 2023", "Summer 2023"] - used_terms%>
+
+  <%= f.select :term, a %>
+  <%= f.select :campus, ["Columbus", "Newark", "Mansfield", "Wooster", "Marion", "Lima"]%>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :is_accepted, value: :false %>
+  <!--Fields for Availabilities table-->
+  <br><br><h3>Availability</h3>
+  <p>Instructions: for each day of the week, fill in all the start and end times in which you are free. Click "Add row" to add as many time blocks as you need.<br>
+  Make sure you specify AM or PM for each time slot.</p><br>
+
+    <%= fields_for :availabilities do |a|%>
+        <% for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] %>
+        <em><%=day%></em>
+        <div id="rows<%=day%>">
+        <button type = 'button' id="addrowdays" onclick="addRowToDay('<%=day%>')">Add Row</button>
+        <div id="row<%=day%>">
+        <% currDay = day%>
+        <%= a.hidden_field "availabilities[][day_of_week]", value: currDay %>
+        <%=a.label "Start time"%><%=a.text_field "availabilities[][start_time]", class: "starttime"%>
+        <%=a.label "End Time"%><%=a.text_field "availabilities[][end_time]", class: "endtime"%>
+        
+        </div>
+        </div>
+        <%end%>
+    <%end%>
+    <!--Fields for Course Qualifications table-->
+    <%= fields_for :course_qualifications, @course_qualification do |q|%>
+    <br><h3>Course Qualifications</h3>
+    <p>Instructions: Please type in the COURSE NUMBER of all CSE courses you have taken at OSU. Click "Add Row" to add as many entries as you need.</p>
+        <div id="rowsQual">
+        <button type = 'button' id="addrowquals" onclick="addRowToQual()">Add Row</button>
+        <div id="rowQual">
+        <%=q.label "Course Number"%><%=q.text_field "course_qualifications[][course_num]"%>
+        </div>
+        </div>
+
+    <%end%>
+
+     <!--Fields for Course Preferences table-->
+    <%= fields_for :course_preferences, @course_preference do |p|%>
+    <br><h3>Course Preferences</h3>
+    <p>Instructions: Please type in the COURSE NUMBER of any CSE courses you would prefer to grade. This must
+    be a subset of your Course Qualifications. Click "Add Row" to add as many entries as you need.</p>
+        <div id="rowsPref">
+        <button type = 'button' id="addrowprefs" onclick="addRowToPref()">Add Row</button>
+        <div id="rowPref">
+        <%=p.label "Course Number"%><%=p.text_field "course_preferences[][course_num]"%>
+        </div>
+        </div>
+
+    <%end%>
+  <%= f.submit "Submit" %>
+
+<% end %>
+
+<%= link_to "Back to Dashboard", "/dashboard" %>
+
+<%end %>
+<script>
+
+function addRowToDay(day) {
+    // create a new input field for start and end time
+    let row=document.getElementById("row"+day);
+    let newRow = row.cloneNode(true);
+    document.getElementById("rows"+day).appendChild(newRow);
+}
+function addRowToQual() {
+    let row=document.getElementById("rowQual");
+    let newRow = row.cloneNode(true);
+    document.getElementById("rowsQual").appendChild(newRow);
+}
+function addRowToPref() {
+    let row=document.getElementById("rowPref");
+    let newRow = row.cloneNode(true);
+    document.getElementById("rowsPref").appendChild(newRow);
+}
+</script>

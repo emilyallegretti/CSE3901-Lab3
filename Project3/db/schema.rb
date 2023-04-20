@@ -10,15 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_01_221619) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_20_200522) do
   create_table "applications", force: :cascade do |t|
+    t.string "campus"
+    t.string "term"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.boolean "is_accepted"
     t.index ["user_id"], name: "index_applications_on_user_id"
   end
 
   create_table "availabilities", force: :cascade do |t|
+    t.string "start_time"
+    t.string "end_time"
+    t.string "day_of_week"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "application_id", null: false
