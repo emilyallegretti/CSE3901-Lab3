@@ -73,17 +73,15 @@ class GraderApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     # Display an error message if the application can't be found.
     if @application.nil?
-      flash.now[:notice] = 'Action failed'
-      render :index
+      flash.now[:notice] = 'Grader Application Not Found'
     # If the application was found, update their record in the database to mark them as approved.
     elsif @application.update(is_accepted: true)
       flash[:notice] = 'Grader Application Approved'
-      redirect_to action: :index
     # Display an error message if the approval failed when updating the database.
     else
       flash[:notice] = 'Failed to Approve Grader Application'
-      redirect_to action: :index
     end
+    redirect_to action: :index
   end
 
   # Delete the application of given student.

@@ -2,5 +2,6 @@
 
 class GraderAssignmentsController < ApplicationController
     def index
+        @pagy, @grader_sections = pagy(Section.all)
     end
 end

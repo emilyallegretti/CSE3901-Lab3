@@ -1,3 +1,30 @@
 <% if current_user.role == "admin" %>
-    <h1>Grader Assignments</h1>
+    <h1>CSE Student Grader Assignments</h1>
+    <table id = "applicationTable" class = "table">
+        <thread>
+            <tr id = "headerRow" class = "text-center">
+                <th>Course Number</th> <th>Section Number</th> <th>Num. Graders Required</th> <th>Graders Assigned</th>
+            </tr>
+        </thread>
+        <tbody> 
+            <% @grader_sections.each do |grader_section| %>
+                <tr>
+                    <td><%= grader_section.course.number %></td>
+                    <td><%= grader_section.section_number %></td>
+                    <td><%= grader_section.num_graders_required %></td>
+                    <td>
+                        <% if grader_section.user_section.length == 0 %>
+                            <%= "No Graders" %>
+                        <% else %>
+                            <% grader_section.user_section.each do |user_section| %>
+                                <%= user_section.user.fname %> <%= user_section.user.lname %>
+                            <% end %>
+                        <% end %>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
 <% end %>
+
+<%== pagy_bootstrap_nav(@pagy) %>
