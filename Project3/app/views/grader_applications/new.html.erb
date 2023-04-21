@@ -21,7 +21,7 @@
         <%= f.select :term, a %>
         <%= f.select :campus, ["Columbus", "Newark", "Mansfield", "Wooster", "Marion", "Lima"] %>
         <%= f.hidden_field :user_id, value: current_user.id %>
-        <%= f.hidden_field :is_accepted, value: :false %>
+        <%= f.hidden_field :is_accepted, value: false %>
  
         <br>
         <br>
@@ -35,7 +35,7 @@
         <%= fields_for :availabilities do |a| %>
             <% for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] %>
                 <em><%= day %></em>
-                <div id="rows<%= ay %>">
+                <div id="rows<%= day %>">
                     <button type = 'button' id="addrowdays" onclick="addRowToDay('<%= day %>')">Add Row</button>
                     <div id="row<%= day %>">
                         <% currDay = day %>

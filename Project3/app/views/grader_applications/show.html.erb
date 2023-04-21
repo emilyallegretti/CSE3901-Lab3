@@ -56,9 +56,5 @@
             </tr>
         </tbody>
     </table>
-
-    <% if current_user.role == "admin" %>
-        <br><%= link_to "Edit Grader Application", edit_grader_application_path(@application)%>
-    <% end %>
     <br><%= link_to "Back to Grader Applications", action: :index %>
 <% end %>

@@ -9,6 +9,7 @@ class GraderApplicationsController < ApplicationController
   def index
     if current_user.role == 'admin'
       @pagy, @applications = pagy(Application.all)
+      # @pagy, @applications = pagy(Application.where('is_accepted = ?', false))
     elsif current_user.role == 'student'
       @pagy, @applications = pagy(Application.where('user_id = ?', current_user.id))
     end
@@ -49,8 +50,8 @@ class GraderApplicationsController < ApplicationController
         next unless h['course_num'].length.positive?
 
         c_id = Course.find_by number: h['course_num']
-        @qual = CourseQualification.new(application_id: id, course_id: c_id)
-        @qual.save
+        @pref = CoursePreference.new(application_id: id, course_id: c_id)
+        @pref.save
       end
       flash[:notice] = 'Application Successfully Created'
       redirect_to action: :index
@@ -66,15 +67,22 @@ class GraderApplicationsController < ApplicationController
   # HTML form that allows admins to edit student applications.
   def edit; end
 
-  # Update the application of given student.
+  # Approves the application of given student.
   # Notifies if update was successful or not.
   def update
-    if @application.update(app_params) & @application.availabilities.update(availability_params) & @application.course_preference.update(preference_params) & @application.course_qualification.update(qualification_params)
-      flash[:notice] = 'Grader Application Updated'
-      redirect_to action: :show
+    @application = Application.find(params[:id])
+    # Display an error message if the application can't be found.
+    if @application.nil?
+      flash.now[:notice] = 'Action failed'
+      render :index
+    # If the application was found, update their record in the database to mark them as approved.
+    elsif @application.update(is_accepted: true)
+      flash[:notice] = 'Grader Application Approved'
+      redirect_to action: :index
+    # Display an error message if the approval failed when updating the database.
     else
-      flash.now[:notice] = 'Update Failed'
-      redirect_to action: :edit
+      flash[:notice] = 'Failed to Approve Grader Application'
+      redirect_to action: :index
     end
   end
 

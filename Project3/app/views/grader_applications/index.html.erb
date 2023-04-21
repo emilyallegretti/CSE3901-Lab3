@@ -10,10 +10,10 @@
             <% @applications.each do |application| %>
                 <tr> 
                     <td><%= application.user.fname %> <%= application.user.lname %></td>
-                    <td><%= application.term%></td>
+                    <td><%= application.term %></td>
                     <td><%= application.campus %></td>
                     <td><%= link_to 'Show', grader_application_path(application) %></td>
-                    <td><%= link_to 'Edit', edit_grader_application_path(application) %></td>
+                    <td><%= button_to 'Approve', grader_application_path(application), method: :patch %>
                     <td><%= button_to 'Reject', grader_application_path(application), method: :delete, data: {turbo_confirm: "Are you sure you want to reject this application?"} %>
                 </tr>
             <% end %>
@@ -25,13 +25,13 @@
         <p>
             You currently have application(s) on record to be a student grader. They are listed below.
             <br>You must submit a new application for each semester of courses.
-            <br>Once an application has been approved and you are assigned to a section for the specified term, your assigned sections will be listed on this dashboard.
-            <br>You may view, edit, or delete each of your applications here.
+            <br>Once an application has been approved and you are assigned to a section for the specified term, the status of your application will be updated.
+            <br>You may view or delete each of your applications here.
         </p>
         <table id="applicationTable" class="table"> 
             <thread>
                 <tr id="headerRow" class="text-center"> 
-                    <th>Student Name</th> <th>Term</th> <th>Campus</th> <th>Actions</th> 
+                    <th>Student Name</th> <th>Term</th> <th>Campus</th> <th colspan = "2">Actions</th> <th>Status</th>
                 </tr>
             </thread>
             <tbody> 
@@ -42,6 +42,13 @@
                         <td><%= application.campus %></td>
                         <td><%= link_to 'Show', grader_application_path(application) %></td>
                         <td><%= button_to 'Delete', grader_application_path(application), method: :delete, data: {turbo_confirm: "Are you sure you want to delete this application?"} %></td>
+                        <td>
+                            <% if application.is_accepted == true %>
+                                <%= "Accepted" %>
+                            <% else %>
+                                <%= "Pending" %>
+                            <% end %>
+                        </td>
                     </tr>
                 <% end %>
             </tbody>
