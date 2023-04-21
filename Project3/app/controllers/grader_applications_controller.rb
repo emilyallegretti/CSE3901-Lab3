@@ -90,11 +90,11 @@ class GraderApplicationsController < ApplicationController
   # Notifies if deletion was successful or not.
   def destroy
     if @application.destroy
-      if current_user.role == "admin"
-        flash[:notice] = 'Grader Application Rejected'
-      else
-        flash[:notice] = 'Grader Application Deleted'
-      end
+      flash[:notice] = if current_user.role == 'admin'
+                         'Grader Application Rejected'
+                       else
+                         'Grader Application Deleted'
+                       end
     else
       flash[:error] = 'Failed to Remove Grader Application'
     end
