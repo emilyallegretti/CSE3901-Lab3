@@ -3,6 +3,8 @@
 class GraderApplicationsController < ApplicationController
   before_action :find_app,
                 only: %i[show edit update destroy]
+                before_action :authenticate
+  before_action :check_admin, only: %i[ update edit ]
 
   # If admin, list the students that want to apply as a grader.
   # If student, list all of the applications belonging to student.
@@ -121,5 +123,11 @@ class GraderApplicationsController < ApplicationController
 
   def qualification_params
     params.require(:course_qualification).permit(:application_id, :course_id)
+  end
+  def authenticate
+    redirect_to "/"  unless current_user
+  end
+  def check_admin
+    redirect_to "/" unless current_user&.role == "admin"
   end
 end

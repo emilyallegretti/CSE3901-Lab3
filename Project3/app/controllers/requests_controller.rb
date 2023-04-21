@@ -4,6 +4,7 @@
 # It allows the admin to view the list of users who are pending approval from another admin, and it updates
 # the user's record in the database upon admin approval.
 class RequestsController < ApplicationController
+  before_action :authenticate
   # List the instructors and admins that are still pending admin approval.
   def index
     @requests = User.where('pending_approval = ? AND role = ?', true,
@@ -28,5 +29,10 @@ class RequestsController < ApplicationController
       flash[:notice] = 'Action failed'
       redirect_to action: :index
     end
+  end
+
+  private 
+    def authenticate
+    redirect_to "/" unless current_user&.role == "admin"
   end
 end
