@@ -41,7 +41,11 @@
                         <td><%= application.term %></td>
                         <td><%= application.campus %></td>
                         <td><%= link_to 'Show', grader_application_path(application) %></td>
-                        <td><%= button_to 'Delete', grader_application_path(application), method: :delete, data: {turbo_confirm: "Are you sure you want to delete this application?"} %></td>
+                        <% if !application.is_accepted %>
+                            <td><%= button_to 'Delete', grader_application_path(application), method: :delete, data: {turbo_confirm: "Are you sure you want to delete this application?"} %></td>
+                        <% else %>
+                            <td></td>
+                        <% end %>
                         <td>
                             <% if application.is_accepted %>
                                 <%= "Accepted" %>

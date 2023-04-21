@@ -24,7 +24,7 @@
                 <th>Start Time</th>  <th>End Time</th>
             </thead>
             <tbody>
-                <% @application.availabilities.select{ |entry| entry.day_of_week==day }.each do |a|%>
+                <% @application.availabilities.select{ |entry| entry.day_of_week==day }.each do |a| %>
                     <tr>
                         <td><%= a.start_time %></td>
                         <td><%= a.end_time %></td>
@@ -38,7 +38,11 @@
     <table id = "courseTable" class = "table"> 
         <thread>
             <tr id = "headerRow" class = "text-center">
-                <th>Course Qualifications</th> <th>Course Preferences</th>
+                <th>Course Qualifications</th>
+                <th>Course Preferences</th>
+                <% if current_user.role == "admin" %>
+                    <th>Qualified Sections in Need of Graders</th>
+                <% end %>
             </tr>
         </thread>
         <tbody>
@@ -46,13 +50,26 @@
                 <td>
                     <% @application.course_qualification.each do |cq| %>
                         <p><%= cq.course.number %></p>
-                    <%end%>
+                    <% end %>
                 </td>
                 <td>
                     <% @application.course_preference.each do |cp| %>
                         <p><%= cp.course.number %></p>
                     <% end %>
                 </td>
+                <% if current_user.role == "admin" %>
+                    <td>
+                        <% @application.course_qualification.each do |cq| %>
+                            <% cq.course.sections.each do |section| %>
+                                <% @application.availabilities.each do |a| %>
+                                    <% if (a.day_of_week == "Monday" && section.monday) || (a.day_of_week == "Tuesday" && section.tuesday) || (a.day_of_week == "Wednesday" && section.wednesday) || (a.day_of_week == "Thursday" && section.thursday) || (a.day_of_week == "Friday" && section.friday) %>
+                                        <p><%= cq.course.number %> - Section <%= section.section_number %></p>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                    </td>
+                <% end %>
             </tr>
         </tbody>
     </table>
