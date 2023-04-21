@@ -19,6 +19,7 @@ class GraderApplicationsController < ApplicationController
     @application = Application.new
   end
 
+  # Creates a new grader application.
   def create
     # Create the new application using the app params.
     @application = Application.new(app_params)
@@ -81,9 +82,13 @@ class GraderApplicationsController < ApplicationController
   # Notifies if deletion was successful or not.
   def destroy
     if @application.destroy
-      flash[:notice] = 'Grader Application Rejected'
+      if current_user.role == "admin"
+        flash[:notice] = 'Grader Application Rejected'
+      else
+        flash[:notice] = 'Grader Application Deleted'
+      end
     else
-      flash[:error] = 'Failed to Reject Grader Application'
+      flash[:error] = 'Failed to Remove Grader Application'
     end
     redirect_to action: :index
   end
