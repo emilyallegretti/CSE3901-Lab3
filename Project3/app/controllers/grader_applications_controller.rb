@@ -42,8 +42,8 @@ class GraderApplicationsController < ApplicationController
         # first, find the course id associated with this course num
         next unless h['course_num'].length.positive?
 
-        c_id = Course.find_by number: h['course_num']
-        @qual = CourseQualification.new(application_id: id, course_id: c_id)
+        c = Course.find_by number: h['course_num']
+        @qual = CourseQualification.new(application_id: id, course_id: c.id)
         @qual.save
       end
       # repeat for each course preference slot
@@ -51,8 +51,8 @@ class GraderApplicationsController < ApplicationController
         # find the course id associated with this course num
         next unless h['course_num'].length.positive?
 
-        c_id = Course.find_by number: h['course_num']
-        @pref = CoursePreference.new(application_id: id, course_id: c_id)
+        c = Course.find_by number: h['course_num']
+        @pref = CoursePreference.new(application_id: id, course_id: c.id)
         @pref.save
       end
       flash[:notice] = 'Application Successfully Created'
