@@ -8,7 +8,7 @@
     <%= f.hidden_field :instructor_email, value: current_user.email %>
   </div>
   <%= f.hidden_field :user_id, value: current_user.id %>
-   <%= f.collection_select :course_name, Course.all, :id, :name, include_blank: true %>
+   <%= f.collection_select :course_name, Course.all, :name, :name, include_blank: true %>
 
  <div class="field">
     <%= f.text_field :section_num, label: "Section Number (if Course Selected)" %>

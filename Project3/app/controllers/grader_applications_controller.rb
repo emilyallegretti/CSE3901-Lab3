@@ -10,7 +10,7 @@ class GraderApplicationsController < ApplicationController
   # If student, list all of the applications belonging to student.
   def index
     if current_user.role == 'admin'
-      @pagy, @applications = pagy(Application.all)
+      @pagy, @applications = pagy(Application.where("is_accepted = ?", false))
       # @pagy, @applications = pagy(Application.where('is_accepted = ?', false))
     elsif current_user.role == 'student'
       @pagy, @applications = pagy(Application.where('user_id = ?', current_user.id))
@@ -64,7 +64,10 @@ class GraderApplicationsController < ApplicationController
   end
 
   # Shows the contact info, availability, and course preferences/qualifications of given student.
-  def show; end
+  def show
+    # find any instructor recommendations that have been made for the student (for admin view only)
+    @recs = Recommendation.where("student_email= ?", @application.user.email)
+  end
 
   # HTML form that allows admins to edit student applications.
   def edit; end
