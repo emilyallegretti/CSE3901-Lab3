@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_20_200522) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_22_005756) do
   create_table "applications", force: :cascade do |t|
     t.string "campus"
     t.string "term"
@@ -50,6 +50,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_20_200522) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "recommendations", force: :cascade do |t|
+    t.string "instructor_email"
+    t.string "student_email"
+    t.string "message"
+    t.string "course_name"
+    t.string "section_num"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_recommendations_on_user_id"
+  end
+
   create_table "sections", force: :cascade do |t|
     t.integer "num_graders_required", default: 1, null: false
     t.string "section_number", null: false
@@ -73,7 +85,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_20_200522) do
   create_table "sections_users", id: false, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "section_id", null: false
-    t.boolean "is_recommended"
   end
 
   create_table "users", force: :cascade do |t|
