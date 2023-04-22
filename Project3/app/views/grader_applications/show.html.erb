@@ -63,7 +63,7 @@
                             <% cq.course.sections.each do |section| %>
                                 <% @application.availabilities.each do |a| %>
                                     <% if (a.day_of_week == "Monday" && section.monday) || (a.day_of_week == "Tuesday" && section.tuesday) || (a.day_of_week == "Wednesday" && section.wednesday) || (a.day_of_week == "Thursday" && section.thursday) || (a.day_of_week == "Friday" && section.friday) %>
-                                        <p><%= cq.course.number %> - Section <%= section.section_number %></p>
+                                        <p>Course <%= cq.course.number %> - Section <%= section.section_number %></p>
                                     <% end %>
                                 <% end %>
                             <% end %>
