@@ -103,9 +103,10 @@ class CoursesController < ApplicationController
   end
 
   def authenticate
-    redirect_to "/"  unless not(current_user.nil?)
+    redirect_to '/' if current_user.nil?
   end
+
   def check_admin
-    redirect_to "/" unless current_user&.role == "admin"
+    redirect_to '/' unless current_user&.role == 'admin'
   end
 end

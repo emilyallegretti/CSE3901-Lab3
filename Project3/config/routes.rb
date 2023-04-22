@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Rails.application.routes.draw do
   # Routes for reload_controller:
 
@@ -20,10 +21,9 @@ Rails.application.routes.draw do
   end
 
   # # CRUD routes for endorsing a grader
-  resources :recommendations 
-  
+  resources :recommendations
 
-  # CRUD routes for status requests: this refers to new instructors and admins that are awaiting approval from existing admins. 
+  # CRUD routes for status requests: this refers to new instructors and admins that are awaiting approval from existing admins.
   resources :requests
 
   # CRUD routes for grader applications.

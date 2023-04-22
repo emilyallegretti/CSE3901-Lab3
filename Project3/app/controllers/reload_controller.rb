@@ -60,7 +60,7 @@ class ReloadController < ApplicationController
     campus_dictionary[params[:campus]]
   end
 
-    def authenticate
-    redirect_to "/" unless current_user&.role == "admin"
+  def authenticate
+    redirect_to '/' unless current_user&.role == 'admin'
   end
 end

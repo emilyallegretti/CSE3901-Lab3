@@ -1,7 +1,9 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class RecommendationControllerTest < ActionDispatch::IntegrationTest
-  test "should get recommend" do
+  test 'should get recommend' do
     get recommendation_recommend_url
     assert_response :success
   end

@@ -3,14 +3,14 @@
 class GraderApplicationsController < ApplicationController
   before_action :find_app,
                 only: %i[show edit update destroy]
-                before_action :authenticate
-  before_action :check_admin, only: %i[ update edit ]
+  before_action :authenticate
+  before_action :check_admin, only: %i[update edit]
 
   # If admin, list the students that want to apply as a grader.
   # If student, list all of the applications belonging to student.
   def index
     if current_user.role == 'admin'
-      @pagy, @applications = pagy(Application.where("is_accepted = ?", false))
+      @pagy, @applications = pagy(Application.where('is_accepted = ?', false))
       # @pagy, @applications = pagy(Application.where('is_accepted = ?', false))
     elsif current_user.role == 'student'
       @pagy, @applications = pagy(Application.where('user_id = ?', current_user.id))
@@ -66,7 +66,7 @@ class GraderApplicationsController < ApplicationController
   # Shows the contact info, availability, and course preferences/qualifications of given student.
   def show
     # find any instructor recommendations that have been made for the student (for admin view only)
-    @recs = Recommendation.where("student_email= ?", @application.user.email)
+    @recs = Recommendation.where('student_email= ?', @application.user.email)
   end
 
   # HTML form that allows admins to edit student applications.
@@ -127,10 +127,12 @@ class GraderApplicationsController < ApplicationController
   def qualification_params
     params.require(:course_qualification).permit(:application_id, :course_id)
   end
+
   def authenticate
-    redirect_to "/"  unless current_user
+    redirect_to '/' unless current_user
   end
+
   def check_admin
-    redirect_to "/" unless current_user&.role == "admin"
+    redirect_to '/' unless current_user&.role == 'admin'
   end
 end

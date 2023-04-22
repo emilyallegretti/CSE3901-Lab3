@@ -31,8 +31,9 @@ class RequestsController < ApplicationController
     end
   end
 
-  private 
-    def authenticate
-    redirect_to "/" unless current_user&.role == "admin"
+  private
+
+  def authenticate
+    redirect_to '/' unless current_user&.role == 'admin'
   end
 end
