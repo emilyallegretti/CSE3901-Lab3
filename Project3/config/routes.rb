@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'recommendation/recommend', to: 'recommendation#recommend'
+ 
 
   # Routes for reload_controller:
 
@@ -17,8 +17,9 @@ Rails.application.routes.draw do
     resources :sections
   end
 
-  # # CRUD routes for endorsing and requesting a grade
-  post 'recommendation/recommend', to: 'recommendation#recommend'
+  # # CRUD routes for endorsing a grader
+  resources :recommendations 
+  
 
   # CRUD routes for status requests: this refers to new instructors and admins that are awaiting approval from existing admins. 
   resources :requests

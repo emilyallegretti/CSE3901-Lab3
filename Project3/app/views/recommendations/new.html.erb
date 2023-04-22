@@ -1,0 +1,30 @@
+<div class="ml-5 mr-5">
+
+<h1>Submit a Recommendation</h1>
+
+<%= bootstrap_form_with model: @recommendation, url: recommendations_path, local: true do |f| %>
+<div class = "field">
+    <%= f.text_field :instructor_email, value: current_user.email, disabled: true %>
+    <%= f.hidden_field :instructor_email, value: current_user.email %>
+  </div>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+   <%= f.collection_select :course_name, Course.all, :id, :name, include_blank: true %>
+
+ <div class="field">
+    <%= f.text_field :section_num, label: "Section Number (if Course Selected)" %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :student_email %>
+  </div>
+
+  <div class="field">
+    <%= f.text_area :message %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>
