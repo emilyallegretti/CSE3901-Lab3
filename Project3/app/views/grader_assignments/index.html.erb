@@ -1,12 +1,23 @@
 <% if current_user.role == "admin" %>
-    <h1>CSE Student Grader Assignments</h1>
-    <table id = "applicationTable" class = "table">
-        <thread>
+    <h1>CSE Student Grader Assignment Dashboard</h1>
+    <h2>Showing Sections and Applications For: <%=@grader_sections.first.course.term%></h2>
+    <h3>Choose Term:</h3>
+    <%= bootstrap_form_tag url: grader_assignments_path, method: :get do |f| %>
+        <%= f.select :term, ["Spring 2023", "Summer 2023", "Autumn 2023"]%>  <%= f.submit "Apply Term" %>
+    <% end %>
+    <table id = "dashboardTable" class = "table">
+    <tr>
+    <td>
+        <thead>
             <tr id = "headerRow" class = "text-center">
                 <th>Course Number</th> <th>Section Number</th> <th>Num. Graders Required</th> <th>Graders Assigned</th>
             </tr>
-        </thread>
+        </thead>
         <tbody> 
+        <% app_names = Array.new 
+                         @applications.each do |a|
+                        app_names << ((a.user.fname).concat(" ")).concat(a.user.lname)
+                        end %>
             <% @grader_sections.each do |grader_section| %>
                 <tr>
                     <td><%= grader_section.course.number %></td>
@@ -20,11 +31,20 @@
                                 <%= user_section.user.fname %> <%= user_section.user.lname %>
                             <% end %>
                         <% end %>
+    
+                        <%= bootstrap_form_tag url: grader_assignments_path, method: :post do |f| %>
+                          <%= f.select :student, app_names %>  
+                          <%= f.submit "Assign" %>
+                         <% end %>
                     </td>
                 </tr>
             <% end %>
         </tbody>
+        </td>
+        </td>
+
+        </tr>
     </table>
 <% end %>
 
-<%== pagy_bootstrap_nav(@pagy) %>
+
