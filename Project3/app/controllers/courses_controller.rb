@@ -9,6 +9,8 @@ class CoursesController < ApplicationController
   skip_before_action :verify_authenticity_token
   # for show, edit, update, and destroy, we are finding a specific course associated with the :id passed in the URL
   before_action :find_course, only: %i[show edit update destroy]
+  before_action :authenticate
+  before_action :check_admin, only: %i[create new update edit destroy]
 
   # index will render views/courses/index.html.erb
   # this will list all of the courses listed in the database
@@ -98,5 +100,12 @@ class CoursesController < ApplicationController
   # sanitize inputs passed in from the input forms
   def course_params
     params.require(:course).permit(:name, :number, :term, :campus)
+  end
+
+  def authenticate
+    redirect_to "/"  unless not(current_user.nil?)
+  end
+  def check_admin
+    redirect_to "/" unless current_user&.role == "admin"
   end
 end

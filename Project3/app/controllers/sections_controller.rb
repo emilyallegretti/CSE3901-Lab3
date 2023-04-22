@@ -4,6 +4,9 @@
 # admin only actions), viewing sections available for each course, and listing all the sections available to the specified course.
 
 class SectionsController < ApplicationController
+
+  before_action :authenticate
+  before_action :check_admin, only: %i[create new update edit destroy]
   # first, find the course we are listing sections for
   before_action :find_course
   # for show, edit, update, and destroy, we are finding a specific section associated with the :id passed in the URL
@@ -84,5 +87,11 @@ class SectionsController < ApplicationController
   def section_params
     params.require(:section).permit(:num_graders_required, :section_number, :start_time, :end_time, :location, :monday,
                                     :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :mode_of_instruction)
+  end
+  def authenticate
+    redirect_to "/"  unless current_user
+  end
+  def check_admin
+    redirect_to "/" unless current_user&.role == "admin"
   end
 end

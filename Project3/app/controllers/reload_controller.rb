@@ -3,6 +3,7 @@
 # This controller handles actions relating to reloading the database. It allows the admin to get the empty form where they specify
 # filters for reloading the database (if any), and trigger a reload of the database on submission of that form.
 class ReloadController < ApplicationController
+  before_action :authenticate
   skip_before_action :verify_authenticity_token
 
   # get a new HTML form for inputting filters on the reload. this will allow the admin to specify which campus and term(s) they
@@ -57,5 +58,9 @@ class ReloadController < ApplicationController
     campus_dictionary = { 'All Campuses' => 'col', 'Columbus' => 'col', 'Lima' => 'lma', 'Mansfield' => 'mns',
                           'Marion' => 'MRN', 'Newark' => 'nwk', 'Wooster' => 'WST' }
     campus_dictionary[params[:campus]]
+  end
+
+    def authenticate
+    redirect_to "/" unless current_user&.role == "admin"
   end
 end
