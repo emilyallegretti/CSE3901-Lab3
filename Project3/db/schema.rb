@@ -12,8 +12,6 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_04_22_025206) do
   create_table "applications", force: :cascade do |t|
-    t.string "campus"
-    t.string "term"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
@@ -22,9 +20,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_22_025206) do
   end
 
   create_table "availabilities", force: :cascade do |t|
-    t.string "start_time"
-    t.string "end_time"
-    t.string "day_of_week"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "application_id", null: false
@@ -85,6 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_22_025206) do
   create_table "sections_users", id: false, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "section_id", null: false
+    t.boolean "is_recommended"
   end
 
   create_table "users", force: :cascade do |t|
