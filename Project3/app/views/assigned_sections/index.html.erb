@@ -1,0 +1,57 @@
+<h1 class="ml-5 mr-5">CSE Student Grader Assignment Dashboard</h1>
+<p class="ml-5 mr-5">This page shows all the course sections that have the required amount of graders assigned to them.</p>
+<h3>Choose Term:</h3>
+    <%= bootstrap_form_tag url: assigned_sections_path, method: :get do |f| %>
+        <%= f.select :term, options_for_select(["Spring 2023", "Summer 2023", "Autumn 2023"], selected: params[:term]), {}%>  <%= f.submit "Apply Term" %>
+    <% end %>
+
+     <table id="sectionsTable" class="table"> 
+        <thead>
+            <tr> 
+                <th>Course Number</th><th>Section Number</th> <th>Start Time</th> <th>End Time</th> <th>Days of Week</th><th>Num. Graders Required</th> <th>Graders Assigned</th> 
+            </tr>
+        </thead>
+        <tbody> 
+            <% @sections.each do |section| %>
+                <tr> 
+                    <td><%= section.course.number %></td>
+                    <td><%= section.section_number %></td>
+                    <td><%= section.start_time %></td>
+                    <td><%= section.end_time %></td>
+                    <!-- Create a string depicting the section's days of the week -->
+                    <% days = ""%>
+                    <% if section.monday %>
+                        <% days += "M"%>
+                    <% end%>
+                    <% if section.tuesday %>
+                        <% days += " Tu"%>
+                    <% end%>
+                    <% if section.wednesday %>
+                        <% days += " W"%>
+                    <% end%>
+                    <% if section.thursday %>
+                        <% days += " Th"%>
+                    <% end%>
+                    <% if section.friday %>
+                        <% days += " F"%>
+                    <% end%>
+                    <% if section.saturday %>
+                        <% days += " Sat"%>
+                    <% end%>
+                    <% if section.sunday %>
+                        <% days += " Sun"%>
+                    <% end%>
+
+                    <td><%= days %></td>
+        
+                    <td><%= section.num_graders_required %></td>
+                    <td>
+                    <% section.user_section.each do |us| %>
+                            <%=us.user.fname%> <%=us.user.lname%><br><%= us.user.email %>
+                    <% end %>
+
+                   
+                    <%end%>
+                </tr>
+        </tbody>
+    </table>

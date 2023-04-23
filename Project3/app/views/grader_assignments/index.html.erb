@@ -1,8 +1,12 @@
 <% if current_user.role == "admin" %>
     <h1 class="ml-5 mr-5">CSE Student Grader Assignment Dashboard</h1>
-    <p class="ml-5 mr-5">Welcome to the Grader Assignment Dashboard!<br>On this page, you can view sections that have not yet had a grader assigned to them,
-    view approved grader applications that have not yet been assigned to a section, and match qualified graders to sections.<br><br>
-    <b>Instructions:</b><br></p>
+    <p class="ml-5 mr-5">Welcome to the Grader Assignment Dashboard!<br>On this page, you can view sections that have not yet had enough graders assigned to them,
+    view approved grader applications that have not yet been assigned to a section, and match qualified graders to sections.<br>You can also click the link below to
+    view all the course sections that have the required amount of graders assigned.<br>
+    
+
+    <br><b><%= link_to "See Sections With All Necessary Graders Assigned", assigned_sections_path %></b><br>
+    <br><b>Instructions:</b><br></p>
     <ul class="ml-5 mr-5">
     <li>Select the term you would like to view applications and sections for (on first load, defaults to Spring 2023)</li>
     <li>On the left, all sections for the specified term that still need graders assigned will be listed.</li>

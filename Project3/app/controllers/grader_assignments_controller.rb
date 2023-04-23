@@ -20,13 +20,6 @@ class GraderAssignmentsController < ApplicationController
         accepted_apps = Application.where("term = ? AND is_accepted = ?", term, true)
       end
 
-      # now get the applications that have not been assigned to a section yet (i.e. the associated user isn't in user_section table)
-       @applications = Array.new
-         # only add an accepted app to @applications if its associated user id is not already in user_section for the given term 
-         accepted_apps.each do |a|
-            @applications << a if a.user.user_section.select{|us| us.section.course.term == term}.length == 0
-          end   
-
     # now get the applications that have not been assigned to a section yet (i.e. the associated user isn't in user_section table)
     @applications = []
     # only add an accepted app to @applications if its associated user id is not already in user_section for the given term
