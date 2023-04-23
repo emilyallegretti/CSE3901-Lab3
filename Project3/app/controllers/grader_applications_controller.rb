@@ -44,8 +44,10 @@ class GraderApplicationsController < ApplicationController
         next unless h['course_num'].length.positive?
 
         c = Course.find_by number: h['course_num']
+        if c
         @qual = CourseQualification.new(application_id: id, course_id: c.id)
         @qual.save
+        end
       end
       # repeat for each course preference slot
       params[:course_preferences][:course_preferences].each do |h|
@@ -53,8 +55,10 @@ class GraderApplicationsController < ApplicationController
         next unless h['course_num'].length.positive?
 
         c = Course.find_by number: h['course_num']
+        if c
         @pref = CoursePreference.new(application_id: id, course_id: c.id)
         @pref.save
+        end
       end
       flash[:notice] = 'Application Successfully Created'
       redirect_to action: :index
