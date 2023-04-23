@@ -67,9 +67,9 @@
             <tr id = "headerRow" class = "text-center">
                 <th>Course Qualifications</th>
                 <th>Course Preferences</th>
-                <% if current_user.role == "admin" %>
+    
                     <th>Qualified Sections in Need of Graders</th>
-                <% end %>
+
             </tr>
         </thread>
         <tbody>
@@ -84,14 +84,14 @@
                         <p><%= cp.course.number %></p>
                     <% end %>
                 </td>
-                <% if current_user.role == "admin" %>
+                
                     <td>
                         <% @qual_sections.each do |sec| %>
                             <p><%= sec.course.number %> - Section <%= sec.section_number %></p>
     
                         <% end %>
                     </td>
-                <% end %>
+  
             </tr>
         </tbody>
     </table>

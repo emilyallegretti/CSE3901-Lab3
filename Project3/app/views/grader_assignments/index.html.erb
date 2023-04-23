@@ -65,11 +65,11 @@
                     <td><%= days %></td>
                     <td><%= grader_section.num_graders_required %></td>
                     <td>
-                        <% if app_emails.length == 0 %>
+                        <% if grader_section.user_section.length == 0 %>
                             <%= "No Assigned Graders" %>
                         <% else %>
-                            <% app_emails.each do |an| %>
-                                <%= an %>
+                            <% grader_section.user_section.each do |us| %>
+                                <%= us.user.email %>
                             <% end %>
                         <% end %>
                         <% if app_emails.length > 0%>
