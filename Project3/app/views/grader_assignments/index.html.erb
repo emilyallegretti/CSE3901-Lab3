@@ -1,6 +1,17 @@
 <% if current_user.role == "admin" %>
     <h1>CSE Student Grader Assignment Dashboard</h1>
-    <h2>Showing Sections and Applications For: <%=@grader_sections.course.term%></h2>
+    <p>Welcome to the Grader Assignment Dashboard!<br>On this page, you can view sections that have not yet had a grader assigned to them,
+    view approved grader applications that have not yet been assigned to a section, and match qualified graders to sections.<br>
+    Instructions:<br></p>
+    <ul>
+    <li>Select the term you would like to view applications and sections for (on first load, defaults to Spring 2023)</li>
+    <li>On the left, all sections for the specified term that still need graders assigned will be listed.</li>
+    <li>On the right, all approved grader applications for the specified term will be listed, along with the course sections they qualify for based on 
+    their course qualifications and availabilities. Click "Show" to view more information about this grader application, including their full availability and list
+    of course preferences/qualifications.</li>
+    <li>When you would like to assign a grader to a section, simply choose that grader's email from the drop-down menu next to that section and click "Assign" to update the system (The drop-down will only appear if there are unassigned applications available).</li>
+
+    <h2>Showing Sections and Applications For: <%=@grader_sections.first.course.term%></h2>
     <h3>Choose Term:</h3>
     <%= bootstrap_form_tag url: grader_assignments_path, method: :get do |f| %>
         <%= f.select :term, ["Spring 2023", "Summer 2023", "Autumn 2023"]%>  <%= f.submit "Apply Term" %>
@@ -8,49 +19,103 @@
     <table id = "dashboardTable" class = "table">
     <tr>
     <td>
+    <h4>Sections In Need Of Graders</h4>
+    <table id = "sectionsTable">
         <thead>
             <tr id = "headerRow" class = "text-center">
-                <th>Course Number</th> <th>Section Number</th> <th>Num. Graders Required</th> <th>Current Graders</th> <th>Assign Grader</th>
+                <th>Course Number</th><th>Campus</th> <th>Section Number</th><th>Start Time</th><th>End Time</th><th>Days of Week</th> <th>Num. Graders Required</th> <th>Graders Assigned</th>
             </tr>
         </thead>
-        <tbody> 
-        
-            <% @grader_sections.each do |grader_section| %>
-            <% app_names = Array.new 
-                         grader_section.user_section.each do |a|
-                        app_names << ((a.user.fname).concat(" ")).concat(a.user.lname)
+        <tbody>
+        <% @grader_sections.each do |grader_section| %>
+        <% app_emails = Array.new 
+                         @applications.each do |a|
+                        app_emails << a.user.email
                         end %>
                 <tr>
                     <td><%= grader_section.course.number %></td>
+                    <td><%= grader_section.course.campus %></td>
                     <td><%= grader_section.section_number %></td>
+                    <td><%= grader_section.start_time %></td>
+                    <td><%= grader_section.end_time %></td>
+                    <!-- Create a string depicting the section's days of the week -->
+                    <% days = ""%>
+                    <% if grader_section.monday %>
+                        <% days += "M"%>
+                    <% end%>
+                    <% if grader_section.tuesday %>
+                        <% days += " Tu"%>
+                    <% end%>
+                    <% if grader_section.wednesday %>
+                        <% days += " W"%>
+                    <% end%>
+                    <% if grader_section.thursday %>
+                        <% days += " Th"%>
+                    <% end%>
+                    <% if grader_section.friday %>
+                        <% days += " F"%>
+                    <% end%>
+                    <% if grader_section.saturday %>
+                        <% days += " Sat"%>
+                    <% end%>
+                    <% if grader_section.sunday %>
+                        <% days += " Sun"%>
+                    <% end%>
+
+                    <td><%= days %></td>
                     <td><%= grader_section.num_graders_required %></td>
                     <td>
-                        <% if app_names.length == 0 %>
+                        <% if app_emails.length == 0 %>
                             <%= "No Assigned Graders" %>
                         <% else %>
-                            <% app_names.each do |an| %>
+                            <% app_emails.each do |an| %>
                                 <%= an %>
                             <% end %>
                         <% end %>
-                    </td>
-                    <td>
+                        <% if app_emails.length > 0%>
                         <%= bootstrap_form_tag url: grader_assignments_path, method: :post do |f| %>
-                            <% if grader_section.user_section.length == 0 %>
-                                <%= "No Qualified Graders" %>
-                            <% else %>
-                                <%= f.select :student, app_names %>  
-                                <%= f.submit "Assign" %>
-                            <% end %>
-                        <% end %>
+                          <%= f.select :email, app_emails, label: "Assign Grader: " %>  
+                          <%= f.hidden_field :section_id, value: grader_section.id%>
+                          <%= f.submit "Assign" %>
+                         <% end %>
                     </td>
                 </tr>
             <% end %>
+            <% end %>
         </tbody>
+        </table>
         </td>
-        </td>
-
-        </tr>
+        <td>
+        <h4>Approved Applications</h4>
+       <table id = "applicationsTable">
+       <thead>
+            <tr id = "headerRow" class = "text-center">
+                <th>Student Name</th><th>Email</th> <th>Term</th> <th>Campus</th><th>Qualified Course Sections</th><th colspan = "3" >Actions</th>
+            </tr>
+        </thead>
+        <tbody> 
+            <% @applications.each do |application| %>
+                <tr> 
+                    <td><%= application.user.fname %> <%= application.user.lname %></td>
+                    <td><%= application.user.email %></td>
+                    <td><%= application.term %></td>
+                    <td><%= application.campus %></td>
+                    <td>
+                        <% application.course_qualification.each do |cq| %>
+                            <% cq.course.sections.each do |section| %>
+                                <% application.availabilities.each do |a| %>
+                                    <% if (a.day_of_week == "Monday" && section.monday) || (a.day_of_week == "Tuesday" && section.tuesday) || (a.day_of_week == "Wednesday" && section.wednesday) || (a.day_of_week == "Thursday" && section.thursday) || (a.day_of_week == "Friday" && section.friday) %>
+                                        <p><%= cq.course.number %> - Section <%= section.section_number %></p>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                    </td>
+                    <td><%= link_to 'Show', grader_application_path(application) %></td>
+                </tr>
+                <%end%>
     </table>
+    </td>
 <% end %>
 
 <%== pagy_bootstrap_nav(@pagy) %>

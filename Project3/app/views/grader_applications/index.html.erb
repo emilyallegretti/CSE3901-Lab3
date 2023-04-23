@@ -1,6 +1,6 @@
 <% if current_user.role == "admin" %>
-    <h1>CSE Student Grader Applications</h1>
-    <table id = "applicationTable" class = "table">
+    <h1 class="ml-5">Pending CSE Student Grader Applications</h1>
+    <table id = "applicationTable" class = "table ml-5">
         <thread>
             <tr id = "headerRow" class = "text-center">
                 <th>Student Name</th> <th>Term</th> <th>Campus</th> <th colspan = "3" >Actions</th>
@@ -70,4 +70,7 @@
     <% end %>
 <% end %>
 
-<%== pagy_bootstrap_nav(@pagy) %>
+<div class="ml-5">
+    <%== pagy_bootstrap_nav(@pagy) %>
+</div>
+

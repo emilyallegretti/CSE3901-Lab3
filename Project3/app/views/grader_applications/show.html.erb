@@ -100,10 +100,9 @@
             </tr>
         </tbody>
     </table>
-
     <br>
-    <% if current_user.role == "admin" %>
+    <% if current_user.role == "admin" && not(@application.is_accepted?) %>
         <td><%= button_to 'Approve Application', grader_application_path(@application), method: :patch %>
     <% end %>
     <br><%= link_to "Back to Grader Applications", action: :index %>
-
+<% end %>
