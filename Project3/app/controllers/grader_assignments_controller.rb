@@ -32,6 +32,7 @@ class GraderAssignmentsController < ApplicationController
         @grader_sections << s if s.user_section.length < s.num_graders_required
       end
     end
+    @pagy, @applications = pagy_array(@applications)
     @pagy, @grader_sections = pagy_array(@grader_sections)
   end
 

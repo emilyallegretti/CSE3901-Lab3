@@ -11,7 +11,7 @@ class GraderApplicationsController < ApplicationController
   def index
     if current_user.role == 'admin'
       @pagy, @applications = pagy(Application.where('is_accepted = ?', false))
-      # @pagy, @applications = pagy(Application.where('is_accepted = ?', false))
+      @pagy, @approved = pagy(Application.where('is_accepted = ?', true))
     elsif current_user.role == 'student'
       @pagy, @applications = pagy(Application.where('user_id = ?', current_user.id))
     end

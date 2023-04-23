@@ -90,7 +90,7 @@
        <table id = "applicationsTable">
        <thead>
             <tr id = "headerRow" class = "text-center">
-                <th>Student Name</th><th>Email</th> <th>Term</th> <th>Campus</th><th>Qualified Course Sections</th><th colspan = "3" >Actions</th>
+                <th>Student Name</th><th>Email</th> <th>Term</th> <th>Campus</th><th>Qualified Course Sections</th><th>Actions</th>
             </tr>
         </thead>
         <tbody> 
@@ -101,21 +101,15 @@
                     <td><%= application.term %></td>
                     <td><%= application.campus %></td>
                     <td>
-                        <% application.course_qualification.each do |cq| %>
-                            <% cq.course.sections.each do |section| %>
-                                <% application.availabilities.each do |a| %>
-                                    <% if (a.day_of_week == "Monday" && section.monday) || (a.day_of_week == "Tuesday" && section.tuesday) || (a.day_of_week == "Wednesday" && section.wednesday) || (a.day_of_week == "Thursday" && section.thursday) || (a.day_of_week == "Friday" && section.friday) %>
-                                        <p><%= cq.course.number %> - Section <%= section.section_number %></p>
-                                    <% end %>
-                                <% end %>
-                            <% end %>
-                        <% end %>
+                        <!--Need to fix Qualified Courses-->
                     </td>
                     <td><%= link_to 'Show', grader_application_path(application) %></td>
                 </tr>
                 <%end%>
     </table>
     </td>
+    </tr>
+    </table>
 <% end %>
 
 <%== pagy_bootstrap_nav(@pagy) %>

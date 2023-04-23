@@ -1,11 +1,15 @@
 <% if current_user.role == "admin" %>
-    <h1 class="ml-5">Pending CSE Student Grader Applications</h1>
-    <table id = "applicationTable" class = "table ml-5">
-        <thread>
+    <h1 class="ml-5">CSE Student Grader Applications</h1>
+    <table id = "applicationTable" class = "table" >
+        <tr>
+        <td>
+        <h4>Pending</h4>
+        <table id = "pendingTable">
+        <thead>
             <tr id = "headerRow" class = "text-center">
                 <th>Student Name</th> <th>Term</th> <th>Campus</th> <th colspan = "3" >Actions</th>
             </tr>
-        </thread>
+        </thead>
         <tbody> 
             <% @applications.each do |application| %>
                 <tr> 
@@ -18,6 +22,29 @@
                 </tr>
             <% end %>
         </tbody>
+        </table>
+        </td>
+        <td>
+        <h4>Approved</h4>
+        <table id = "approvedTable">
+        <thead>
+            <tr id = "headerRow" class = "text-center">
+                <th>Student Name</th><th>Email</th> <th>Term</th> <th>Campus</th> <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @approved.each do |application| %>
+                <tr> 
+                    <td><%= application.user.fname %> <%= application.user.lname %></td>
+                    <td><%= application.user.email %></td>
+                    <td><%= application.term %></td>
+                    <td><%= application.campus %></td>
+                    <td><%= link_to 'Show', grader_application_path(application) %></td>
+                </tr>
+                <%end%>
+        </table>
+        </td>
+        </tr>
     </table>
 <% elsif current_user.role == "student" %>
     <h2>CSE Student Grader Applications</h2>
