@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
+# This controller handles all actions associated with student grader applications. It allows students to create and delete new applications and view
+# all of their active applications,
+# and admins to approve/reject applications and view all student applications.
 class GraderApplicationsController < ApplicationController
   before_action :find_app,
                 only: %i[show edit update destroy]
                 before_action :authenticate
                 before_action :find_qualified_sections, only: %i[show]
   before_action :check_admin, only: %i[ update  ]
+  before_action :check_student, only: %i[ new create  ]
 
   # If admin, list the students that want to apply as a grader.
   # If student, list all of the applications belonging to student.
@@ -31,6 +35,7 @@ class GraderApplicationsController < ApplicationController
       # if app saved successfully, get its id to associate each new availability, course qual, and course pref with it
       id = @application.id
       # for each availability slot filled out, create a new row in Availabilities table associated with this application
+      # if a row was left empty, don't add a row for it into availabilities
       params[:availabilities][:availabilities].each do |h|
         next unless h['start_time'].length.positive? || h['end_time'].length.positive?
 
@@ -40,10 +45,11 @@ class GraderApplicationsController < ApplicationController
       end
       # repeat for each course qualification slot
       params[:course_qualifications][:course_qualifications].each do |h|
-        # first, find the course id associated with this course num
+        # if a row is left empty from the form, don't add a row for it into the database
         next unless h['course_num'].length.positive?
-
+# first, find the course id associated with this course 
         c = Course.find_by number: h['course_num']
+        # only add a row for this course qualification if the course number is a valid course present in the catalog
         if c
         @qual = CourseQualification.new(application_id: id, course_id: c.id)
         @qual.save
@@ -51,15 +57,17 @@ class GraderApplicationsController < ApplicationController
       end
       # repeat for each course preference slot
       params[:course_preferences][:course_preferences].each do |h|
-        # find the course id associated with this course num
+        # if a row is left empty from the form, don't add a row for it into the database
         next unless h['course_num'].length.positive?
-
+# find the course id associated with this course num
         c = Course.find_by number: h['course_num']
+        # only add a row for this course preference if the course number is a valid course present in the catalog
         if c
         @pref = CoursePreference.new(application_id: id, course_id: c.id)
         @pref.save
         end
       end
+      # display success message if app is saved, else display error message
       flash[:notice] = 'Application Successfully Created'
       redirect_to action: :index
     else
@@ -92,7 +100,7 @@ class GraderApplicationsController < ApplicationController
     redirect_to action: :index
   end
 
-  # Delete the application of given student.
+  # Delete the application of given student if the student deletes it, or if the admin rejects it.
   # Notifies if deletion was successful or not.
   def destroy
     if @application.destroy
@@ -108,21 +116,20 @@ class GraderApplicationsController < ApplicationController
   end
 
   private
-# This function will match an application to sections for the given term based on the app's availability and qualified courses.
-
+# This function will match an application to all sections the student is available and qualified for,for the given term, based on the app's availability and qualified courses.
   def find_qualified_sections
     # This array will hold all the sections the app is qualified for
     @qual_sections = Array.new
-    # Find all courses for the application's term that match the application's term
+    # Find all courses with terms that match the application's term
     term_courses = Course.all.select{|c| c.term == @application.term }
-    # Find all the term_courses whose course number matches the course number in course qualifications
+    # Find all the term_courses whose course number matches a course number given in the app's course qualifications
     qual_courses = Array.new
     term_courses.each do |course|
       @application.course_qualification.each do |cq|
         qual_courses << course if course.number == cq.course.number
       end
     end
-
+# now check each qualified course's section with the app's availabilities to see if the student is available for that section
     qual_courses.each do |course|
       course.sections.each do |sec|
         # only match availabilities if this section is in need of graders, else continue to next iteration
@@ -202,13 +209,17 @@ class GraderApplicationsController < ApplicationController
   def app_params
     params.require(:application).permit(:term, :campus, :user_id, :availabilities)
   end
-
+# if a user tries to come to this page when they're not logged in, redirect them back to home page
   def authenticate
     redirect_to '/' unless current_user
   end
-
+# if a user tries to navigate to an admin-only page (update) redirect them back to home page
   def check_admin
     redirect_to '/' unless current_user&.role == 'admin'
+  end
+  #  if a user tries to navigate to a student-only page (new, create) redirect them back to home page
+  def check_student
+    redirect_to '/' unless current_user&.role == 'student'
   end
 
 end

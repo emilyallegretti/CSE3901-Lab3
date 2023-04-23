@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-
+# This controller handles actions related to an instructor submitting recommendations for student graders. It allows an instructor to get a
+# new empty form for submitting a recommendation, and to create a new row in the Recommendation table in the database.
 class RecommendationsController < ApplicationController
   before_action :check_instr
   # Render an empty form for submitting a new recommendation
@@ -37,7 +38,7 @@ class RecommendationsController < ApplicationController
     params.require(:recommendation).permit(:instructor_email, :student_email, :message, :course_name, :section_num,
                                            :user_id)
   end
-
+# if a non-instructor or someone who isnt signed in tries to navigate to any URL associated with this controller, redirect them back to home page
   def check_instr
     redirect_to '/' unless current_user&.role == 'instructor'
   end

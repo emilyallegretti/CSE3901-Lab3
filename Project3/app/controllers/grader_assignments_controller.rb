@@ -1,8 +1,10 @@
 # frozen_string_literal: true
-
+# This controller handles all actions related to admins assigning grader applications to sections. It renders an "index" view that shows all
+# course sections for the specified term that still need graders assigned, along with all grader applications that haven't been assigned to a 
+# section yet. From this page, the admin is able to assign graders to sections.
+# This controller also supports a "create" method that creates a new row in sections_users when a grader is assigned to an application.
 class GraderAssignmentsController < ApplicationController
     before_action :authenticate
-    before_action 
     def index
       # get only the courses under the specified term
       # get only those applications that have been approved and for the current term
@@ -59,7 +61,7 @@ class GraderAssignmentsController < ApplicationController
   end
 
   private
-
+# if a non-admin or someone who isnt signed in tries to navigate to any URL associated with this controller, redirect them back to home page
   def authenticate
     redirect_to '/' unless current_user&.role == 'admin'
   end
