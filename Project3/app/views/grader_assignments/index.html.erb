@@ -1,20 +1,20 @@
 <% if current_user.role == "admin" %>
-    <h1>CSE Student Grader Assignment Dashboard</h1>
-    <p>Welcome to the Grader Assignment Dashboard!<br>On this page, you can view sections that have not yet had a grader assigned to them,
-    view approved grader applications that have not yet been assigned to a section, and match qualified graders to sections.<br>
-    Instructions:<br></p>
-    <ul>
+    <h1 class="ml-5 mr-5">CSE Student Grader Assignment Dashboard</h1>
+    <p class="ml-5 mr-5">Welcome to the Grader Assignment Dashboard!<br>On this page, you can view sections that have not yet had a grader assigned to them,
+    view approved grader applications that have not yet been assigned to a section, and match qualified graders to sections.<br><br>
+    <b>Instructions:</b><br></p>
+    <ul class="ml-5 mr-5">
     <li>Select the term you would like to view applications and sections for (on first load, defaults to Spring 2023)</li>
     <li>On the left, all sections for the specified term that still need graders assigned will be listed.</li>
     <li>On the right, all approved grader applications for the specified term will be listed, along with the course sections they qualify for based on 
     their course qualifications and availabilities. Click "Show" to view more information about this grader application, including their full availability and list
     of course preferences/qualifications.</li>
-    <li>When you would like to assign a grader to a section, simply choose that grader's email from the drop-down menu next to that section and click "Assign" to update the system (The drop-down will only appear if there are unassigned applications available).</li>
+    <li> When you would like to assign a grader to a section, simply choose that grader's email from the drop-down menu next to that section and click "Assign" to update the system (The drop-down will only appear if there are unassigned applications available).</li>
 
-    <h2>Showing Sections and Applications For: <%=@grader_sections.first.course.term%></h2>
+    <h2 class="mt-5">Showing Sections and Applications For: <%=@grader_sections.first.course.term%></h2>
     <h3>Choose Term:</h3>
     <%= bootstrap_form_tag url: grader_assignments_path, method: :get do |f| %>
-        <%= f.select :term, ["Spring 2023", "Summer 2023", "Autumn 2023"]%>  <%= f.submit "Apply Term" %>
+        <%= f.select :term, ["Spring 2023", "Summer 2023", "Autumn 2023"]%> <p><%= f.submit "Apply Term" %></p>
     <% end %>
     <table id = "dashboardTable" class = "table">
     <tr>
