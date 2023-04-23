@@ -1,6 +1,6 @@
 <% if current_user.role == "admin" %>
     <h1>CSE Student Grader Assignment Dashboard</h1>
-    <h2>Showing Sections and Applications For: <%=@grader_sections.first.course.term%></h2>
+    <h2>Showing Sections and Applications For: <%=@grader_sections.course.term%></h2>
     <h3>Choose Term:</h3>
     <%= bootstrap_form_tag url: grader_assignments_path, method: :get do |f| %>
         <%= f.select :term, ["Spring 2023", "Summer 2023", "Autumn 2023"]%>  <%= f.submit "Apply Term" %>
@@ -10,32 +10,38 @@
     <td>
         <thead>
             <tr id = "headerRow" class = "text-center">
-                <th>Course Number</th> <th>Section Number</th> <th>Num. Graders Required</th> <th>Graders Assigned</th>
+                <th>Course Number</th> <th>Section Number</th> <th>Num. Graders Required</th> <th>Current Graders</th> <th>Assign Grader</th>
             </tr>
         </thead>
         <tbody> 
-        <% app_names = Array.new 
-                         @applications.each do |a|
+        
+            <% @grader_sections.each do |grader_section| %>
+            <% app_names = Array.new 
+                         grader_section.user_section.each do |a|
                         app_names << ((a.user.fname).concat(" ")).concat(a.user.lname)
                         end %>
-            <% @grader_sections.each do |grader_section| %>
                 <tr>
                     <td><%= grader_section.course.number %></td>
                     <td><%= grader_section.section_number %></td>
                     <td><%= grader_section.num_graders_required %></td>
                     <td>
-                        <% if grader_section.user_section.length == 0 %>
-                            <%= "No Graders" %>
+                        <% if app_names.length == 0 %>
+                            <%= "No Assigned Graders" %>
                         <% else %>
-                            <% grader_section.user_section.each do |user_section| %>
-                                <%= user_section.user.fname %> <%= user_section.user.lname %>
+                            <% app_names.each do |an| %>
+                                <%= an %>
                             <% end %>
                         <% end %>
-    
+                    </td>
+                    <td>
                         <%= bootstrap_form_tag url: grader_assignments_path, method: :post do |f| %>
-                          <%= f.select :student, app_names %>  
-                          <%= f.submit "Assign" %>
-                         <% end %>
+                            <% if grader_section.user_section.length == 0 %>
+                                <%= "No Qualified Graders" %>
+                            <% else %>
+                                <%= f.select :student, app_names %>  
+                                <%= f.submit "Assign" %>
+                            <% end %>
+                        <% end %>
                     </td>
                 </tr>
             <% end %>

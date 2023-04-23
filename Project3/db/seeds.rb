@@ -69,6 +69,37 @@ Course.create([{
                 term: 'Spring 2023'
               }])
 
+Section.create([{
+  num_graders_required: 1,
+  section_number: 123,
+  monday: true,
+  tuesday: false,
+  wednesday: true,
+  thursday: false,
+  friday: true,
+  course_id: 1
+}])
+Section.create([{
+  num_graders_required: 1,
+  section_number: 456,
+  monday: false,
+  tuesday: true,
+  wednesday: false,
+  thursday: true,
+  friday: false,
+  course_id: 1
+}])
+Section.create([{
+  num_graders_required: 1,
+  section_number: 789,
+  monday: true,
+  tuesday: true,
+  wednesday: false,
+  thursday: true,
+  friday: false,
+  course_id: 1
+}])
+
 Application.create([{
                      campus: 'Columbus',
                      term: 'Spring 2023',
@@ -78,6 +109,18 @@ Availability.create([{
                       start_time: '9',
                       end_time: '12',
                       day_of_week: 'Monday',
+                      application_id: 1
+                    }])
+                    Availability.create([{
+                      start_time: '9',
+                      end_time: '12',
+                      day_of_week: 'Wednesday',
+                      application_id: 1
+                    }])
+                    Availability.create([{
+                      start_time: '9',
+                      end_time: '12',
+                      day_of_week: 'Friday',
                       application_id: 1
                     }])
 CoursePreference.create([{
