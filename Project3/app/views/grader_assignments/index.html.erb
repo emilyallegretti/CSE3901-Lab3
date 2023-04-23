@@ -90,7 +90,7 @@
        <table id = "applicationsTable">
        <thead>
             <tr id = "headerRow" class = "text-center">
-                <th>Student Name</th><th>Email</th> <th>Term</th> <th>Campus</th><th>Qualified Course Sections</th><th>Actions</th>
+                <th>Student Name</th><th>Email</th> <th>Term</th> <th>Campus</th><th colspan = "3" >Actions</th>
             </tr>
         </thead>
         <tbody> 
@@ -100,9 +100,6 @@
                     <td><%= application.user.email %></td>
                     <td><%= application.term %></td>
                     <td><%= application.campus %></td>
-                    <td>
-                        <!--Need to fix Qualified Courses-->
-                    </td>
                     <td><%= link_to 'Show', grader_application_path(application) %></td>
                 </tr>
                 <%end%>

@@ -84,10 +84,12 @@
                 <% end %>
             </tbody>
         </table>
+        <% if @applications.length < 3%>
         <p>
             <br>Apply for another term:
         </p>
         <%= link_to "New Application", new_grader_application_path %>
+        <%end%>
     <% else %>
         <p>
             You currently have no active applications on record for a CSE student grader position.

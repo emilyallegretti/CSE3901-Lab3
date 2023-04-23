@@ -3,8 +3,9 @@
 class GraderApplicationsController < ApplicationController
   before_action :find_app,
                 only: %i[show edit update destroy]
-  before_action :authenticate
-  before_action :check_admin, only: %i[update edit]
+                before_action :authenticate
+                before_action :find_qualified_sections, only: %i[show]
+  before_action :check_admin, only: %i[ update  ]
 
   # If admin, list the students that want to apply as a grader.
   # If student, list all of the applications belonging to student.
@@ -63,14 +64,12 @@ class GraderApplicationsController < ApplicationController
     end
   end
 
-  # Shows the contact info, availability, and course preferences/qualifications of given student.
+  # Shows the contact info, availability, recommendations, and course preferences/qualifications of given student.
   def show
     # find any instructor recommendations that have been made for the student (for admin view only)
     @recs = Recommendation.where('student_email= ?', @application.user.email)
   end
 
-  # HTML form that allows admins to edit student applications.
-  def edit; end
 
   # Approves the application of given student.
   # Notifies if update was successful or not.
@@ -104,9 +103,93 @@ class GraderApplicationsController < ApplicationController
     redirect_to action: :index
   end
 
-  # Functions to find attributes of given student application.
   private
+# This function will match an application to sections for the given term based on the app's availability and qualified courses.
 
+  def find_qualified_sections
+    # This array will hold all the sections the app is qualified for
+    @qual_sections = Array.new
+    # Find all courses for the application's term that match the application's term
+    term_courses = Course.all.select{|c| c.term == @application.term }
+    # Find all the term_courses whose course number matches the course number in course qualifications
+    qual_courses = Array.new
+    term_courses.each do |course|
+      @application.course_qualification.each do |cq|
+        qual_courses << course if course.number == cq.course.number
+      end
+    end
+
+    qual_courses.each do |course|
+      course.sections.each do |sec|
+        # only match availabilities if this section is in need of graders, else continue to next iteration
+         if sec.user_section.length == sec.num_graders_required
+              next
+        end
+        # For each section of each course, first see if the section's days of the week match the days of week for which availabilities were filled out for
+        # Strategy here: Collect an array of the section's days of the week and the available days of the week. If the arrays don't match, continue to next iteration of loop
+        available_days = Array.new
+        section_days = Array.new
+        # if the section holds class on Monday, add it to section_days
+        if sec.monday 
+          section_days << "Monday"
+          # if the section holds class on Monday and the application has availabilities listed on Monday, add it to available_days 
+          if @application.availabilities.select{|a| a.day_of_week == "Monday"}.length > 0
+            available_days << "Monday"
+          end
+        end
+        # Repeat this logic for all other days of the school week
+         if sec.tuesday 
+          section_days << "Tuesday"
+          if @application.availabilities.select{|a| a.day_of_week == "Tuesday"}.length > 0
+            available_days << "Tuesday"
+          end
+        end
+         if sec.wednesday 
+          section_days << "Wednesday"
+          if @application.availabilities.select{|a| a.day_of_week == "Wednesday"}.length > 0
+            available_days << "Wednesday"
+          end
+        end
+         if sec.thursday 
+          section_days << "Thursday"
+          if @application.availabilities.select{|a| a.day_of_week == "Thursday"}.length > 0
+            available_days << "Thursday"
+          end
+        end
+         if sec.friday 
+          section_days << "Friday"
+          if @application.availabilities.select{|a| a.day_of_week == "Friday"}.length > 0
+            available_days << "Friday"
+          end
+        end
+        # Check if the resulting available days array matches the days the section is offered. If not, continue to next iteration of loop
+        if not(section_days == available_days)
+          next
+        end
+
+        # Now for each day the section is offered, check the section's start and end time against all the available time slots for that day
+        # If an open time slot is found for that day, add it to the list of matching days
+        matching_days = Array.new
+        available_days.each do |day|
+          @application.availabilities.select{|a| a.day_of_week == day}.each do |avail|
+            # if the availability start time is earlier than/equal to  the section start time, AND the availability end time is later than/equal to the 
+            # section end time, we've found a matching time slot for that day; add it to the matching days array 
+            if ((avail.start_time <=> sec.start_time) <= 0) && ((avail.end_time <=> sec.end_time) >= 0)
+               # If a matching time slot has already been found for the current day, skip
+               if not(matching_days.include? day)
+                matching_days << day
+               end
+            end
+          end
+        end
+        # Finally, check if we have found matching time slots for ALL days the section is offered by checking if matching_days equals section_days
+        # if the two arrays match, add the section to @qual_sections
+        if matching_days == section_days
+          @qual_sections << sec
+        end
+      end
+    end
+  end
   def find_app
     @application = Application.find(params[:id])
   end
@@ -116,18 +199,6 @@ class GraderApplicationsController < ApplicationController
     params.require(:application).permit(:term, :campus, :user_id, :availabilities)
   end
 
-  def availability_params
-    params.require(:application).permit(:availabilities)
-  end
-
-  def preference_params
-    params.require(:course_preference).permit(:application_id, :course_id)
-  end
-
-  def qualification_params
-    params.require(:course_qualification).permit(:application_id, :course_id)
-  end
-
   def authenticate
     redirect_to '/' unless current_user
   end
@@ -135,4 +206,5 @@ class GraderApplicationsController < ApplicationController
   def check_admin
     redirect_to '/' unless current_user&.role == 'admin'
   end
+
 end
