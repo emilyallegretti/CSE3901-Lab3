@@ -36,7 +36,7 @@
 <% if current_user.role == "admin" %>
     <br><br><h4>Instructor Recommendations</h4>
     <table id = "recsTable" class = "table"> 
-        <thread>
+        <thead>
             <tr id = "headerRow" class = "text-center">
                 <th>Instructor Email</th>
                 <th>Instructor Name</th>
@@ -45,7 +45,7 @@
                 <th>Recommendation Message</th>
                     
             </tr>
-        </thread>
+        </thead>
         <tbody>
          <%@recs.each do |r| %>
         <tr>

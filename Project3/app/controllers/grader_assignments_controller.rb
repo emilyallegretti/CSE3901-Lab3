@@ -53,6 +53,9 @@ class GraderAssignmentsController < ApplicationController
     redirect_to action: :index
   end
 
+  def destroy
+  end
+
   private
 # if a non-admin or someone who isnt signed in tries to navigate to any URL associated with this controller, redirect them back to home page
   def authenticate

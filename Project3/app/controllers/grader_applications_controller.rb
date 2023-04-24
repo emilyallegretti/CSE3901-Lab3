@@ -105,7 +105,7 @@ class GraderApplicationsController < ApplicationController
   def destroy
     if @application.destroy
       flash[:notice] = if current_user.role == 'admin'
-                         'Grader Application Rejected'
+                         'Grader Application Deleted'
                        else
                          'Grader Application Deleted'
                        end

@@ -48,6 +48,7 @@
                     <td>
                     <% section.user_section.each do |us| %>
                             <%=us.user.fname%> <%=us.user.lname%><br><%= us.user.email %>
+        
                     <% end %>
 
                    
@@ -55,3 +56,5 @@
                 </tr>
         </tbody>
     </table>
+    <%=link_to "Back To Grader Assignment Dashboard", grader_assignments_path%>
+    <%== pagy_bootstrap_nav(@pagy) %>

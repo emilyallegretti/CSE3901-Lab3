@@ -42,6 +42,7 @@
                     <td><%= application.term %></td>
                     <td><%= application.campus %></td>
                     <td><%= link_to 'Show', grader_application_path(application) %></td>
+                    <td><%= button_to 'Delete', grader_application_path(application), method: :delete, class: 'btn btn-small btn-primary mx-2', data: {turbo_confirm: "Are you sure you want to delete this application?"} %>
                 </tr>
                 <%end%>
         </table>
@@ -60,11 +61,11 @@
             is approved, you must contact an administrator.<br>
         </p>
         <table id="applicationTable" class="table"> 
-            <thread>
+            <thead>
                 <tr id="headerRow" class="text-center"> 
-                    <th>Student Name</th> <th>Term</th> <th>Campus</th> <th colspan = "2">Actions</th> <th>Status</th>
+                    <th>Student Name</th> <th>Term</th> <th>Campus</th> <th colspan = "2">Actions</th> <th>Status</th> <th>Assigned Section</th>
                 </tr>
-            </thread>
+            </thead>
             <tbody> 
                 <% @applications.each do |application| %>
                     <tr> 
@@ -74,8 +75,6 @@
                         <td><%= link_to 'Show', grader_application_path(application) %></td>
                         <% if !application.is_accepted %>
                             <td><%= button_to 'Delete', grader_application_path(application), method: :delete, class: 'btn btn-small btn-primary mx-2', data: {turbo_confirm: "Are you sure you want to delete this application?"} %></td>
-                        <% else %>
-                            <td></td>
                         <% end %>
                         <td>
                             <% if application.is_accepted %>
@@ -83,6 +82,16 @@
                             <% else %>
                                 <%= "Pending" %>
                             <% end %>
+                        </td>
+                        <td>
+                            <%if application.is_accepted && application.user.user_section.length > 0%>
+                                <% sec = application.user.user_section.select{|us| us.section.course.term == application.term }%>
+                                <%="Course: "%>
+                                <%= sec.first.section.course.number%>, 
+                                <%=" Section: "%><%= sec.first.section.section_number%>
+                             <%else%>
+                                <%="N/A"%>
+                             <%end%>   
                         </td>
                     </tr>
                 <% end %>
