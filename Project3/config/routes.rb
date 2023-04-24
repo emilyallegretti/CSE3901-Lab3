@@ -46,4 +46,6 @@ Rails.application.routes.draw do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
   end
+  # match all unexisting paths back to home page
+  get '*path' => redirect('/')
 end
