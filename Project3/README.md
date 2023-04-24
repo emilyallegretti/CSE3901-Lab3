@@ -227,7 +227,8 @@ Each section in need of a grader will be displayed as a row in the list with its
 
 In order to assign a grader to a section, the admin will need to select the student's email from the drop down of the associated section then click "Assign." If the grader is assigned successfully, a success message will be displayed, the number of graders for the course will increase by 1, the student will appear in the "Assigned Graders" section of the course in the list, and their application information will dissappear from the "Approved Applications" list. If there are no graders left with approved applications, the ability to assign graders to course sections will will be revoked and the drop down with the "Approve" button will dissappear.
 
-<img width="1512" alt="Screen Shot 2023-04-23 at 7 33 59 PM" src="https://user-images.githubusercontent.com/122934723/233872272-a228f95e-f712-4c91-af21-023ede664c53.png">
+<img width="1512" alt="Screen Shot 2023-04-23 at 10 12 20 PM" src="https://user-images.githubusercontent.com/122934723/233884432-b19069a0-2dcb-44dd-a907-d30aafa978f5.png">
+
 
 From this page, the administrator can also click a link to view all the course sections for a given semester that have the required amount of graders assigned. This link can be found at the top of the Grader Assignments Dashboard page:
 ![image](https://user-images.githubusercontent.com/105804647/233879574-230040b0-ce73-4c27-b001-89b32d652e7e.png)
