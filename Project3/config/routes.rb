@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   post 'reload2', to: 'reload#reload_database2'
 
   # auto-generated Devise routes.
-  devise_for :users
+  devise_for :users, controllers: { registrations: "users/registrations" }
 
   # CRUD routes for courses and their associated sections.
   resources :courses do
