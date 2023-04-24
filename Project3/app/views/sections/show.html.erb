@@ -1,6 +1,7 @@
 
     <body>
         <!-- Show section attributes -->
+        <div class="ml-5">
                 <h1><%= @section.course.name %> - Section <%= @section.section_number %></h1>
                 <hr>
                 <h3> Start Time: <%= @section.start_time %></h3>
@@ -40,6 +41,6 @@
 
 
                 <br><%= link_to "Back to Sections", course_sections_path(@course) %>
-            
+            </div>
      
     </body>

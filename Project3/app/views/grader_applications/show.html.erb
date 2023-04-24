@@ -1,3 +1,4 @@
+<div class="ml-5">
 <% if current_user.role == "admin" || current_user.role == "student" %>
     <h1>Grader Information</h1>
 
@@ -101,3 +102,4 @@
     <% end %>
     <br><%= link_to "Back to Grader Applications", action: :index %>
 <% end %>
+</div>

@@ -1,11 +1,14 @@
 <h1 class="ml-5 mr-5">CSE Student Grader Assignment Dashboard</h1>
 <p class="ml-5 mr-5">This page shows all the course sections that have the required amount of graders assigned to them.</p>
-<h3>Choose Term:</h3>
+<h3 class="ml-5">Choose Term:</h3>
+
+<div class="ml-5">
     <%= bootstrap_form_tag url: assigned_sections_path, method: :get do |f| %>
         <%= f.select :term, options_for_select(["Spring 2023", "Summer 2023", "Autumn 2023"], selected: params[:term]), {}%>  <%= f.submit "Apply Term" %>
     <% end %>
+</div>
 
-     <table id="sectionsTable" class="table"> 
+     <table id="sectionsTable" class="table text-center mt-3"> 
         <thead>
             <tr> 
                 <th>Course Number</th><th>Section Number</th> <th>Start Time</th> <th>End Time</th> <th>Days of Week</th><th>Num. Graders Required</th> <th>Graders Assigned</th> 
