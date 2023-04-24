@@ -105,7 +105,13 @@ class GraderApplicationsController < ApplicationController
   def destroy
     # find the user_section instances that are associated with this application's user
      # for each section associated with this user, find the one whose course falls under the deleted application's term
-    @section = UserSection.where("user_id = ?", @application.user_id).select{|us|  us.section.course.term == @application.term}.first.section
+    @section = UserSection.where("user_id = ?", @application.user_id)
+    if @section
+     @section = @section.select{|us|  us.section.course.term == @application.term}
+     if @section
+     @section = @section.select{|us| us.first.section}
+     end
+    end
    
     if @application.destroy && @application.user.sections.delete(@section)
       flash[:notice] = if current_user.role == 'admin'
