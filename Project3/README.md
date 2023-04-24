@@ -190,12 +190,24 @@ Admins have the ability to approve and reject applications for student graders. 
 <img width="1506" alt="Screen Shot 2023-04-23 at 6 59 16 PM" src="https://user-images.githubusercontent.com/122934723/233870739-7c34b6d2-fa42-4ddc-b59c-882a5cdc1ef0.png">
 
 
-If "Show" is clicked for an application, the admin will be directed to a page which displays all the information submitted in the specified application. It will display the applicants personal information, the campus and term they applied for, their availability, the courses they are qualified to grade, the courses they prefer to grade, and the sections they are qualified for which are in need of graders. They will also be able to see information about possible instructor reccomendations as well. It will list, instructor's name and email as well as the reccomended course, reccomended section, and the message submitted in the reccomenedation form. Admins will have the ability to approve the application and return to the "Grader Application" page by clicking the appropriate options at the bottom of the page.
+If "Show" is clicked for an application, the admin will be directed to a page which displays all the information submitted in the specified application. It will display the applicants personal information, the campus and term they applied for, their availability, the courses they are qualified to grade, the courses they prefer to grade, and the sections they are qualified for which are in need of graders. They will also be able to see information about possible instructor recommendations as well. It will list, instructor's name and email as well as the recommended course, reccomended section, and the message submitted in the reccomenedation form. Admins will have the ability to approve the application and return to the "Grader Application" page by clicking the appropriate options at the bottom of the page.
+
+**AUTOMATIC GRADER-SECTION MATCHING FEATURE:** If availabilities are entered by the student in the correct format specified in the application instructor, our application will automatically find all the course sections that the student is qualified for and available to grade based on their course qualifications and entered availability, and list them in the application "show" view alongside the application's qualified and preferred courses.
+
+For example, if a student inputs these availabilities and course qualifications in their Spring 2023 application:
+![image](https://user-images.githubusercontent.com/105804647/233878810-aa265643-e40d-4f28-b460-458229553fda.png)
+
+The "Show" view for that application will list out the course sections it has been matched to:
+![image](https://user-images.githubusercontent.com/105804647/233879017-180a741f-3c14-411a-a282-075c1d23360f.png)
+
+If the user were to navigate to the course catalog view and view the sections listed for, say CSE 2221, they will see that the sections for this course that the application has been matched to are indeed the sections that have start and end times meeting the application's availability constraint:
+![image](https://user-images.githubusercontent.com/105804647/233879223-028a7c80-303b-4d51-b140-1902eb9c7b45.png)
+
 
 <img width="1512" alt="Screen Shot 2023-04-23 at 7 02 51 PM" src="https://user-images.githubusercontent.com/122934723/233870835-b7a38b01-b927-43b9-ba2d-db8cf887254b.png">
 
 
-If the admin selects "Approve" for the application, the aplication will be removed from the list, and a message will be displayed saying the aplication was approved.
+If the admin selects "Approve" for the application, the application will be removed from the list, and a message will be displayed saying the application was approved.
 
 <img width="1494" alt="Screen Shot 2023-04-23 at 7 03 50 PM" src="https://user-images.githubusercontent.com/122934723/233870866-edfd55c2-452c-44db-92e4-ed305d66b8e3.png">
 
@@ -213,9 +225,15 @@ Each section in need of a grader will be displayed as a row in the list with its
 
 <img width="1512" alt="Screen Shot 2023-04-23 at 7 25 03 PM" src="https://user-images.githubusercontent.com/122934723/233871752-6d995cd2-c98b-4877-b1c9-9b938499a995.png">
 
-In order to assign a grader to a section, the admin will need to select the student's email from the drop down of the associated section then click "Assign." If the grader is assigned successfully, a success message will be displayed, the number of graders for the course will decrease by 1, the student will appear in the "Assigned Graders" section of the course in the list, and their application information will dissappear from the "Approved Applications" list. If there are no graders left with approved applications, the ability to assign graders to course sections will will be revoked and the drop down with the "Approve" button will dissappear.
+In order to assign a grader to a section, the admin will need to select the student's email from the drop down of the associated section then click "Assign." If the grader is assigned successfully, a success message will be displayed, the number of graders for the course will increase by 1, the student will appear in the "Assigned Graders" section of the course in the list, and their application information will dissappear from the "Approved Applications" list. If there are no graders left with approved applications, the ability to assign graders to course sections will will be revoked and the drop down with the "Approve" button will dissappear.
 
 <img width="1512" alt="Screen Shot 2023-04-23 at 7 33 59 PM" src="https://user-images.githubusercontent.com/122934723/233872272-a228f95e-f712-4c91-af21-023ede664c53.png">
+
+From this page, the administrator can also click a link to view all the course sections for a given semester that have the required amount of graders assigned. This link can be found at the top of the Grader Assignments Dashboard page:
+![image](https://user-images.githubusercontent.com/105804647/233879574-230040b0-ce73-4c27-b001-89b32d652e7e.png)
+
+Clicking this link will bring the administator to a similar view, where upon specifying the desired Term in the dropdown and clicking "Apply" (first navigation defaults to Spring 2023), all the sections that have had a sufficient amount of graders assigned will be listed:
+![image](https://user-images.githubusercontent.com/105804647/233879726-2e411ac2-47a3-4708-bbff-05fe905a9b2c.png)
 
 
 ### Student Home Page and Actions
@@ -284,7 +302,7 @@ The application information page looks like this:
 
 <img width="1512" alt="Screen Shot 2023-04-23 at 7 57 34 PM" src="https://user-images.githubusercontent.com/122934723/233873550-930a5f2d-6809-4145-93ed-2dc27bc7515e.png">
 
-When a student selects "Delete" for an application, they will be prompted with a popup message confirming they are about to delete an application with an option to cancel and an "OK" option to delete the application. Students are not permitted to delete their application after it has been approved and they have been assigned a section to grade. If they wish to renege their application after their application has been apprved, they must contact an administrator.
+When a student selects "Delete" for an application, they will be prompted with a popup message confirming they are about to delete an application with an option to cancel and an "OK" option to delete the application. Students are not permitted to delete their application after it has been approved and they have been assigned a section to grade. If they wish to renege their application after their application has been approved, they must contact an administrator. The administrator can then delete the student's application from their "Approved Applications" view (see Admin actions section).
 
 <img width="1511" alt="Screen Shot 2023-04-23 at 8 08 04 PM" src="https://user-images.githubusercontent.com/122934723/233874183-6de391de-aaaf-45ea-af00-4d2a67f77aeb.png">
 
@@ -297,6 +315,13 @@ A sample application would look as follows:
 If a student wishes not to submit an application, they can choose an option in their menu bar or select "Back to Grader Applications" at the bottom of the page to be directed to the grader application dashboard. If they wish to submit their aplication, they can select "Submit" at the bottom of the page. Once they select "Submit", they will be redirected to the "Grader Applications" homepage where the submitted application will appear in the grader application list and a success message will be displayed.
 
 <img width="1512" alt="Screen Shot 2023-04-23 at 8 07 23 PM" src="https://user-images.githubusercontent.com/122934723/233874132-b0012b2a-6df0-4a4e-98cb-4fb54122267f.png">
+
+If a student has been recommended by an instructor but hasn't submitted any applications to be a grader, they will be met with a message on their home screen encouraging them to apply to be a grader:
+![image](https://user-images.githubusercontent.com/105804647/233876441-f7ab29c6-ced2-4863-a2b9-da1eec5897d9.png)
+
+If a student has been recommended by an instructor and has applied to be a grader, they will be notified on their home screen that an instructor has done so:
+![image](https://user-images.githubusercontent.com/105804647/233876588-00b29295-7015-4dbb-9287-2a0c8a36a783.png)
+
 
 
 ### Instructor Home Page and Actions
