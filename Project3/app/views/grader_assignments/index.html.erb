@@ -15,12 +15,12 @@
     of course preferences/qualifications.</li>
     <li>When you would like to assign a grader to a section, simply choose that grader's email from the drop-down menu next to that section and click "Assign" to update the system (The drop-down will only appear if there are unassigned applications available).</li>
 
-    
-    <h3 class="ml-5">Choose Term:</h3>
+    <br><h5>Choose Term:</h5>
     <%= bootstrap_form_tag url: grader_assignments_path, method: :get do |f| %>
         <%= f.select :term, options_for_select(["Spring 2023", "Summer 2023", "Autumn 2023"], selected: params[:term]), {}%>  <%= f.submit "Apply Term" %>
     <% end %>
-    <table id = "dashboardTable" class = "table">
+
+    <br><table id = "dashboardTable" class = "table">
     <tr>
     <td>
     <h4>Sections In Need Of Graders</h4>
@@ -83,9 +83,9 @@
                           <%= f.hidden_field :section_id, value: grader_section.id%>
                           <%= f.submit "Assign" %>
                          <% end %>
+                         <% end %>
                     </td>
                 </tr>
-            <% end %>
             <% end %>
         </tbody>
         </table>
@@ -114,4 +114,5 @@
     </table>
 <% end %>
 
-<%== pagy_bootstrap_nav(@pagy) %>
+<%== pagy_bootstrap_nav(@pagy_apps) %>
+<%== pagy_bootstrap_nav(@pagy_graders) %>

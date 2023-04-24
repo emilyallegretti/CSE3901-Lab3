@@ -59,7 +59,8 @@ class ReloadController < ApplicationController
                           'Marion' => 'MRN', 'Newark' => 'nwk', 'Wooster' => 'WST' }
     campus_dictionary[params[:campus]]
   end
-# if a non-admin or someone who isnt signed in tries to navigate to any URL associated with this controller, redirect them back to home page
+
+  # if a non-admin or someone who isnt signed in tries to navigate to any URL associated with this controller, redirect them back to home page
   def authenticate
     redirect_to '/' unless current_user&.role == 'admin'
   end
