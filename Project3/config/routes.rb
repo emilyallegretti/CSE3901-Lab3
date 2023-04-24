@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   post 'reload2', to: 'reload#reload_database2'
 
   # auto-generated Devise routes.
-  devise_for :users, controllers: { registrations: "users/registrations" }
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
   # CRUD routes for courses and their associated sections.
   resources :courses do
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   # CRUD routes for graders and their assigned sections.
   resources :grader_assignments
   # CRUD routes for viewing sections with enough graders.
-  resources :assigned_sections, only: [:index, :destroy]
+  resources :assigned_sections, only: %i[index destroy]
 
   # Check if the user is signed in. If signed in, go to home page.
   # Else, go to sign in.

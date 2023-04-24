@@ -5,12 +5,11 @@
 class HomeController < ApplicationController
   # render the home page
   def index
-    if current_user.role == "student"
+    return unless current_user.role == 'student'
+
     # see if there are any instructor recommendations associated with the current student
-    @recs = Recommendation.where("student_email = ?", current_user.email)
+    @recs = Recommendation.where('student_email = ?', current_user.email)
     # see if there are applications associated with the current student
-    @apps = Application.where("user_id = ?", current_user.id)
-    end
-  
+    @apps = Application.where('user_id = ?', current_user.id)
   end
 end
