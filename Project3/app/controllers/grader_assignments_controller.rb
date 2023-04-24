@@ -36,8 +36,8 @@ class GraderAssignmentsController < ApplicationController
         @grader_sections << s if s.user_section.length < s.num_graders_required
       end
     end
-    @pagy_apps, @applications = pagy_array(@applications)
-    @pagy_graders, @grader_sections = pagy_array(@grader_sections)
+    @pagy_apps, @applications = pagy_array(@applications, page_param: :page_apps)
+    @pagy_graders, @grader_sections = pagy_array(@grader_sections, page_param: :page_graders)
   end
 
   # When an admin assigns a grader to a section, this method will create a new row in sections_users associating the section and grader.

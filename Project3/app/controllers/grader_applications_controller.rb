@@ -15,10 +15,10 @@ class GraderApplicationsController < ApplicationController
   # If student, list all of the applications belonging to student.
   def index
     if current_user.role == 'admin'
-      @pagy_apps, @applications = pagy(Application.where('is_accepted = ?', false))
-      @pagy_approved, @approved = pagy(Application.where('is_accepted = ?', true))
+      @pagy_apps, @applications = pagy(Application.where('is_accepted = ?', false), page_param: :page_apps)
+      @pagy_approved, @approved = pagy(Application.where('is_accepted = ?', true), page_param: :page_approved)
     elsif current_user.role == 'student'
-      @pagy_apps, @applications = pagy(Application.where('user_id = ?', current_user.id))
+      @pagy_apps, @applications = pagy(Application.where('user_id = ?', current_user.id), page_param: :page_apps)
     end
   end
 
