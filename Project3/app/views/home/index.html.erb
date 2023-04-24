@@ -1,4 +1,13 @@
 <% if user_signed_in? %>
     <div class="ml-5"><b>Welcome, <%= current_user.fname %></b> </div>
     
+    <%if current_user.role == "student" && @apps.length == 0 && @recs.length > 0%>
+        <p><b>ATTENTION:</b> Our records indicate that an instructor has recommended you to be a student grader, but you have not submitted
+        any applications to be a grader. We strongly encourage you to apply for a grading position! Click "Student Grader Applications" from your 
+        menu bar to start an application now.</p>
+    <%end%>
+    <%if current_user.role == "student" && @apps.length > 0 && @recs.length > 0%>
+        <p><b>Congratulations!</b> An instructor has recommended you for a student grader position.</p>
+    <%end%>
+
 <% end %>

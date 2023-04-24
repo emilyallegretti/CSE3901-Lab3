@@ -1,5 +1,8 @@
+<div class="ml-5">
 <% if current_user.role == "admin" %>
-    <h1 class="ml-5">CSE Student Grader Applications</h1>
+    <h1>CSE Student Grader Applications</h1>
+    <p>Welcome to the Grader Applications Dashboard!<br>
+    Here, you can view pending student grader applications and approve or reject them. You can also view all approved applications.</p>
     <table id = "applicationTable" class = "table" >
         <tr>
         <td>
@@ -17,8 +20,8 @@
                     <td><%= application.term %></td>
                     <td><%= application.campus %></td>
                     <td><%= link_to 'Show', grader_application_path(application) %></td>
-                    <td><%= button_to 'Approve', grader_application_path(application), method: :patch %>
-                    <td><%= button_to 'Reject', grader_application_path(application), method: :delete, data: {turbo_confirm: "Are you sure you want to reject this application?"} %>
+                    <td><%= button_to 'Approve', grader_application_path(application), method: :patch, class: 'btn btn-small btn-primary mx-2' %>
+                    <td><%= button_to 'Reject', grader_application_path(application), method: :delete, class: 'btn btn-small btn-primary mx-2', data: {turbo_confirm: "Are you sure you want to reject this application?"} %>
                 </tr>
             <% end %>
         </tbody>
@@ -40,6 +43,7 @@
                     <td><%= application.term %></td>
                     <td><%= application.campus %></td>
                     <td><%= link_to 'Show', grader_application_path(application) %></td>
+                    <td><%= button_to 'Delete', grader_application_path(application), method: :delete, class: 'btn btn-small btn-primary mx-2', data: {turbo_confirm: "Are you sure you want to delete this application?"} %>
                 </tr>
                 <%end%>
         </table>
@@ -52,15 +56,17 @@
         <p>
             You currently have application(s) on record to be a student grader. They are listed below.
             <br>You must submit a new application for each semester of courses.
-            <br>Once an application has been approved and you are assigned to a section for the specified term, the status of your application will be updated.
-            <br>You may view or delete each of your applications here.
+            <br>Once an application has been approved, the status of your application will be updated.
+            <br>You may view or delete each of your applications here. 
+            <br>NOTE: You may only delete an application while it is still pending. If you'd wish to renege your offer after your application
+            is approved, you must contact an administrator.<br>
         </p>
         <table id="applicationTable" class="table"> 
-            <thread>
+            <thead>
                 <tr id="headerRow" class="text-center"> 
-                    <th>Student Name</th> <th>Term</th> <th>Campus</th> <th colspan = "2">Actions</th> <th>Status</th>
+                    <th>Student Name</th> <th>Term</th> <th>Campus</th> <th colspan = "2">Actions</th> <th>Status</th> <th>Assigned Section</th>
                 </tr>
-            </thread>
+            </thead>
             <tbody> 
                 <% @applications.each do |application| %>
                     <tr> 
@@ -69,9 +75,7 @@
                         <td><%= application.campus %></td>
                         <td><%= link_to 'Show', grader_application_path(application) %></td>
                         <% if !application.is_accepted %>
-                            <td><%= button_to 'Delete', grader_application_path(application), method: :delete, data: {turbo_confirm: "Are you sure you want to delete this application?"} %></td>
-                        <% else %>
-                            <td></td>
+                            <td><%= button_to 'Delete', grader_application_path(application), method: :delete, class: 'btn btn-small btn-primary mx-2', data: {turbo_confirm: "Are you sure you want to delete this application?"} %></td>
                         <% end %>
                         <td>
                             <% if application.is_accepted %>
@@ -80,14 +84,26 @@
                                 <%= "Pending" %>
                             <% end %>
                         </td>
+                        <td>
+                            <%if application.is_accepted && application.user.user_section.length > 0%>
+                                <% sec = application.user.user_section.select{|us| us.section.course.term == application.term }%>
+                                <%="Course: "%>
+                                <%= sec.first.section.course.number%>, 
+                                <%=" Section: "%><%= sec.first.section.section_number%>
+                             <%else%>
+                                <%="N/A"%>
+                             <%end%>   
+                        </td>
                     </tr>
                 <% end %>
             </tbody>
         </table>
+        <% if @applications.length < 3%>
         <p>
             <br>Apply for another term:
         </p>
         <%= link_to "New Application", new_grader_application_path %>
+        <%end%>
     <% else %>
         <p>
             You currently have no active applications on record for a CSE student grader position.
@@ -96,8 +112,7 @@
         <%= link_to "New Application", new_grader_application_path %>
     <% end %>
 <% end %>
-
-<div class="ml-5">
-    <%== pagy_bootstrap_nav(@pagy) %>
 </div>
 
+<%== pagy_bootstrap_nav(@pagy_apps) %>
+<%== pagy_bootstrap_nav(@pagy_approved) %>

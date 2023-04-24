@@ -87,11 +87,11 @@ class SectionsController < ApplicationController
     params.require(:section).permit(:num_graders_required, :section_number, :start_time, :end_time, :location, :monday,
                                     :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :mode_of_instruction)
   end
-
+# if a user tries to come to this page when they're not logged in, redirect them back to home page
   def authenticate
     redirect_to '/' unless current_user
   end
-
+# if a user tries to navigate to an admin-only page (new, edit, create, update, destroy), redirect them back to home page
   def check_admin
     redirect_to '/' unless current_user&.role == 'admin'
   end

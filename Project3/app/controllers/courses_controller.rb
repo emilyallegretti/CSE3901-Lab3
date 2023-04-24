@@ -101,11 +101,11 @@ class CoursesController < ApplicationController
   def course_params
     params.require(:course).permit(:name, :number, :term, :campus)
   end
-
+# if a user tries to come to this page when they're not logged in, redirect them back to home page
   def authenticate
     redirect_to '/' if current_user.nil?
   end
-
+# if a user tries to navigate to an admin-only page (new, edit, create, update, destroy), redirect them back to home page
   def check_admin
     redirect_to '/' unless current_user&.role == 'admin'
   end

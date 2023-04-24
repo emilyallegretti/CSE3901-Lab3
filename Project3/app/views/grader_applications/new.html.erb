@@ -28,7 +28,17 @@
         <h3>Availability</h3>
         <p>
             Instructions: for each day of the week, fill in all the start and end times in which you are free. Click "Add row" to add as many time blocks as you need.<br>
-            Make sure you specify AM or PM for each time slot.
+            CONSTRAINTS: </p>
+            <ul>
+            <li>Only input availabilities between 8AM and 9PM.</li>
+            <li>You must specify am or pm for each time slot.</li>
+            <li>For single-digit times before 12:00pm, you must list the time as 0H:MMam. (ex. 09:00am, 08:00am)</li>
+            <li>For times after 12:00pm, a leading 0 is unnecessary. Please list the time as H:MMpm (ex. 5:00pm, 6:30pm)</li>
+            <li>Even if a time slot is on the hour (ex. 9am), you must list it in H:00 format. (ex. 09:00am, 5:00pm)</li>
+            </ul>
+        <p>
+        If you do not meet the above requirements when filling out your availabilities, they will still be recorded in the system, but 
+        our automatic section-matching feature will not work properly, at the inconvenience of the administrator assigning graders to sections.
         </p>
         <br>
 

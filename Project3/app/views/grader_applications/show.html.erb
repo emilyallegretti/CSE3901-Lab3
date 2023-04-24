@@ -1,3 +1,4 @@
+<div class="ml-5">
 <% if current_user.role == "admin" || current_user.role == "student" %>
     <h1>Grader Information</h1>
 
@@ -36,7 +37,7 @@
 <% if current_user.role == "admin" %>
     <br><br><h4>Instructor Recommendations</h4>
     <table id = "recsTable" class = "table"> 
-        <thread>
+        <thead>
             <tr id = "headerRow" class = "text-center">
                 <th>Instructor Email</th>
                 <th>Instructor Name</th>
@@ -45,7 +46,7 @@
                 <th>Recommendation Message</th>
                     
             </tr>
-        </thread>
+        </thead>
         <tbody>
          <%@recs.each do |r| %>
         <tr>
@@ -67,9 +68,9 @@
             <tr id = "headerRow" class = "text-center">
                 <th>Course Qualifications</th>
                 <th>Course Preferences</th>
-                <% if current_user.role == "admin" %>
+    
                     <th>Qualified Sections in Need of Graders</th>
-                <% end %>
+
             </tr>
         </thread>
         <tbody>
@@ -84,19 +85,14 @@
                         <p><%= cp.course.number %></p>
                     <% end %>
                 </td>
-                <% if current_user.role == "admin" %>
+                
                     <td>
-                        <% @application.course_qualification.each do |cq| %>
-                            <% cq.course.sections.each do |section| %>
-                                <% @application.availabilities.each do |a| %>
-                                    <% if (a.day_of_week == "Monday" && section.monday) || (a.day_of_week == "Tuesday" && section.tuesday) || (a.day_of_week == "Wednesday" && section.wednesday) || (a.day_of_week == "Thursday" && section.thursday) || (a.day_of_week == "Friday" && section.friday) %>
-                                        <p>Course <%= cq.course.number %> - Section <%= section.section_number %></p>
-                                    <% end %>
-                                <% end %>
-                            <% end %>
+                        <% @qual_sections.each do |sec| %>
+                            <p><%= sec.course.number %> - Section <%= sec.section_number %></p>
+    
                         <% end %>
                     </td>
-                <% end %>
+  
             </tr>
         </tbody>
     </table>
@@ -106,3 +102,4 @@
     <% end %>
     <br><%= link_to "Back to Grader Applications", action: :index %>
 <% end %>
+</div>

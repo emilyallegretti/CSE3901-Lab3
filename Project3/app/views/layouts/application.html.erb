@@ -36,26 +36,26 @@
         <p>You are currently pending admin approval. Until you are approved, you are only able to browse the course catalog.</p>
 
                 <td>
-                    <%= button_to "Status Requests", "/requests", method: :get, class: "btn btn-small btn-primary mx-2", :disabled => true%>
+                    <%= button_to "Status Requests", requests_path, method: :get, class: "btn btn-small btn-primary mx-2", :disabled => true%>
                 </td>
                 <td>
-                  <%= button_to "Grader Applications", "/grader_applications", method: :get, class: "btn btn-small btn-primary mx-2", :disabled => true %>
+                  <%= button_to "Grader Applications", grader_applications_path, method: :get, class: "btn btn-small btn-primary mx-2", :disabled => true %>
                 </td>
                 <td>
-                  <%= button_to "Grader Assignments", "/grader_assignments", method: :get, class: "btn btn-small btn-primary mx-2", :disabled => true %>
+                  <%= button_to "Grader Assignments", grader_assignments_path, method: :get, class: "btn btn-small btn-primary mx-2", :disabled => true %>
                 </td>
                 <td>
                     <%= button_to "Reload Database", "/reload/new", method: :get, class: "btn btn-small btn-primary mx-2", :disabled => true %>
                 </td>
             <% else %>
                 <td>
-                    <%= button_to "Status Requests", "/requests", method: :get, class: "btn btn-small btn-primary mx-2" %>
+                    <%= button_to "Status Requests", requests_path, method: :get, class: "btn btn-small btn-primary mx-2" %>
                 </td>
                 <td>
-                  <%= button_to "Grader Applications", "/grader_applications", method: :get, class: "btn btn-small btn-primary mx-2" %>
+                  <%= button_to "Grader Applications", grader_applications_path, method: :get, class: "btn btn-small btn-primary mx-2" %>
                 </td>
                 <td>
-                  <%= button_to "Section Grader Assignments", "/grader_assignments", method: :get, class: "btn btn-small btn-primary mx-2" %>
+                  <%= button_to "Section Grader Assignments", grader_assignments_path, method: :get, class: "btn btn-small btn-primary mx-2" %>
                 </td>
                 <td>
                     <%= button_to "Reload Database", "/reload/new", method: :get, class: "btn btn-small btn-primary mx-2" %>
@@ -94,7 +94,7 @@
             <%= button_to "Browse Catalog", courses_path, method: :get, class: "btn btn-small btn-primary mx-2" %>
           </td>
           <td>
-            <%= button_to "Grader Applications", "/grader_applications", method: :get, class: "btn btn-small btn-primary mx-2" %>
+            <%= button_to "Student Grader Applications", "/grader_applications", method: :get, class: "btn btn-small btn-primary mx-2" %>
           </td>
         </tr>
       </table>

@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <table id="coursesTable" class="table"> 
+    <table id="coursesTable" class="table mt-3"> 
         <thread>
             <tr id="headerRow"> 
                 <th class="text-center">Number</th> <th>Name</th> <th class="text-center">Term</th> <th class="text-center">Campus</th> <th class="text-center">Actions</th> 
@@ -28,7 +28,7 @@
                         <td class="text-center"><%=link_to 'Sections', course_sections_path(course)%>
                         <% if current_user.role == "admin" && not(current_user.pending_approval?) %>
                             <td><%= link_to 'Edit', edit_course_path(course) %></td>
-                            <td><%= button_to 'Delete', course_path(course), method: :delete, data: {turbo_confirm: "Are you sure you want to delete this course?"} %></td>
+                            <td><%= button_to 'Delete', course_path(course), method: :delete, class: 'btn btn-small btn-primary mx-2', data: {turbo_confirm: "Are you sure you want to delete this course?"} %></td>
                         <%end%>
                         </td>
                     </tr>

@@ -10,7 +10,7 @@
             <td><%= request.lname %></td>
             <td><%= request.email %></td>
             <td><%= request.role.capitalize%>
-            <td><%= button_to 'Approve', "/requests/#{request.id}", method: :patch %></td>
+            <td><%= button_to 'Approve', "/requests/#{request.id}", method: :patch, class: 'btn btn-small btn-primary mx-2' %></td>
         </tr>
     <% end %>
 <%end%>
