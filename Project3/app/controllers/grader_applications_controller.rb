@@ -103,7 +103,11 @@ class GraderApplicationsController < ApplicationController
   # Delete the application of given student if the student deletes it, or if the admin rejects it.
   # Notifies if deletion was successful or not.
   def destroy
-    if @application.destroy
+    # find the user_section instances that are associated with this application's user
+     # for each section associated with this user, find the one whose course falls under the deleted application's term
+    @section = UserSection.where("user_id = ?", @application.user_id).select{|us|  us.section.course.term == @application.term}.first.section
+   
+    if @application.destroy && @application.user.sections.delete(@section)
       flash[:notice] = if current_user.role == 'admin'
                          'Grader Application Deleted'
                        else
