@@ -1,6 +1,6 @@
 <body>
-<h2> Sections for <%= @course.name%></h2>
-    <table id="sectionsTable" class="table"> 
+<h2 class="ml-5"> Sections for <%= @course.name%></h2>
+    <table id="sectionsTable" class="table text-center"> 
         <thread>
             <tr> 
                 <th>Course Number</th><th>Section Number</th> <th>Start Time</th> <th>End Time</th> <th>Days of Week</th> <th>Location</th><th>Mode of Instruction</th><th>Num. Graders Required</th>  <th>Actions</th> 
@@ -51,6 +51,7 @@
             <% end %>
         </tbody>
     </table>
+<div class="ml-5">
     <% if current_user.role == "admin" && not(current_user.pending_approval?) %>
         <br /> <%= link_to 'New Section', new_course_section_path(@course) %>
         <%end%>
@@ -59,3 +60,4 @@
     </body>
    
 <%== pagy_bootstrap_nav(@pagy) %>
+</div>
