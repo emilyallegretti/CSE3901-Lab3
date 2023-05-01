@@ -1,0 +1,16 @@
+<%if current_user.role == "admin"%>
+<h1>New Course</h1>
+
+<%= bootstrap_form_with model: @course, url: courses_path, method: :post, local: true do |f| %>
+
+  <%= f.text_area :name %>
+  <%= f.text_field :number %>
+  <%= f.text_field :term %>
+  <%= f.text_field :campus %>
+  <%= f.submit "Create" %>
+
+<% end %>
+
+<%= link_to "Back to Courses", courses_path %>
+
+<%end %>

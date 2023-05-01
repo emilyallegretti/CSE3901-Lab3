@@ -1,0 +1,25 @@
+<%if current_user.role == "admin"%>
+<h1 class="ml-5">Reload Database</h1>
+
+<div class="row ml-5">
+    <div class="col-md-4">
+        <%= bootstrap_form_tag url: "/reload", method: :post do |f|%>
+    
+            <%= f.select :term, ["All Terms", "Spring 2023", "Summer 2023", "Autumn 2023"]%>
+    
+            <%= f.select :campus, ["All Campuses", "Columbus", "Newark", "Mansfield", "Wooster", "Marion", "Lima"]%>
+    
+            <%= f.submit "Load Courses" %>
+
+        <% end %>
+    </div>
+    <div class="col-md-6">
+        <%= bootstrap_form_tag url: "/reload2", method: :post do |d| %>
+           
+            <%= d.text_field :termCode, label: "Or, Input a Term Code:" , size: 'sm', placeholder: "Term Code"%>
+
+            <%= d.submit "Load Courses" %>
+        <% end %>
+    </div>
+</div>
+<%end%>

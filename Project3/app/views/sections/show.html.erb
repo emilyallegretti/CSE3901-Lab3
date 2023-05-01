@@ -1,0 +1,46 @@
+
+    <body>
+        <!-- Show section attributes -->
+        <div class="ml-5">
+                <h1><%= @section.course.name %> - Section <%= @section.section_number %></h1>
+                <hr>
+                <h3> Start Time: <%= @section.start_time %></h3>
+                <h3> End Time:  <%= @section.end_time %></h3>
+                  <!-- Create a string depicting the section's days of the week -->
+                        <% days = ""%>
+                        <% if @section.monday %>
+                        <% days += "M"%>
+                        <% end%>
+                        <% if @section.tuesday %>
+                        <% days += " Tu"%>
+                        <% end%>
+                        <% if @section.wednesday %>
+                        <% days += " W"%>
+                        <% end%>
+                        <% if @section.thursday %>
+                        <% days += " Th"%>
+                        <% end%>
+                        <% if @section.friday %>
+                        <% days += " F"%>
+                        <% end%>
+                        <% if @section.saturday %>
+                        <% days += " Sat"%>
+                        <% end%>
+                        <% if @section.sunday %>
+                        <% days += " Sun"%>
+                        <% end%>
+                        
+                       
+                        <h3> Days of Week: <%= days %></h3>
+                <h3> Location: <%= @section.location %></h3>
+                <h3> Mode of Instruction: <%= @section.mode_of_instruction %></h3>
+                <h3> Number of Graders Required: <%= @section.num_graders_required %></h3>
+                <% if current_user.role == "admin" && not(current_user.pending_approval?) %>
+                <br> <%= link_to "Edit Section", edit_course_section_path(@course, @section) %>
+                <%end%>
+
+
+                <br><%= link_to "Back to Sections", course_sections_path(@course) %>
+            </div>
+     
+    </body>

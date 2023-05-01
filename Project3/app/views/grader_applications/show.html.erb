@@ -1,0 +1,105 @@
+<div class="ml-5">
+<% if current_user.role == "admin" || current_user.role == "student" %>
+    <h1>Grader Information</h1>
+
+    <h4>First Name</h4>
+    <p><%= @application.user.fname %></p>
+
+    <h4>Last Name</h4>
+    <p><%= @application.user.lname %></p>
+
+    <h4>Email</h4>
+    <p><%= @application.user.email %></p>
+
+    <h4>Campus</h4>
+    <p><%= @application.campus %></p>
+
+    <h4>Term</h4>
+    <p><%= @application.term %></p>
+
+    <h3>Availability</h3>
+    <% for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] %>
+        <h4><strong><%= day %></strong></h4>
+        <table>
+            <thead>
+                <th>Start Time</th>  <th>End Time</th>
+            </thead>
+            <tbody>
+                <% @application.availabilities.select{ |entry| entry.day_of_week==day }.each do |a| %>
+                    <tr>
+                        <td><%= a.start_time %></td>
+                        <td><%= a.end_time %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    <% end %>
+<% if current_user.role == "admin" %>
+    <br><br><h4>Instructor Recommendations</h4>
+    <table id = "recsTable" class = "table"> 
+        <thead>
+            <tr id = "headerRow" class = "text-center">
+                <th>Instructor Email</th>
+                <th>Instructor Name</th>
+                <th>Recommended Course <em>(If Applicable)</em></th>
+                <th>Recommended Section <em>(If Applicable)</em></th>
+                <th>Recommendation Message</th>
+                    
+            </tr>
+        </thead>
+        <tbody>
+         <%@recs.each do |r| %>
+        <tr>
+        <td><%=r.instructor_email%></td>
+        <td><%=r.user.fname%> <%=r.user.lname%></td>
+        <td><%= r.course_name %></td>
+        <td><%= r.section_num%></td>
+        <td><%= r.message %></td>
+        </tr>
+         <%end%>
+        </tbody>
+        </table>
+          <% end %>
+
+
+    <br><br><h4>Courses</h4>
+    <table id = "courseTable" class = "table"> 
+        <thread>
+            <tr id = "headerRow" class = "text-center">
+                <th>Course Qualifications</th>
+                <th>Course Preferences</th>
+    
+                    <th>Qualified Sections in Need of Graders</th>
+
+            </tr>
+        </thread>
+        <tbody>
+            <tr>
+                <td>
+                    <% @application.course_qualification.each do |cq| %>
+                        <p><%= cq.course.number %></p>
+                    <% end %>
+                </td>
+                <td>
+                    <% @application.course_preference.each do |cp| %>
+                        <p><%= cp.course.number %></p>
+                    <% end %>
+                </td>
+                
+                    <td>
+                        <% @qual_sections.each do |sec| %>
+                            <p><%= sec.course.number %> - Section <%= sec.section_number %></p>
+    
+                        <% end %>
+                    </td>
+  
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <% if current_user.role == "admin" && not(@application.is_accepted?) %>
+        <td><%= button_to 'Approve Application', grader_application_path(@application), method: :patch %>
+    <% end %>
+    <br><%= link_to "Back to Grader Applications", action: :index %>
+<% end %>
+</div>

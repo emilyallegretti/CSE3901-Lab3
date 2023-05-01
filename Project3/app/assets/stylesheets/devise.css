@@ -1,0 +1,29 @@
+* {
+  background-color: #e5e4e2;
+}
+
+body {
+  font-family: Helvetica, Geneva, Tahoma, sans-serif;
+}
+
+table#menuBar {
+  width: 100%;
+  border: 0;
+}
+
+div#container {
+  width: 80%;
+  margin: auto;
+}
+
+div#header {
+  text-align: center;
+  padding-bottom: 5%;
+}
+
+div#footer {
+  bottom: 0%;
+  position: relative;
+  text-align: center;
+  font-size: smaller;
+}

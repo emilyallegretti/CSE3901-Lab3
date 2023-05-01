@@ -1,0 +1,27 @@
+<div class="ml-5">
+<%if current_user.role == "admin"%>
+<h1>Edit Section</h1>
+
+<%= bootstrap_form_with model: @section, url: course_section_path(@course), method: :patch, local: true do |f| %>
+
+  <%= f.text_field :section_number %>
+  <%= f.text_field :start_time %>
+  <%= f.text_field :end_time %>
+  <%= f.text_field :location %>
+  <%= f.text_field :mode_of_instruction %>
+   <%= f.text_field :num_graders_required %>
+  <%= f.check_box :monday %>
+  <%= f.check_box :tuesday%>
+  <%= f.check_box :wednesday %>
+  <%= f.check_box :thursday %>
+  <%= f.check_box :friday %>
+  <%= f.check_box :saturday %>
+  <%= f.check_box :sunday %>
+  
+  <%= f.submit "Update Section"%>
+
+<% end %>
+
+<%= link_to "Back to Sections", course_sections_path(@course) %>
+<%end%>
+</div>
